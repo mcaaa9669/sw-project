@@ -1,0 +1,10 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneChanger : MonoBehaviour
+{
+    public void Load(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+}
