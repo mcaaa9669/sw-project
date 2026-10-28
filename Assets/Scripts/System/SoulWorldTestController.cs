@@ -23,7 +23,8 @@ public class SoulWorldTestController : MonoBehaviour
         if (Keyboard.current != null &&
             Keyboard.current.yKey.wasPressedThisFrame)
         {
-            soulWorld.EnterSoulWorld();
+            // 가상의 사망 신호 발생
+            soulWorld.HandlePlayerDeath();
         }
     }
 
