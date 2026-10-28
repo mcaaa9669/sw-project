@@ -7,4 +7,5 @@ public enum DeathType
     Fire = 4,       // 불
     Water = 5,      // 물
     saw = 6,        // 톱니
+    laser =7,       //레이저
 }
