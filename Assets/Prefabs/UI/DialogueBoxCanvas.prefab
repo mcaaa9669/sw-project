@@ -577,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   canvasGroup: {fileID: 8701084580524296456}
   speakerText: {fileID: 6803160693156814894}
-  bodyText: {fileID: 2403774131391330652}
+  bodyText: {fileID: 3400656087817272765}
   nextIndicator: {fileID: 5558610056442344209}
   nextButton: {fileID: 0}
   fadeDuration: 0.3
