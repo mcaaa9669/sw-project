@@ -18,4 +18,12 @@ public class Hazard : MonoBehaviour
             target.Kill(deathType);
         }
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!isActive) return;
+        if (collision.collider.TryGetComponent(out IKillable target))
+        {
+            target.Kill(deathType);
+        }
+    }
 }
