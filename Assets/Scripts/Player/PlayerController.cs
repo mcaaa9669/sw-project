@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpForce = 5f;
-    [SerializeField] Transform groundCheck;      
+    [SerializeField] Transform groundCheck;
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
 
