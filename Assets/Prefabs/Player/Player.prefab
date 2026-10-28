@@ -178,6 +178,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  shellPrefab: {fileID: 2627427689891369218, guid: 7132d195e779d1949b9a38c430f5f5d4, type: 3}
+  poisonDelay: 3
+  soulWorldController: {fileID: 0}
 --- !u!1 &8190530950762768709
 GameObject:
   m_ObjectHideFlags: 0
