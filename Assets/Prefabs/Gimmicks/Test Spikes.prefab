@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 634571158761333904}
   - component: {fileID: 7461942759181778364}
   - component: {fileID: 3623649243531499030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Test Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,3 +152,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hazard
   isActive: 1
+  deathType: 2
