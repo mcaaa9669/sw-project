@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         var kb = Keyboard.current;
         if (kb == null) return;
         inputX = (kb.dKey.isPressed ? 1 : 0) - (kb.aKey.isPressed ? 1 : 0);
-        if (kb.spaceKey.wasPressedThisFrame) jumpRequested = true;
+        if (kb.spaceKey.wasPressedThisFrame || kb.wKey.wasPressedThisFrame) jumpRequested = true;
     }
 
     void FixedUpdate()
