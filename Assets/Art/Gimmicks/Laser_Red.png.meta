@@ -1,0 +1,3211 @@
+fileFormatVersion: 2
+guid: 85546892816bd47c2b836392b7133f5b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1752585522010068283
+    second: Laser_Red_0
+  - first:
+      213: 2054196146979374551
+    second: Laser_Red_1
+  - first:
+      213: -2580849527418514136
+    second: Laser_Red_2
+  - first:
+      213: -243608386554561820
+    second: Laser_Red_3
+  - first:
+      213: -8683888476142645740
+    second: Laser_Red_4
+  - first:
+      213: -8877073120553718063
+    second: Laser_Red_5
+  - first:
+      213: -7657124013340392454
+    second: Laser_Red_6
+  - first:
+      213: -7107034401850317055
+    second: Laser_Red_7
+  - first:
+      213: -7072912867029561562
+    second: Laser_Red_8
+  - first:
+      213: -4501375123354251183
+    second: Laser_Red_9
+  - first:
+      213: 931542902890586254
+    second: Laser_Red_10
+  - first:
+      213: 4958380997434629045
+    second: Laser_Red_11
+  - first:
+      213: 6195456470232513534
+    second: Laser_Red_12
+  - first:
+      213: 8832459261348272542
+    second: Laser_Red_13
+  - first:
+      213: -3237339023487031445
+    second: Laser_Red_14
+  - first:
+      213: -5044786361707186049
+    second: Laser_Red_15
+  - first:
+      213: -1355987990565913645
+    second: Laser_Red_16
+  - first:
+      213: 559102555787741803
+    second: Laser_Red_17
+  - first:
+      213: 1500622437683083165
+    second: Laser_Red_18
+  - first:
+      213: 5146180370541186801
+    second: Laser_Red_19
+  - first:
+      213: -8011919925816653863
+    second: Laser_Red_20
+  - first:
+      213: 277922506480753072
+    second: Laser_Red_21
+  - first:
+      213: 6828025041412344330
+    second: Laser_Red_22
+  - first:
+      213: 8376716984100039518
+    second: Laser_Red_23
+  - first:
+      213: -4724515212365902926
+    second: Laser_Red_24
+  - first:
+      213: 1020763579907171477
+    second: Laser_Red_25
+  - first:
+      213: -6852811699698202680
+    second: Laser_Red_26
+  - first:
+      213: -2077588129179497492
+    second: Laser_Red_27
+  - first:
+      213: 9107531938689610550
+    second: Laser_Red_28
+  - first:
+      213: -8284502969543506741
+    second: Laser_Red_29
+  - first:
+      213: -1398675605383913041
+    second: Laser_Red_30
+  - first:
+      213: 8261291164506419146
+    second: Laser_Red_31
+  - first:
+      213: 1044567340619259720
+    second: Laser_Red_32
+  - first:
+      213: -1278956601451429804
+    second: Laser_Red_33
+  - first:
+      213: 7357649582680655000
+    second: Laser_Red_34
+  - first:
+      213: -5566402202193729843
+    second: Laser_Red_35
+  - first:
+      213: -2170948333254442019
+    second: Laser_Red_36
+  - first:
+      213: -1669911822422398260
+    second: Laser_Red_37
+  - first:
+      213: 221370894054448567
+    second: Laser_Red_38
+  - first:
+      213: -6183689108326653032
+    second: Laser_Red_39
+  - first:
+      213: -565799605150601904
+    second: Laser_Red_40
+  - first:
+      213: 3215974291432298120
+    second: Laser_Red_41
+  - first:
+      213: 4659360672944909428
+    second: Laser_Red_42
+  - first:
+      213: 6474232876276112091
+    second: Laser_Red_43
+  - first:
+      213: -4701182630925805659
+    second: Laser_Red_44
+  - first:
+      213: 5653565661592759992
+    second: Laser_Red_45
+  - first:
+      213: -311704514410334859
+    second: Laser_Red_46
+  - first:
+      213: -6464552069515715591
+    second: Laser_Red_47
+  - first:
+      213: -5886283406750045550
+    second: Laser_Red_48
+  - first:
+      213: 652249935459533525
+    second: Laser_Red_49
+  - first:
+      213: -8641723999896176470
+    second: Laser_Red_50
+  - first:
+      213: -4208877595132052458
+    second: Laser_Red_51
+  - first:
+      213: 6399979840667177364
+    second: Laser_Red_52
+  - first:
+      213: -3861320207396286036
+    second: Laser_Red_53
+  - first:
+      213: -9040780696852137808
+    second: Laser_Red_54
+  - first:
+      213: 4608826034330306857
+    second: Laser_Red_55
+  - first:
+      213: 5276214959949228613
+    second: Laser_Red_56
+  - first:
+      213: -2973715065111629227
+    second: Laser_Red_57
+  - first:
+      213: -4949367450609113320
+    second: Laser_Red_58
+  - first:
+      213: 703576964506805688
+    second: Laser_Red_59
+  - first:
+      213: 1112949976135121607
+    second: Laser_Red_60
+  - first:
+      213: -5586928210366511081
+    second: Laser_Red_61
+  - first:
+      213: -6378842441408817961
+    second: Laser_Red_62
+  - first:
+      213: 4302872385659643675
+    second: Laser_Red_63
+  - first:
+      213: 8338398178875894159
+    second: Laser_Red_64
+  - first:
+      213: -8060632907213269683
+    second: Laser_Red_65
+  - first:
+      213: 1139259240980840959
+    second: Laser_Red_66
+  - first:
+      213: 5428993186572581758
+    second: Laser_Red_67
+  - first:
+      213: 5315736490360102537
+    second: Laser_Red_68
+  - first:
+      213: 5578539982244537283
+    second: Laser_Red_69
+  - first:
+      213: 760786720732743807
+    second: Laser_Red_70
+  - first:
+      213: 6403341066455260958
+    second: Laser_Red_71
+  - first:
+      213: 7709615302639466246
+    second: Laser_Red_72
+  - first:
+      213: 2617212906940021482
+    second: Laser_Red_73
+  - first:
+      213: -9119178276782506277
+    second: Laser_Red_74
+  - first:
+      213: -7859332552455201538
+    second: Laser_Red_75
+  - first:
+      213: -1309906196160258420
+    second: Laser_Red_76
+  - first:
+      213: 7646122095071085997
+    second: Laser_Red_77
+  - first:
+      213: 4256150101955909788
+    second: Laser_Red_78
+  - first:
+      213: -3167683206206698162
+    second: Laser_Red_79
+  - first:
+      213: 8239517995402061261
+    second: Laser_Red_80
+  - first:
+      213: -4573479480082886289
+    second: Laser_Red_81
+  - first:
+      213: 9105552716079532578
+    second: Laser_Red_82
+  - first:
+      213: 7333535769299075281
+    second: Laser_Red_83
+  - first:
+      213: -860732293885314204
+    second: Laser_Red_84
+  - first:
+      213: 6771484670929734948
+    second: Laser_Red_85
+  - first:
+      213: -4496618744869255021
+    second: Laser_Red_86
+  - first:
+      213: -7870878956336849761
+    second: Laser_Red_87
+  - first:
+      213: -78209696089696336
+    second: Laser_Red_88
+  - first:
+      213: 2295298982379003603
+    second: Laser_Red_89
+  - first:
+      213: -8153953538323209742
+    second: Laser_Red_90
+  - first:
+      213: 229465400291038415
+    second: Laser_Red_91
+  - first:
+      213: -4988572713544970403
+    second: Laser_Red_92
+  - first:
+      213: -2582917002085397177
+    second: Laser_Red_93
+  - first:
+      213: 4105635913524414751
+    second: Laser_Red_94
+  - first:
+      213: -8838148874603449611
+    second: Laser_Red_95
+  - first:
+      213: 8149004940215192235
+    second: Laser_Red_96
+  - first:
+      213: -7084571040783838981
+    second: Laser_Red_97
+  - first:
+      213: -176806316453695563
+    second: Laser_Red_98
+  - first:
+      213: -2785732602110648839
+    second: Laser_Red_99
+  - first:
+      213: 8469107431516647574
+    second: Laser_Red_100
+  - first:
+      213: -151923908818461655
+    second: Laser_Red_101
+  - first:
+      213: 4378076228008241023
+    second: Laser_Red_102
+  - first:
+      213: -4954967703400363016
+    second: Laser_Red_103
+  - first:
+      213: -3750647047648112967
+    second: Laser_Red_104
+  - first:
+      213: 5904523162114651722
+    second: Laser_Red_105
+  - first:
+      213: 1427385412135420024
+    second: Laser_Red_106
+  - first:
+      213: 5935387592662568219
+    second: Laser_Red_107
+  - first:
+      213: 3997678258407762713
+    second: Laser_Red_108
+  - first:
+      213: -5519624524257231966
+    second: Laser_Red_109
+  - first:
+      213: 4776954455028529536
+    second: Laser_Red_110
+  - first:
+      213: -1749084910375183519
+    second: Laser_Red_111
+  - first:
+      213: -4950621051993329983
+    second: Laser_Red_112
+  - first:
+      213: 8335963063982821573
+    second: Laser_Red_113
+  - first:
+      213: -2216522690268137516
+    second: Laser_Red_114
+  - first:
+      213: 2578263181446283894
+    second: Laser_Red_115
+  - first:
+      213: -948625344636047461
+    second: Laser_Red_116
+  - first:
+      213: 8635021762274940653
+    second: Laser_Red_117
+  - first:
+      213: 7073400883941292323
+    second: Laser_Red_118
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Laser_Red_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 2137
+        height: 686
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cae81ad0c09da7e0800000000000000
+      internalID: -1752585522010068283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_1
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 659
+        width: 41
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d58ea71388f18c10800000000000000
+      internalID: 2054196146979374551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_2
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 691
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8251c7b570bfe2cd0800000000000000
+      internalID: -2580849527418514136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_3
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 691
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eafb1f86778e9cf0800000000000000
+      internalID: -243608386554561820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_4
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 682
+        width: 37
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41ec86ea071ac7780800000000000000
+      internalID: -8683888476142645740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_5
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 651
+        width: 19
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1de2a34970d4ec480800000000000000
+      internalID: -8877073120553718063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_6
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 659
+        width: 46
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af38bbf674e6cb590800000000000000
+      internalID: -7657124013340392454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_7
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 683
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1072b3fbdddbe5d90800000000000000
+      internalID: -7107034401850317055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_8
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 673
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62fc969a837f7dd90800000000000000
+      internalID: -7072912867029561562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_9
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 646
+        width: 17
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15090b3bc27e781c0800000000000000
+      internalID: -4501375123354251183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_10
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 672
+        width: 45
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8064dba5518dec00800000000000000
+      internalID: 931542902890586254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_11
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 666
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bb532d1f35bfc440800000000000000
+      internalID: 4958380997434629045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_12
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 642
+        width: 122
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efbba91b5deaaf550800000000000000
+      internalID: 6195456470232513534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_13
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 667
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e99d5cdd6e2339a70800000000000000
+      internalID: 8832459261348272542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_14
+      rect:
+        serializedVersion: 2
+        x: 1832
+        y: 683
+        width: 106
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b67ab8f6f49a213d0800000000000000
+      internalID: -3237339023487031445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 659
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7835be48815df9b0800000000000000
+      internalID: -5044786361707186049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_16
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 649
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db7f9e5b109e2de0800000000000000
+      internalID: -1355987990565913645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_17
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 650
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6acdbeefc452c700800000000000000
+      internalID: 559102555787741803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_18
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 661
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d97b41c082843d410800000000000000
+      internalID: 1500622437683083165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_19
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 659
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fe023808c7ea6740800000000000000
+      internalID: 5146180370541186801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_20
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 659
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d703d4c641ffc090800000000000000
+      internalID: -8011919925816653863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_21
+      rect:
+        serializedVersion: 2
+        x: 1384
+        y: 648
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b91fd11c016bd300800000000000000
+      internalID: 277922506480753072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_22
+      rect:
+        serializedVersion: 2
+        x: 2032
+        y: 642
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0acad6499402ce50800000000000000
+      internalID: 6828025041412344330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_23
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 632
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ba34d17b3104470800000000000000
+      internalID: 8376716984100039518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_24
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 643
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bb400722762f6eb0800000000000000
+      internalID: -4724515212365902926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_25
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 634
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 594e504511b7a2e00800000000000000
+      internalID: 1020763579907171477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_26
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 606
+        width: 36
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c709de111ce5e0a0800000000000000
+      internalID: -6852811699698202680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_27
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 640
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb00b2aa9cea23e0800000000000000
+      internalID: -2077588129179497492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_28
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 633
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6337e126b04746e70800000000000000
+      internalID: 9107531938689610550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_29
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 642
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc4c0bf3178870d80800000000000000
+      internalID: -8284502969543506741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_30
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 643
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa1661982f7e69ce0800000000000000
+      internalID: -1398675605383913041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_31
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 642
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acf6a7e3b8006a270800000000000000
+      internalID: 8261291164506419146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_32
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 640
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84fd591467c0f7e00800000000000000
+      internalID: 1044567340619259720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_33
+      rect:
+        serializedVersion: 2
+        x: 1832
+        y: 635
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450c8574fbb304ee0800000000000000
+      internalID: -1278956601451429804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_34
+      rect:
+        serializedVersion: 2
+        x: 2067
+        y: 642
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8944b7d105f9b1660800000000000000
+      internalID: 7357649582680655000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_35
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 632
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc66a4d60ba20c2b0800000000000000
+      internalID: -5566402202193729843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_36
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 628
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd384aa3efd3fd1e0800000000000000
+      internalID: -2170948333254442019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_37
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 626
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccaa94a8b0843d8e0800000000000000
+      internalID: -1669911822422398260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_38
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 594
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bdd9bfb7a7721300800000000000000
+      internalID: 221370894054448567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_39
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 580
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 893ecb0c48f1f2aa0800000000000000
+      internalID: -6183689108326653032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_40
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 545
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05d21f0c140e528f0800000000000000
+      internalID: -565799605150601904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_41
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 530
+        width: 13
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8865c9f349f61ac20800000000000000
+      internalID: 3215974291432298120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_42
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 554
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c6e4f78df59a040800000000000000
+      internalID: 4659360672944909428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_43
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 553
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdad79fbf7819d950800000000000000
+      internalID: 6474232876276112091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_44
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 553
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a75e6b1e4b02ceb0800000000000000
+      internalID: -4701182630925805659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_45
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 552
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8be259de300857e40800000000000000
+      internalID: 5653565661592759992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_46
+      rect:
+        serializedVersion: 2
+        x: 1486
+        y: 562
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 575bfa7456a9cabf0800000000000000
+      internalID: -311704514410334859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_47
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 550
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fbdf78b42c4946a0800000000000000
+      internalID: -6464552069515715591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_48
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 546
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29a236dad68bf4ea0800000000000000
+      internalID: -5886283406750045550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_49
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 523
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d246db4cd14d0900800000000000000
+      internalID: 652249935459533525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_50
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 160
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa87833decd621880800000000000000
+      internalID: -8641723999896176470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_51
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 160
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61cbd0770201795c0800000000000000
+      internalID: -4208877595132052458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_52
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 164
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 491d0aca1cb41d850800000000000000
+      internalID: 6399979840667177364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_53
+      rect:
+        serializedVersion: 2
+        x: 1880
+        y: 166
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca15b12cab5d96ac0800000000000000
+      internalID: -3861320207396286036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_54
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 146
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b87be73bd1b88280800000000000000
+      internalID: -9040780696852137808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_55
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 156
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92984df0cd6d5ff30800000000000000
+      internalID: 4608826034330306857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_56
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 130
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54a206e2d81e83940800000000000000
+      internalID: 5276214959949228613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_57
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 112
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5523bc857ed3bb6d0800000000000000
+      internalID: -2973715065111629227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_58
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 112
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 817209bc680505bb0800000000000000
+      internalID: -4949367450609113320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_59
+      rect:
+        serializedVersion: 2
+        x: 2106
+        y: 112
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b56391858b93c900800000000000000
+      internalID: 703576964506805688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_60
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 95
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca305c4b1ef17f00800000000000000
+      internalID: 1112949976135121607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_61
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 94
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 718ce7bb46e3772b0800000000000000
+      internalID: -5586928210366511081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_62
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 77
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d454a9989cc977a0800000000000000
+      internalID: -6378842441408817961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_63
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 87
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b17a41d13afd6bb30800000000000000
+      internalID: 4302872385659643675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_64
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 93
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8969a707f0f7b370800000000000000
+      internalID: 8338398178875894159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_65
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 63
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d459ab4f311e22090800000000000000
+      internalID: -8060632907213269683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_66
+      rect:
+        serializedVersion: 2
+        x: 1309
+        y: 77
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff18ebd5e367fcf00800000000000000
+      internalID: 1139259240980840959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_67
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 79
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7bbca50a88a75b40800000000000000
+      internalID: 5428993186572581758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_68
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 87
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98ede7b8c2a45c940800000000000000
+      internalID: 5315736490360102537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_69
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 71
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c3eff6be84fa6d40800000000000000
+      internalID: 5578539982244537283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_70
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 71
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f780c1fdd7bde8a00800000000000000
+      internalID: 760786720732743807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_71
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 77
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1f9cb906cc3dd850800000000000000
+      internalID: 6403341066455260958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_72
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 73
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 607bdbc354e0efa60800000000000000
+      internalID: 7709615302639466246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_73
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 71
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aea3ab3b545325420800000000000000
+      internalID: 2617212906940021482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_74
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 75
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bde7be83cab227180800000000000000
+      internalID: -9119178276782506277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_75
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 74
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efc5e3f1faa0ee290800000000000000
+      internalID: -7859332552455201538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_76
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 49
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8ed8c8314742dde0800000000000000
+      internalID: -1309906196160258420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_77
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 35
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da54af9d88b7c1a60800000000000000
+      internalID: 7646122095071085997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_78
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 63
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9813d9b7f1e01b30800000000000000
+      internalID: 4256150101955909788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_79
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 33
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4d441538e02a04d0800000000000000
+      internalID: -3167683206206698162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_80
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 45
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc5e06446f5a85270800000000000000
+      internalID: 8239517995402061261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_81
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 45
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f611f1ae4acb780c0800000000000000
+      internalID: -4573479480082886289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_82
+      rect:
+        serializedVersion: 2
+        x: 1868
+        y: 47
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22a8385b3fb6d5e70800000000000000
+      internalID: 9105552716079532578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_83
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 39
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d041bc6de3f5c560800000000000000
+      internalID: 7333535769299075281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_84
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 47
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46b32400a801e04f0800000000000000
+      internalID: -860732293885314204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_85
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 49
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42d05cc6e6529fd50800000000000000
+      internalID: 6771484670929734948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_86
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 50
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39884bd531dc891c0800000000000000
+      internalID: -4496618744869255021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_87
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 45
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9cd1797a4505c290800000000000000
+      internalID: -7870878956336849761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_88
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 45
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b7159e12b42aeef0800000000000000
+      internalID: -78209696089696336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_89
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 39
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3de1402734a8adf10800000000000000
+      internalID: 2295298982379003603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_90
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 47
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f1a439557657de80800000000000000
+      internalID: -8153953538323209742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_91
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 29
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc41798d0993f2300800000000000000
+      internalID: 229465400291038415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_92
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 47
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f02f03c8705cab0800000000000000
+      internalID: -4988572713544970403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_93
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 29
+        width: 40
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74d0266eba2a72cd0800000000000000
+      internalID: -2582917002085397177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_94
+      rect:
+        serializedVersion: 2
+        x: 1406
+        y: 47
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1985ba5c162af830800000000000000
+      internalID: 4105635913524414751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_95
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 49
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f23e31dc66985580800000000000000
+      internalID: -8838148874603449611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_96
+      rect:
+        serializedVersion: 2
+        x: 1623
+        y: 19
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baa0e6e51d4171170800000000000000
+      internalID: 8149004940215192235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_97
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 47
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf05f009c2c8ead90800000000000000
+      internalID: -7084571040783838981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_98
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 37
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf6bb9879bdb8df0800000000000000
+      internalID: -176806316453695563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_99
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 39
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd58f335f61759d0800000000000000
+      internalID: -2785732602110648839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_100
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 17
+        width: 12
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 690bb247650588570800000000000000
+      internalID: 8469107431516647574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_101
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 35
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92c9cf5820244edf0800000000000000
+      internalID: -151923908818461655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_102
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 33
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f776302222d02cc30800000000000000
+      internalID: 4378076228008241023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_103
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 33
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbc945502b6c3bb0800000000000000
+      internalID: -4954967703400363016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_104
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 33
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9be0117c16603fbc0800000000000000
+      internalID: -3750647047648112967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_105
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 33
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a46f8ed488411f150800000000000000
+      internalID: 5904523162114651722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_106
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 31
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87008ef38771fc310800000000000000
+      internalID: 1427385412135420024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_107
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 30
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1dc9e8819bbe5250800000000000000
+      internalID: 5935387592662568219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_108
+      rect:
+        serializedVersion: 2
+        x: 1655
+        y: 29
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b62b6023b9a7730800000000000000
+      internalID: 3997678258407762713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_109
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 31
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2abfc1a4dba5663b0800000000000000
+      internalID: -5519624524257231966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_110
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 11
+        width: 48
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 089f13874c62b4240800000000000000
+      internalID: 4776954455028529536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_111
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 15
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b57138a800ab7e0800000000000000
+      internalID: -1749084910375183519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_112
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 15
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ceed5af16cdb4bb0800000000000000
+      internalID: -4950621051993329983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_113
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 17
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c01979ad3a4fa370800000000000000
+      internalID: 8335963063982821573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_114
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 19
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d779f95b545d31e0800000000000000
+      internalID: -2216522690268137516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_115
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 21
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 672039b04b4d7c320800000000000000
+      internalID: 2578263181446283894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_116
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 17
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9f290c664ec5d2f0800000000000000
+      internalID: -948625344636047461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_117
+      rect:
+        serializedVersion: 2
+        x: 1647
+        y: 11
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de65a20ea82c5d770800000000000000
+      internalID: 8635021762274940653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_Red_118
+      rect:
+        serializedVersion: 2
+        x: 1880
+        y: 21
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3293141a0a4c92260800000000000000
+      internalID: 7073400883941292323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Laser_Red_0: -1752585522010068283
+      Laser_Red_1: 2054196146979374551
+      Laser_Red_10: 931542902890586254
+      Laser_Red_100: 8469107431516647574
+      Laser_Red_101: -151923908818461655
+      Laser_Red_102: 4378076228008241023
+      Laser_Red_103: -4954967703400363016
+      Laser_Red_104: -3750647047648112967
+      Laser_Red_105: 5904523162114651722
+      Laser_Red_106: 1427385412135420024
+      Laser_Red_107: 5935387592662568219
+      Laser_Red_108: 3997678258407762713
+      Laser_Red_109: -5519624524257231966
+      Laser_Red_11: 4958380997434629045
+      Laser_Red_110: 4776954455028529536
+      Laser_Red_111: -1749084910375183519
+      Laser_Red_112: -4950621051993329983
+      Laser_Red_113: 8335963063982821573
+      Laser_Red_114: -2216522690268137516
+      Laser_Red_115: 2578263181446283894
+      Laser_Red_116: -948625344636047461
+      Laser_Red_117: 8635021762274940653
+      Laser_Red_118: 7073400883941292323
+      Laser_Red_12: 6195456470232513534
+      Laser_Red_13: 8832459261348272542
+      Laser_Red_14: -3237339023487031445
+      Laser_Red_15: -5044786361707186049
+      Laser_Red_16: -1355987990565913645
+      Laser_Red_17: 559102555787741803
+      Laser_Red_18: 1500622437683083165
+      Laser_Red_19: 5146180370541186801
+      Laser_Red_2: -2580849527418514136
+      Laser_Red_20: -8011919925816653863
+      Laser_Red_21: 277922506480753072
+      Laser_Red_22: 6828025041412344330
+      Laser_Red_23: 8376716984100039518
+      Laser_Red_24: -4724515212365902926
+      Laser_Red_25: 1020763579907171477
+      Laser_Red_26: -6852811699698202680
+      Laser_Red_27: -2077588129179497492
+      Laser_Red_28: 9107531938689610550
+      Laser_Red_29: -8284502969543506741
+      Laser_Red_3: -243608386554561820
+      Laser_Red_30: -1398675605383913041
+      Laser_Red_31: 8261291164506419146
+      Laser_Red_32: 1044567340619259720
+      Laser_Red_33: -1278956601451429804
+      Laser_Red_34: 7357649582680655000
+      Laser_Red_35: -5566402202193729843
+      Laser_Red_36: -2170948333254442019
+      Laser_Red_37: -1669911822422398260
+      Laser_Red_38: 221370894054448567
+      Laser_Red_39: -6183689108326653032
+      Laser_Red_4: -8683888476142645740
+      Laser_Red_40: -565799605150601904
+      Laser_Red_41: 3215974291432298120
+      Laser_Red_42: 4659360672944909428
+      Laser_Red_43: 6474232876276112091
+      Laser_Red_44: -4701182630925805659
+      Laser_Red_45: 5653565661592759992
+      Laser_Red_46: -311704514410334859
+      Laser_Red_47: -6464552069515715591
+      Laser_Red_48: -5886283406750045550
+      Laser_Red_49: 652249935459533525
+      Laser_Red_5: -8877073120553718063
+      Laser_Red_50: -8641723999896176470
+      Laser_Red_51: -4208877595132052458
+      Laser_Red_52: 6399979840667177364
+      Laser_Red_53: -3861320207396286036
+      Laser_Red_54: -9040780696852137808
+      Laser_Red_55: 4608826034330306857
+      Laser_Red_56: 5276214959949228613
+      Laser_Red_57: -2973715065111629227
+      Laser_Red_58: -4949367450609113320
+      Laser_Red_59: 703576964506805688
+      Laser_Red_6: -7657124013340392454
+      Laser_Red_60: 1112949976135121607
+      Laser_Red_61: -5586928210366511081
+      Laser_Red_62: -6378842441408817961
+      Laser_Red_63: 4302872385659643675
+      Laser_Red_64: 8338398178875894159
+      Laser_Red_65: -8060632907213269683
+      Laser_Red_66: 1139259240980840959
+      Laser_Red_67: 5428993186572581758
+      Laser_Red_68: 5315736490360102537
+      Laser_Red_69: 5578539982244537283
+      Laser_Red_7: -7107034401850317055
+      Laser_Red_70: 760786720732743807
+      Laser_Red_71: 6403341066455260958
+      Laser_Red_72: 7709615302639466246
+      Laser_Red_73: 2617212906940021482
+      Laser_Red_74: -9119178276782506277
+      Laser_Red_75: -7859332552455201538
+      Laser_Red_76: -1309906196160258420
+      Laser_Red_77: 7646122095071085997
+      Laser_Red_78: 4256150101955909788
+      Laser_Red_79: -3167683206206698162
+      Laser_Red_8: -7072912867029561562
+      Laser_Red_80: 8239517995402061261
+      Laser_Red_81: -4573479480082886289
+      Laser_Red_82: 9105552716079532578
+      Laser_Red_83: 7333535769299075281
+      Laser_Red_84: -860732293885314204
+      Laser_Red_85: 6771484670929734948
+      Laser_Red_86: -4496618744869255021
+      Laser_Red_87: -7870878956336849761
+      Laser_Red_88: -78209696089696336
+      Laser_Red_89: 2295298982379003603
+      Laser_Red_9: -4501375123354251183
+      Laser_Red_90: -8153953538323209742
+      Laser_Red_91: 229465400291038415
+      Laser_Red_92: -4988572713544970403
+      Laser_Red_93: -2582917002085397177
+      Laser_Red_94: 4105635913524414751
+      Laser_Red_95: -8838148874603449611
+      Laser_Red_96: 8149004940215192235
+      Laser_Red_97: -7084571040783838981
+      Laser_Red_98: -176806316453695563
+      Laser_Red_99: -2785732602110648839
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
