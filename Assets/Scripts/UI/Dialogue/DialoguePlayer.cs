@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class DialoguePlayer : MonoBehaviour
 {
     [SerializeField] DialogueBox dialogueBox;
@@ -9,9 +10,10 @@ public class DialoguePlayer : MonoBehaviour
     [SerializeField] bool playOnStart = false;
     [SerializeField] bool playOnce = true;
     [SerializeField] UnityEvent onFinished;
-
     bool isPlaying;
     bool played;
+
+    public bool IsPlaying => isPlaying;
 
     void Start()
     {
