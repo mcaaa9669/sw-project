@@ -6,7 +6,12 @@
 # See: https://github.com/github/gitignore/tree/main/Global
 #
 
+#VS Code
 .vscode/
+
+# Unity recovery files
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
 
 .utmp/
 /[Ll]ibrary/
