@@ -11,8 +11,8 @@ public class CameraTestInput : MonoBehaviour
     {
         if (Keyboard.current == null) return;
 
-        // Space 키를 누르면 다음 구역으로 이동
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        // c 키를 누르면 다음 구역으로 이동
+        if (Keyboard.current.cKey.wasPressedThisFrame)
         {
             stageCamera.MoveToNextArea();
         }
