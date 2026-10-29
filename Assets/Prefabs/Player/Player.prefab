@@ -85,7 +85,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.08627451}
@@ -182,6 +182,9 @@ MonoBehaviour:
     m_Bits: 8
   shellPrefab: {fileID: 2627427689891369218, guid: 7132d195e779d1949b9a38c430f5f5d4, type: 3}
   poisonDelay: 3
+  respawnPoint: {fileID: 0}
+  respawnDelay: 1
+  useSoulWorld: 0
   soulWorldController: {fileID: 0}
 --- !u!95 &-540795473628240258
 Animator:
@@ -284,7 +287,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1183681620893836794, guid: 183d2555d35d6f24aaa871ec7adefd5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

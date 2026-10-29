@@ -14,8 +14,16 @@ public class PlayerController : MonoBehaviour,IKillable
     [Header("Death")]
     [SerializeField] Shell shellPrefab;                        // Shell.prefab 연결
     [SerializeField] float poisonDelay = 3f;                   // 독 사망까지 걸리는 시간
-    [SerializeField] SoulWorldController soulWorldController;  // 사망 신호를 보낼 곳
+   
 
+
+    [Header("Respawn")]
+    [SerializeField] RespawnPoint respawnPoint;                // 현재 부활 지점. 비우면 시작 위치에서 부활
+    [SerializeField] float respawnDelay = 1f;                  // 사망 후 부활까지 걸리는 시간
+
+    [Header("Soul World (아직 사용 안 함)")]
+    [SerializeField] bool useSoulWorld = false;                // 켜면 사망 시 영혼세계로 전환
+    [SerializeField] SoulWorldController soulWorldController;  // 사망 신호를 보낼 곳
 
     Rigidbody2D rb;
     float inputX;
@@ -25,6 +33,7 @@ public class PlayerController : MonoBehaviour,IKillable
 
     bool isDead;
     Coroutine poisonRoutine;
+    Vector3 startPosition;
 
     public bool IsDead => isDead;
 
@@ -34,14 +43,26 @@ public class PlayerController : MonoBehaviour,IKillable
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        startPosition = transform.position;
 
         // Inspector에서 연결 안 했으면 씬에서 찾아봄
-        if (soulWorldController == null)
+        if (useSoulWorld&&soulWorldController == null)
             soulWorldController = FindFirstObjectByType<SoulWorldController>();
     }
 
+    void OnEnable()
+    {
+        if (useSoulWorld && soulWorldController != null)
+            soulWorldController.OnReturnRequested += HandleReturn;
+    }
 
-        void Update()
+    void OnDisable()
+    {
+        if (soulWorldController != null)
+            soulWorldController.OnReturnRequested -= HandleReturn;
+    }
+
+    void Update()
     {
         if (isDead) return;
         var kb = Keyboard.current;
@@ -105,7 +126,6 @@ public class PlayerController : MonoBehaviour,IKillable
         SpawnShell().OnPoisonDeath();             // 그 자리에 고정
     }
 
-    // 사망 확정: 플레이어 정지 + 영혼세계에 사망 신호 1회 전달
     void Die()
     {
         isDead = true;
@@ -124,11 +144,39 @@ public class PlayerController : MonoBehaviour,IKillable
         if (col) col.enabled = false;
         if (sr) sr.enabled = false;
 
-        // 사망 신호 전달 → death +1, 5초 타이머 시작, OnSoulWorldEntered 발생
-        if (soulWorldController != null)
+        if (useSoulWorld && soulWorldController != null)
+        {
+            // 영혼세계 사용 시: death +1, 5초 타이머 → 끝나면 HandleReturn()에서 부활
             soulWorldController.HandlePlayerDeath();
+        }
         else
-            Debug.LogWarning("[PlayerController] SoulWorldController가 없어 사망 신호를 보내지 못했습니다.");
+        {
+            // 지금은 영혼세계 없이 respawnDelay(1초) 뒤 자동 부활
+            StartCoroutine(RespawnAfterDelay());
+        }
+    }
+
+    // 부활 처리 (자동 부활 또는 영혼세계 복귀 신호)
+    void HandleReturn()
+    {
+        if (!isDead) return;
+        Revive(respawnPoint != null ? respawnPoint.transform.position : startPosition);
+    }
+
+    // 체크포인트 갱신 (RespawnPoint가 호출). 앞 순서 지점으로는 되돌아가지 않음
+    public bool SetRespawnPoint(RespawnPoint point)
+    {
+        if (point == null || point == respawnPoint) return false;
+        if (respawnPoint != null && point.Order < respawnPoint.Order) return false;
+
+        respawnPoint = point;
+        return true;
+    }
+
+    IEnumerator RespawnAfterDelay()
+    {
+        yield return new WaitForSeconds(respawnDelay);
+        HandleReturn();
     }
 
     // 현재 위치에 shell 생성
@@ -137,7 +185,7 @@ public class PlayerController : MonoBehaviour,IKillable
         return Instantiate(shellPrefab, transform.position, Quaternion.identity);
     }
 
-    // 부활 (리스폰·영혼세계 복귀 쪽에서 호출)
+    // 부활
     public void Revive(Vector3 position)
     {
         transform.position = position;
