@@ -17,6 +17,10 @@ public class DialogueBox : MonoBehaviour
     [SerializeField] float fadeDuration = 0.3f;
     [SerializeField] float charsPerSecond = 30f;
 
+    [Header("Pause")]
+    [SerializeField] bool pauseGame = true;
+
+    float prevTimeScale = 1f;
     public bool IsOpen { get; private set; }
 
     bool nextClicked;
@@ -46,10 +50,24 @@ public class DialogueBox : MonoBehaviour
         yield return Close();
     }
 
+        void Pause(bool pause)
+    {
+        if (pause)
+        {
+            prevTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = prevTimeScale;
+        }
+    }
+
     IEnumerator Open()
     {
         IsOpen = true;
         SetBlocking(true);
+        if (pauseGame) Pause(true);
         yield return UIFade.Fade(canvasGroup, 0f, 1f, fadeDuration);
     }
 
@@ -57,6 +75,7 @@ public class DialogueBox : MonoBehaviour
     {
         SetBlocking(false);
         yield return UIFade.Fade(canvasGroup, 1f, 0f, fadeDuration);
+        if (pauseGame) Pause(false);
         IsOpen = false;
     }
 
@@ -107,5 +126,9 @@ public class DialogueBox : MonoBehaviour
     {
         canvasGroup.blocksRaycasts = block;
         canvasGroup.interactable = block;
+    }
+    void OnDisable()
+    {
+        if (IsOpen && pauseGame) Pause(false);
     }
 }
