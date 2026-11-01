@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Collider2D))]          // Collider2D가 없으면 Unity가 자동으로 추가하고, 콜라이더를 실수로 지우지 못하게 막기. 안전 장치
 public class FakePlatform : MonoBehaviour
 {
-    [SerializeField] float delayBeforeDialogue = 2f;
+    [SerializeField] float delayBeforeDialogue = 0.5f;
     [SerializeField] DialoguePlayer dialoguePlayer;
     [SerializeField] float fadeDuration = 0.3f;
 

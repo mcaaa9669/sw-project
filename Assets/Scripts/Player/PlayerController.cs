@@ -12,9 +12,8 @@ public class PlayerController : MonoBehaviour,IKillable
     [SerializeField] LayerMask groundLayer;
 
     [Header("Death")]
-    [SerializeField] Shell shellPrefab;                        // Shell.prefab ����
-    [SerializeField] float poisonDelay = 3f;                   // �� ������� �ɸ��� �ð�
-   
+    [SerializeField] Shell shellPrefab;
+    [SerializeField] float poisonDelay = 3f;   
 
 
     [Header("Respawn")]
@@ -47,7 +46,6 @@ public class PlayerController : MonoBehaviour,IKillable
         startPosition = transform.position;
         poisonSwim = GetComponent<PoisonSwim>();
 
-        // Inspector���� ���� �� ������ ������ ã�ƺ�
         if (useSoulWorld&&soulWorldController == null)
             soulWorldController = FindFirstObjectByType<SoulWorldController>();
     }
@@ -67,6 +65,7 @@ public class PlayerController : MonoBehaviour,IKillable
     void Update()
     {
         if (isDead) return;
+        if (Time.timeScale == 0f) return;
         var kb = Keyboard.current;
         if (kb == null) return;
         if (poisonSwim != null)
@@ -88,7 +87,7 @@ public class PlayerController : MonoBehaviour,IKillable
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpRequested = false;
     }
-    // Hazard�� ������ ��� ��ȣ (IKillable)
+
     public void Kill(DeathType deathType)
     {
         if (isDead) return;
@@ -97,22 +96,21 @@ public class PlayerController : MonoBehaviour,IKillable
         {
             case DeathType.Spike:
                 Die();
-                SpawnShell().OnSpikeDeath();      // �� �ڸ��� ����
+                SpawnShell().OnSpikeDeath();
                 break;
 
             case DeathType.laser:
                 Die();
-                SpawnShell().OnLaserDeath();      // ���� ���� (������, �̲�����)
+                SpawnShell().OnLaserDeath();
                 break;
 
             case DeathType.poison:
-                // ���� ��� Ȯ�� �ƴ�. �̹� �ߵ� ���̸� Ÿ�̸Ӹ� ���� �������� ����
                 if (poisonRoutine == null)
                     poisonRoutine = StartCoroutine(PoisonRoutine());
                 break;
 
             case DeathType.Fall:
-                Die();                            // shell ����
+                Die();
                 break;
 
             default:
@@ -121,22 +119,20 @@ public class PlayerController : MonoBehaviour,IKillable
         }
     }
 
-    // ��: poisonDelay �� '�׶��� ��ġ'���� ���
+
     IEnumerator PoisonRoutine()
     {
         yield return new WaitForSeconds(poisonDelay);
         poisonRoutine = null;
 
-        if (isDead) yield break;                  // �� ���� �ٸ� ������ �̹� �׾����� ����
+        if (isDead) yield break;
         Die();
-        SpawnShell().OnPoisonDeath();             // �� �ڸ��� ����
+        SpawnShell().OnPoisonDeath();
     }
 
     void Die()
     {
         isDead = true;
-
-        // �ߵ� �߿� �ٸ� ������ ������ �� Ÿ�̸� ���
         if (poisonRoutine != null)
         {
             StopCoroutine(poisonRoutine);
@@ -156,24 +152,22 @@ public class PlayerController : MonoBehaviour,IKillable
 
         if (useSoulWorld && soulWorldController != null)
         {
-            // ��ȥ���� ��� ��: death +1, 5�� Ÿ�̸� �� ������ HandleReturn()���� ��Ȱ
             soulWorldController.HandlePlayerDeath();
         }
         else
         {
-            // ������ ��ȥ���� ���� respawnDelay(1��) �� �ڵ� ��Ȱ
             StartCoroutine(RespawnAfterDelay());
         }
     }
 
-    // ��Ȱ ó�� (�ڵ� ��Ȱ �Ǵ� ��ȥ���� ���� ��ȣ)
+
     void HandleReturn()
     {
         if (!isDead) return;
         Revive(respawnPoint != null ? respawnPoint.transform.position : startPosition);
     }
 
-    // üũ����Ʈ ���� (RespawnPoint�� ȣ��). �� ���� �������δ� �ǵ��ư��� ����
+    
     public bool SetRespawnPoint(RespawnPoint point)
     {
         if (point == null || point == respawnPoint) return false;
@@ -189,13 +183,12 @@ public class PlayerController : MonoBehaviour,IKillable
         HandleReturn();
     }
 
-    // ���� ��ġ�� shell ����
     Shell SpawnShell()
     {
         return Instantiate(shellPrefab, transform.position, Quaternion.identity);
     }
 
-    // ��Ȱ
+
     public void Revive(Vector3 position)
     {
         transform.position = position;
