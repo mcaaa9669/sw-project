@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9037137068203643843}
   - component: {fileID: 1672036369001515204}
   - component: {fileID: 5193976689058240292}
+  - component: {fileID: 1220925830503964390}
   m_Layer: 4
   m_Name: PoisonDetection
   m_TagString: Untagged
@@ -105,6 +106,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoisonDetectionSync
   waterCollider: {fileID: 927421126899103682}
+--- !u!114 &1220925830503964390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3889950635347375833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275bcf10b2971de478c6dfda8d5f11e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hazard
+  isActive: 1
+  deathType: 3
 --- !u!1001 &2763711574036998072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,6 +226,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1866009694136763843, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7668423891225182222}
+    - targetCorrespondingSourceObject: {fileID: 1866009694136763843, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5486732048318347037}
   m_SourcePrefab: {fileID: 100100000, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
 --- !u!61 &927421126899103682 stripped
 BoxCollider2D:
@@ -239,3 +257,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9105a592c696bcc4c82c4ee7acc4f172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoisonTrigger
+--- !u!114 &-5486732048318347037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593611037498499707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275bcf10b2971de478c6dfda8d5f11e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hazard
+  isActive: 1
+  deathType: 3

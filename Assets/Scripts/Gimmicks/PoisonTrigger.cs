@@ -1,14 +1,6 @@
 using UnityEngine;
 
+// PoisonSwim이 독 영역을 알아보기 위한 표시
 public class PoisonTrigger : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        PlayerController player =
-            other.GetComponentInParent<PlayerController>();
-
-        if (player == null || player.IsDead) return;
-
-        player.Kill(DeathType.poison);
-    }
 }
