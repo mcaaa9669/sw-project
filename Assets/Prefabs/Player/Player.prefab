@@ -222,8 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f23fba02296434a98012cda7f6714d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoisonSwim
+  surfaceJumpSpeed: 6
   sinkGravityScale: 0.6
-  swimSpeed: 3
+  swimSpeed: 1.5
   maxSinkSpeed: 2
 --- !u!1 &7326402562999910989
 GameObject:

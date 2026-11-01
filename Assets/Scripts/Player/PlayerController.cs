@@ -154,7 +154,12 @@ public class PlayerController : MonoBehaviour, IKillable
 
         inputX = 0f;
         jumpRequested = false;
-        if (poisonSwim != null) poisonSwim.SetJumpHeld(false);
+
+    if (poisonSwim != null)
+    {
+        poisonSwim.ResetPoisonState();
+        poisonSwim.enabled = false;
+    }
         rb.linearVelocity = Vector2.zero;
 
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
@@ -268,6 +273,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         if (soulShellCollider != null && col != null)
             Physics2D.IgnoreCollision(col, soulShellCollider, false);
+
         soulShellCollider = null;
 
         isSoul = false;
@@ -276,23 +282,31 @@ public class PlayerController : MonoBehaviour, IKillable
         jumpRequested = false;
 
         transform.position = position;
+
+        if (poisonSwim != null)
+        {
+            poisonSwim.ResetPoisonState();
+            poisonSwim.enabled = true;
+        }
+
         rb.linearVelocity = Vector2.zero;
         rb.simulated = true;
+
         if (col) col.enabled = true;
-        if (poisonSwim != null) poisonSwim.enabled = true;
 
         SetSoulLook(false);
         SetBodyVisible(true);
     }
-
-    // ===== 외형 =====
 
     void SetSoulLook(bool soul)
     {
         for (int i = 0; i < renderers.Length; i++)
         {
             if (renderers[i] == null) continue;
-            renderers[i].color = soul ? originalColors[i] * soulTint : originalColors[i];
+
+            renderers[i].color = soul
+                ? originalColors[i] * soulTint
+                : originalColors[i];
         }
     }
 
@@ -301,7 +315,9 @@ public class PlayerController : MonoBehaviour, IKillable
         for (int i = 0; i < renderers.Length; i++)
         {
             if (renderers[i] == null) continue;
-            renderers[i].enabled = visible && originalEnabled[i];
+
+            renderers[i].enabled =
+                visible && originalEnabled[i];
         }
     }
 }
