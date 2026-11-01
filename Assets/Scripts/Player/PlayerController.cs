@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour,IKillable
         }
     }
 
-
     IEnumerator PoisonRoutine()
     {
         yield return new WaitForSeconds(poisonDelay);
@@ -167,7 +166,6 @@ public class PlayerController : MonoBehaviour,IKillable
         Revive(respawnPoint != null ? respawnPoint.transform.position : startPosition);
     }
 
-    
     public bool SetRespawnPoint(RespawnPoint point)
     {
         if (point == null || point == respawnPoint) return false;
@@ -187,7 +185,6 @@ public class PlayerController : MonoBehaviour,IKillable
     {
         return Instantiate(shellPrefab, transform.position, Quaternion.identity);
     }
-
 
     public void Revive(Vector3 position)
     {
