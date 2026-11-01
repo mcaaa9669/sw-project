@@ -21,6 +21,9 @@ public class PoisonSwim : MonoBehaviour
     // 기존 PlayerController에서 점프 입력을 전달
     public void SetJumpHeld(bool held)
     {
+        if (jumpHeld != held)
+            Debug.Log($"[수영 입력] 누름={held}, 독 안={isInPoison}");
+
         jumpHeld = held;
     }
 
@@ -44,8 +47,15 @@ public class PoisonSwim : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.GetComponentInParent<PoisonTrigger>())
-            return;
+        Debug.Log($"[영역 이탈] {other.name}");
+
+        Debug.Log(
+        $"[영역 진입] {other.name}, " +
+        $"독 감지={other.GetComponentInParent<PoisonTrigger>() != null}"
+        );
+
+        if (!other.TryGetComponent<PoisonTrigger>(out _))
+        return;
 
         isInPoison = true;
         rb.gravityScale = sinkGravityScale;
@@ -53,7 +63,7 @@ public class PoisonSwim : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.GetComponentInParent<PoisonTrigger>())
+        if (!other.TryGetComponent<PoisonTrigger>(out _))
             return;
 
         isInPoison = false;

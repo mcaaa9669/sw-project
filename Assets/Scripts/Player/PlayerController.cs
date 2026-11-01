@@ -12,22 +12,23 @@ public class PlayerController : MonoBehaviour,IKillable
     [SerializeField] LayerMask groundLayer;
 
     [Header("Death")]
-    [SerializeField] Shell shellPrefab;                        // Shell.prefab ¿¬°á
-    [SerializeField] float poisonDelay = 3f;                   // µ¶ »ç¸Á±îÁö °É¸®´Â ½Ã°£
+    [SerializeField] Shell shellPrefab;                        // Shell.prefab ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] float poisonDelay = 3f;                   // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
    
 
 
     [Header("Respawn")]
-    [SerializeField] RespawnPoint respawnPoint;                // ÇöÀç ºÎÈ° ÁöÁ¡. ºñ¿ì¸é ½ÃÀÛ À§Ä¡¿¡¼­ ºÎÈ°
-    [SerializeField] float respawnDelay = 1f;                  // »ç¸Á ÈÄ ºÎÈ°±îÁö °É¸®´Â ½Ã°£
+    [SerializeField] RespawnPoint respawnPoint;                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È° ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°
+    [SerializeField] float respawnDelay = 1f;                  // ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-    [Header("Soul World (¾ÆÁ÷ »ç¿ë ¾È ÇÔ)")]
-    [SerializeField] bool useSoulWorld = false;                // ÄÑ¸é »ç¸Á ½Ã ¿µÈ¥¼¼°è·Î ÀüÈ¯
-    [SerializeField] SoulWorldController soulWorldController;  // »ç¸Á ½ÅÈ£¸¦ º¸³¾ °÷
+    [Header("Soul World (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½)")]
+    [SerializeField] bool useSoulWorld = false;                // ï¿½Ñ¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+    [SerializeField] SoulWorldController soulWorldController;  // ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
     Rigidbody2D rb;
     float inputX;
     bool jumpRequested;
+    PoisonSwim poisonSwim;
     SpriteRenderer sr;
     Collider2D col;
 
@@ -44,8 +45,9 @@ public class PlayerController : MonoBehaviour,IKillable
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         startPosition = transform.position;
+        poisonSwim = GetComponent<PoisonSwim>();
 
-        // Inspector¿¡¼­ ¿¬°á ¾È ÇßÀ¸¸é ¾À¿¡¼­ Ã£¾Æº½
+        // Inspectorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æºï¿½
         if (useSoulWorld&&soulWorldController == null)
             soulWorldController = FindFirstObjectByType<SoulWorldController>();
     }
@@ -67,8 +69,12 @@ public class PlayerController : MonoBehaviour,IKillable
         if (isDead) return;
         var kb = Keyboard.current;
         if (kb == null) return;
+        if (poisonSwim != null)
+            poisonSwim.SetJumpHeld(kb.spaceKey.isPressed || kb.wKey.isPressed);
+
         inputX = (kb.dKey.isPressed ? 1 : 0) - (kb.aKey.isPressed ? 1 : 0);
         if (kb.spaceKey.wasPressedThisFrame || kb.wKey.wasPressedThisFrame) jumpRequested = true;
+        
     }
 
     void FixedUpdate()
@@ -82,7 +88,7 @@ public class PlayerController : MonoBehaviour,IKillable
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpRequested = false;
     }
-    // Hazard°¡ º¸³»´Â »ç¸Á ½ÅÈ£ (IKillable)
+    // Hazardï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È£ (IKillable)
     public void Kill(DeathType deathType)
     {
         if (isDead) return;
@@ -91,46 +97,46 @@ public class PlayerController : MonoBehaviour,IKillable
         {
             case DeathType.Spike:
                 Die();
-                SpawnShell().OnSpikeDeath();      // ±× ÀÚ¸®¿¡ °íÁ¤
+                SpawnShell().OnSpikeDeath();      // ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 break;
 
             case DeathType.laser:
                 Die();
-                SpawnShell().OnLaserDeath();      // ¹°¸® Àû¿ë (¶³¾îÁü, ¹Ì²ô·¯Áü)
+                SpawnShell().OnLaserDeath();      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ì²ï¿½ï¿½ï¿½ï¿½ï¿½)
                 break;
 
             case DeathType.poison:
-                // ¾ÆÁ÷ »ç¸Á È®Á¤ ¾Æ´Ô. ÀÌ¹Ì Áßµ¶ ÁßÀÌ¸é Å¸ÀÌ¸Ó¸¦ »õ·Î ½ÃÀÛÇÏÁö ¾ÊÀ½
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Æ´ï¿½. ï¿½Ì¹ï¿½ ï¿½ßµï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ Å¸ï¿½Ì¸Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (poisonRoutine == null)
                     poisonRoutine = StartCoroutine(PoisonRoutine());
                 break;
 
             case DeathType.Fall:
-                Die();                            // shell ¾øÀ½
+                Die();                            // shell ï¿½ï¿½ï¿½ï¿½
                 break;
 
             default:
-                Debug.LogWarning($"[PlayerController] ¾ÆÁ÷ Ã³¸®ÇÏÁö ¾ÊÀº »ç¸Á Á¾·ù: {deathType}");
+                Debug.LogWarning($"[PlayerController] ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {deathType}");
                 break;
         }
     }
 
-    // µ¶: poisonDelay µÚ '±×¶§ÀÇ À§Ä¡'¿¡¼­ »ç¸Á
+    // ï¿½ï¿½: poisonDelay ï¿½ï¿½ 'ï¿½×¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     IEnumerator PoisonRoutine()
     {
         yield return new WaitForSeconds(poisonDelay);
         poisonRoutine = null;
 
-        if (isDead) yield break;                  // ±× »çÀÌ ´Ù¸¥ ÀÌÀ¯·Î ÀÌ¹Ì Á×¾úÀ¸¸é ¹«½Ã
+        if (isDead) yield break;                  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Die();
-        SpawnShell().OnPoisonDeath();             // ±× ÀÚ¸®¿¡ °íÁ¤
+        SpawnShell().OnPoisonDeath();             // ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     void Die()
     {
         isDead = true;
 
-        // Áßµ¶ Áß¿¡ ´Ù¸¥ ÀÌÀ¯·Î Á×À¸¸é µ¶ Å¸ÀÌ¸Ó Ãë¼Ò
+        // ï¿½ßµï¿½ ï¿½ß¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½
         if (poisonRoutine != null)
         {
             StopCoroutine(poisonRoutine);
@@ -139,6 +145,10 @@ public class PlayerController : MonoBehaviour,IKillable
 
         inputX = 0f;
         jumpRequested = false;
+
+        if (poisonSwim != null)
+            poisonSwim.SetJumpHeld(false);
+
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
         if (col) col.enabled = false;
@@ -146,24 +156,24 @@ public class PlayerController : MonoBehaviour,IKillable
 
         if (useSoulWorld && soulWorldController != null)
         {
-            // ¿µÈ¥¼¼°è »ç¿ë ½Ã: death +1, 5ÃÊ Å¸ÀÌ¸Ó ¡æ ³¡³ª¸é HandleReturn()¿¡¼­ ºÎÈ°
+            // ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½: death +1, 5ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ HandleReturn()ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°
             soulWorldController.HandlePlayerDeath();
         }
         else
         {
-            // Áö±ÝÀº ¿µÈ¥¼¼°è ¾øÀÌ respawnDelay(1ÃÊ) µÚ ÀÚµ¿ ºÎÈ°
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ respawnDelay(1ï¿½ï¿½) ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½È°
             StartCoroutine(RespawnAfterDelay());
         }
     }
 
-    // ºÎÈ° Ã³¸® (ÀÚµ¿ ºÎÈ° ¶Ç´Â ¿µÈ¥¼¼°è º¹±Í ½ÅÈ£)
+    // ï¿½ï¿½È° Ã³ï¿½ï¿½ (ï¿½Úµï¿½ ï¿½ï¿½È° ï¿½Ç´ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£)
     void HandleReturn()
     {
         if (!isDead) return;
         Revive(respawnPoint != null ? respawnPoint.transform.position : startPosition);
     }
 
-    // Ã¼Å©Æ÷ÀÎÆ® °»½Å (RespawnPoint°¡ È£Ãâ). ¾Õ ¼ø¼­ ÁöÁ¡À¸·Î´Â µÇµ¹¾Æ°¡Áö ¾ÊÀ½
+    // Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ (RespawnPointï¿½ï¿½ È£ï¿½ï¿½). ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ ï¿½Çµï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public bool SetRespawnPoint(RespawnPoint point)
     {
         if (point == null || point == respawnPoint) return false;
@@ -179,13 +189,13 @@ public class PlayerController : MonoBehaviour,IKillable
         HandleReturn();
     }
 
-    // ÇöÀç À§Ä¡¿¡ shell »ý¼º
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ shell ï¿½ï¿½ï¿½ï¿½
     Shell SpawnShell()
     {
         return Instantiate(shellPrefab, transform.position, Quaternion.identity);
     }
 
-    // ºÎÈ°
+    // ï¿½ï¿½È°
     public void Revive(Vector3 position)
     {
         transform.position = position;
