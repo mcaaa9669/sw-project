@@ -180,13 +180,14 @@ MonoBehaviour:
   groundRadius: 0.1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 776
+    m_Bits: 904
   shellPrefab: {fileID: 2627427689891369218, guid: 7132d195e779d1949b9a38c430f5f5d4, type: 3}
-  poisonDelay: 3
+  poisonDelay: 5
   respawnPoint: {fileID: 0}
   respawnDelay: 1
-  useSoulWorld: 0
+  useSoulWorld: 1
   soulWorldController: {fileID: 0}
+  soulTint: {r: 0.6, g: 0.85, b: 1, a: 0.5}
 --- !u!95 &-540795473628240258
 Animator:
   serializedVersion: 7
