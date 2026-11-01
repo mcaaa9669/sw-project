@@ -50,6 +50,6 @@ public class CameraTransitionTrigger : MonoBehaviour
             return;
 
         used = true;
-        stageCamera.MoveToStageCenter(cameraTarget.position);
+        stageCamera.MoveToNextArea();
     }
 }
