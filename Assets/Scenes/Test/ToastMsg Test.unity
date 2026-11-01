@@ -506,7 +506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1111701393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -754,6 +754,9 @@ MonoBehaviour:
     m_Bits: 8
   shellPrefab: {fileID: 0}
   poisonDelay: 3
+  respawnPoint: {fileID: 0}
+  respawnDelay: 1
+  useSoulWorld: 0
   soulWorldController: {fileID: 0}
 --- !u!95 &1112314137
 Animator:
