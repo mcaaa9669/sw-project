@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour,IKillable
     Rigidbody2D rb;
     float inputX;
     bool jumpRequested;
+    PoisonSwim poisonSwim;
     SpriteRenderer sr;
     Collider2D col;
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour,IKillable
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         startPosition = transform.position;
+        poisonSwim = GetComponent<PoisonSwim>();
 
         if (useSoulWorld&&soulWorldController == null)
             soulWorldController = FindFirstObjectByType<SoulWorldController>();
@@ -66,8 +68,12 @@ public class PlayerController : MonoBehaviour,IKillable
         if (Time.timeScale == 0f) return;
         var kb = Keyboard.current;
         if (kb == null) return;
+        if (poisonSwim != null)
+            poisonSwim.SetJumpHeld(kb.spaceKey.isPressed || kb.wKey.isPressed);
+
         inputX = (kb.dKey.isPressed ? 1 : 0) - (kb.aKey.isPressed ? 1 : 0);
         if (kb.spaceKey.wasPressedThisFrame || kb.wKey.wasPressedThisFrame) jumpRequested = true;
+        
     }
 
     void FixedUpdate()
@@ -135,6 +141,10 @@ public class PlayerController : MonoBehaviour,IKillable
 
         inputX = 0f;
         jumpRequested = false;
+
+        if (poisonSwim != null)
+            poisonSwim.SetJumpHeld(false);
+
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
         if (col) col.enabled = false;

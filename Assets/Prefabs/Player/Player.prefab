@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8365491096313088762}
   - component: {fileID: 5393686001815419397}
   - component: {fileID: -540795473628240258}
+  - component: {fileID: 3877707463522052675}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -208,6 +209,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3877707463522052675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5260300180106839374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f23fba02296434a98012cda7f6714d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoisonSwim
+  sinkGravityScale: 0.6
+  swimSpeed: 3
+  maxSinkSpeed: 2
 --- !u!1 &7326402562999910989
 GameObject:
   m_ObjectHideFlags: 0
