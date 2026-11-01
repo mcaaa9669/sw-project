@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour,IKillable
     [SerializeField] float poisonDelay = 3f;   
 
 
-
     [Header("Respawn")]
     [SerializeField] RespawnPoint respawnPoint;                // ���� ��Ȱ ����. ���� ���� ��ġ���� ��Ȱ
     [SerializeField] float respawnDelay = 1f;                  // ��� �� ��Ȱ���� �ɸ��� �ð�
@@ -46,7 +45,6 @@ public class PlayerController : MonoBehaviour,IKillable
         col = GetComponent<Collider2D>();
         startPosition = transform.position;
         poisonSwim = GetComponent<PoisonSwim>();
-
 
         if (useSoulWorld&&soulWorldController == null)
             soulWorldController = FindFirstObjectByType<SoulWorldController>();
@@ -89,6 +87,7 @@ public class PlayerController : MonoBehaviour,IKillable
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpRequested = false;
     }
+
     public void Kill(DeathType deathType)
     {
         if (isDead) return;
@@ -112,7 +111,6 @@ public class PlayerController : MonoBehaviour,IKillable
 
             case DeathType.Fall:
                 Die();
-
                 break;
 
             default:
