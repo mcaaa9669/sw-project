@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PoisonSwim : MonoBehaviour
 {
+    [Header("수면 탈출 점프")]
+    [SerializeField] private float surfaceJumpSpeed = 6f;
+
     [SerializeField] private float sinkGravityScale = 0.6f;
     [SerializeField] private float swimSpeed = 3f;
     [SerializeField] private float maxSinkSpeed = 2f;
@@ -66,16 +69,34 @@ public class PoisonSwim : MonoBehaviour
         if (!other.TryGetComponent<PoisonTrigger>(out _))
             return;
 
+        // 위로 헤엄치면서 독 영역의 위쪽으로 나왔는지 확인
+        bool leavingSurface =
+            jumpHeld &&
+            rb.linearVelocity.y > 0f &&
+            rb.position.y >= other.bounds.max.y;
+
         isInPoison = false;
         rb.gravityScale = originalGravityScale;
+
+        if (leavingSurface)
+        {
+            Vector2 velocity = rb.linearVelocity;
+            velocity.y = Mathf.Max(velocity.y, surfaceJumpSpeed);
+            rb.linearVelocity = velocity;
+        }
     }
 
     private void OnDisable()
     {
-        if (rb != null)
-            rb.gravityScale = originalGravityScale;
+        ResetPoisonState();
+    }
 
+    public void ResetPoisonState()
+    {
         isInPoison = false;
         jumpHeld = false;
+
+        if (rb != null)
+            rb.gravityScale = originalGravityScale;
     }
 }

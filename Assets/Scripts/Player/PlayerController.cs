@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour,IKillable
 
     [Header("Death")]
     [SerializeField] Shell shellPrefab;
-    [SerializeField] float poisonDelay = 3f;   
+    [SerializeField] float poisonDelay = 5f;   
 
 
     [Header("Respawn")]
@@ -141,9 +141,11 @@ public class PlayerController : MonoBehaviour,IKillable
         inputX = 0f;
         jumpRequested = false;
 
-        if (poisonSwim != null)
-            poisonSwim.SetJumpHeld(false);
-
+    if (poisonSwim != null)
+    {
+        poisonSwim.ResetPoisonState();
+        poisonSwim.enabled = false;
+    }
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
         if (col) col.enabled = false;
@@ -187,12 +189,21 @@ public class PlayerController : MonoBehaviour,IKillable
     }
 
     public void Revive(Vector3 position)
+{
+    transform.position = position;
+
+    if (poisonSwim != null)
     {
-        transform.position = position;
-        rb.linearVelocity = Vector2.zero;
-        rb.simulated = true;
-        if (col) col.enabled = true;
-        if (sr) sr.enabled = true;
-        isDead = false;
+        poisonSwim.ResetPoisonState();
+        poisonSwim.enabled = true;
     }
+
+    rb.linearVelocity = Vector2.zero;
+    rb.simulated = true;
+
+    if (col) col.enabled = true;
+    if (sr) sr.enabled = true;
+
+    isDead = false;
+}
 }

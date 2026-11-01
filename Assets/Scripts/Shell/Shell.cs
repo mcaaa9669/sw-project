@@ -1,7 +1,7 @@
 using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾î°¡ Á×Àº ÀÚ¸®¿¡ ³²´Â shell
-// »ç¸Á Á¾·ù¿¡ µû¶ó PlayerController°¡ ¾Æ·¡ ÇÔ¼ö Áß ÇÏ³ª¸¦ È£Ãâ
+// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ shell
+// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ PlayerControllerï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 [RequireComponent(typeof(Rigidbody2D))]
 public class Shell : MonoBehaviour
 {
@@ -9,23 +9,26 @@ public class Shell : MonoBehaviour
 
     void Awake() => rb = GetComponent<Rigidbody2D>();
 
-    // °¡½Ã: Á×Àº À§Ä¡¿¡ °íÁ¤
+    // ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void OnSpikeDeath()
     {
         Freeze();
     }
 
-    // ·¹ÀÌÀú: ¹°¸® ¹ýÄ¢¿¡ µû¶ó ¶³¾îÁö°Å³ª °æ»ç·Î¿¡¼­ ¹Ì²ô·¯Áü
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½Ì²ï¿½ï¿½ï¿½ï¿½ï¿½
     public void OnLaserDeath()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.freezeRotation = true;                 // ±¼·¯°¡Áö ¾Ê°í ¹Ì²ô·¯Áö°Ô
+        rb.freezeRotation = true;                 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ì²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
-    // µ¶: 3ÃÊ µÚ ±×¶§ÀÇ À§Ä¡¿¡ °íÁ¤
+    // ï¿½ï¿½: 3ï¿½ï¿½ ï¿½ï¿½ ï¿½×¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void OnPoisonDeath()
     {
-        Freeze();
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.freezeRotation = true;
     }
 
     void Freeze()
