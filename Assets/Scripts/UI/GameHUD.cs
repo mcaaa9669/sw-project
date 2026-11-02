@@ -14,7 +14,7 @@ public class GameHUD : MonoBehaviour
     // 사망 횟수 갱신
     public void SetDeathCount(int count)
     {
-        deathText.text = $"Deaths: {count}";
+        deathText.text = $"Deaths : {count}";
     }
 
     // 남은 시간에 따라 게이지 갱신
