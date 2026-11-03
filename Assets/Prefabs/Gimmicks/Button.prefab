@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 8285457277559710277}
   - component: {fileID: 7086291860063772504}
   - component: {fileID: 7555864303228534759}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ButtonTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
