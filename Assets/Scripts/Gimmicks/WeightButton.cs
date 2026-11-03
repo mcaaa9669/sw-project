@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// 압력 버튼
+// 무게 버튼 (압력 유지 방식)
+// - 기존 PressureButton(닿는 순간·떠나는 순간 방식)과 별도로 사용
 // - 위에 무언가 올라가 있는 동안만 눌림 (shell이 얹혀 있거나, 살아 있는 플레이어가 밟고 있음)
 // - 압력이 사라지면 다시 올라옴
 // - 매 물리 프레임마다 버튼 위를 직접 검사하므로, 플레이어가 그 자리에서 죽거나
 //   영혼이 되거나 shell이 사라져도 상태가 정확히 바뀜
 [RequireComponent(typeof(Collider2D))]
-public class PressureButton : MonoBehaviour, IWorldPausable
+public class WeightButton : MonoBehaviour, IWorldPausable
 {
     // 버튼 이미지를 표시하는 컴포넌트
     [SerializeField] private SpriteRenderer targetRenderer;
