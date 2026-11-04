@@ -12,9 +12,17 @@ public class GameHUD : MonoBehaviour
     [SerializeField] private Image timerFill;
 
     // 사망 횟수 갱신
+    private int displayedMaxDeaths = 5;
+
     public void SetDeathCount(int count)
     {
-        deathText.text = $"Deaths : {count}";
+        SetDeathCount(count, displayedMaxDeaths);
+    }
+
+    public void SetDeathCount(int count, int maxDeaths)
+    {
+        displayedMaxDeaths = Mathf.Max(1, maxDeaths);
+        deathText.text = $"Deaths : {count} / {displayedMaxDeaths}";
     }
 
     // 남은 시간에 따라 게이지 갱신
@@ -38,7 +46,7 @@ public class GameHUD : MonoBehaviour
 
     private void Start()
     {
-        SetDeathCount(0);
+        
         SetSoulTime(5f, 5f);
         ShowSoulTimer(false);
     }

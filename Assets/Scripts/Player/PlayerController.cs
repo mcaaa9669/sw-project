@@ -419,8 +419,6 @@ public class PlayerController : MonoBehaviour, IKillable
             if (col && soulShellCollider)
                 Physics2D.IgnoreCollision(col, soulShellCollider, true);
         }
-        // 영혼은 독에 영향받지 않음
-        if (poisonSwim != null) poisonSwim.enabled = false;
 
         SetSoulLook(true);
 
