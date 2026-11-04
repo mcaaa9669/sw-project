@@ -54,6 +54,9 @@ public class PlayerController : MonoBehaviour, IKillable
     public bool IsSoul => isSoul;
     bool CanControl => !isDead || isSoul;   // 살아 있거나 영혼일 때만 조작 가능
 
+    [SerializeField, Range(0f, 1f)]
+    float surfaceMoveMultiplier = 0.5f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -110,7 +113,25 @@ public class PlayerController : MonoBehaviour, IKillable
         && poisonSwim.isActiveAndEnabled
         && poisonSwim.IsSwimming;
 
-        float targetSpeed = inputX * moveSpeed * (inPoison ? swimMoveMultiplier : 1f);
+        bool swimActive = poisonSwim != null
+    && poisonSwim.isActiveAndEnabled;
+
+    // 물 밖에서 발판에 내려앉으면 수면 점프 상태 해제.
+    // 점프해서 올라가는 중의 접촉은 착지로 처리하지 않음.
+    if (swimActive && !inPoison &&
+        grounded && rb.linearVelocity.y <= 0f)
+    {
+        poisonSwim.ClearSurfaceJump();
+    }
+
+    bool surfaceJumping = swimActive
+        && poisonSwim.IsSurfaceJumping;
+
+    float speedMultiplier = inPoison
+        ? swimMoveMultiplier
+        : (surfaceJumping ? surfaceMoveMultiplier : 1f);
+
+    float targetSpeed = inputX * moveSpeed * speedMultiplier;
 
         // 벽을 향한 이동만 차단. 반대쪽 이동은 가능.
         if (inputX != 0f && IsWallAhead(Mathf.Sign(inputX)))

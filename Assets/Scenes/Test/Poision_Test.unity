@@ -119,6 +119,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &67861689
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cainos/Interactive Pixel Water/Pixel Water
+  m_Shader: {fileID: 4800000, guid: fb2bece584ef8de46908093f3ebc0a23, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AmbientWaveMul: 1
+    - _BlurAmountDeep: 14
+    - _BlurAmountShallow: 8
+    - _DistortionScale: 0.6
+    - _DistortionSpeed: 1
+    - _DistortionStrength: 0.5
+    - _LightShaftDepth: 2
+    - _LightShaftPower: 2
+    - _LightShaftScale: 1.4
+    - _LightShaftSpeed: 0.7
+    - _LightShaftTilt: -0.2
+    - _StencilReference: 123
+    - _SurfaceDistortionMul: 5
+    - _SurfaceThicknessLower: 1
+    - _SurfaceThicknessUpper: 1
+    m_Colors:
+    - _AmbientWaveAmptitude: {r: 0.01, g: 0.007, b: 0.003, a: 0.01}
+    - _AmbientWaveFrequency: {r: 2, g: 4, b: 8, a: 6}
+    - _AmbientWaveSpeed: {r: 4, g: -7, b: 10, a: 0.5}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LightShaftColor: {r: 0.23137255, g: 0.25852698, b: 0.32156864, a: 0.4}
+    - _SurfaceColorLower: {r: 0.30980393, g: 0.31039932, b: 0.3764706, a: 0.2}
+    - _SurfaceColorUpper: {r: 0.83137256, g: 0.83332235, b: 0.8862745, a: 0.2}
+    - _UnderwaterTintDeep: {r: 0.3932792, g: 0.23834105, b: 0.49056602, a: 1}
+    - _UnderwaterTintShallow: {r: 0.78221786, g: 0.8127188, b: 0.8867924, a: 1}
+    - _WaterColorDeep: {r: 0.40115395, g: 0.26148093, b: 0.49056602, a: 0.4}
+    - _WaterColorShallow: {r: 0.4963955, g: 0.71362895, b: 0.9150943, a: 0.101960786}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &147019881
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9105a592c696bcc4c82c4ee7acc4f172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoisonTrigger
---- !u!21 &581045963
+--- !u!21 &1157649765
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -578,7 +644,7 @@ Material:
     - _WaterColorShallow: {r: 0.4963955, g: 0.71362895, b: 0.9150943, a: 0.101960786}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &596582287
+--- !u!21 &1172677720
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -644,73 +710,7 @@ Material:
     - _WaterColorShallow: {r: 0.4963955, g: 0.71362895, b: 0.9150943, a: 0.101960786}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &681319170
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Cainos/Interactive Pixel Water/Pixel Water
-  m_Shader: {fileID: 4800000, guid: fb2bece584ef8de46908093f3ebc0a23, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _AmbientWaveMul: 1
-    - _BlurAmountDeep: 14
-    - _BlurAmountShallow: 8
-    - _DistortionScale: 0.6
-    - _DistortionSpeed: 1
-    - _DistortionStrength: 0.5
-    - _LightShaftDepth: 2
-    - _LightShaftPower: 2
-    - _LightShaftScale: 1.4
-    - _LightShaftSpeed: 0.7
-    - _LightShaftTilt: -0.2
-    - _StencilReference: 123
-    - _SurfaceDistortionMul: 5
-    - _SurfaceThicknessLower: 1
-    - _SurfaceThicknessUpper: 1
-    m_Colors:
-    - _AmbientWaveAmptitude: {r: 0.01, g: 0.007, b: 0.003, a: 0.01}
-    - _AmbientWaveFrequency: {r: 2, g: 4, b: 8, a: 6}
-    - _AmbientWaveSpeed: {r: 4, g: -7, b: 10, a: 0.5}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _LightShaftColor: {r: 0.23137255, g: 0.25852698, b: 0.32156864, a: 0.4}
-    - _SurfaceColorLower: {r: 0.30980393, g: 0.31039932, b: 0.3764706, a: 0.2}
-    - _SurfaceColorUpper: {r: 0.83137256, g: 0.83332235, b: 0.8862745, a: 0.2}
-    - _UnderwaterTintDeep: {r: 0.3932792, g: 0.23834105, b: 0.49056602, a: 1}
-    - _UnderwaterTintShallow: {r: 0.78221786, g: 0.8127188, b: 0.8867924, a: 1}
-    - _WaterColorDeep: {r: 0.40115395, g: 0.26148093, b: 0.49056602, a: 0.4}
-    - _WaterColorShallow: {r: 0.4963955, g: 0.71362895, b: 0.9150943, a: 0.101960786}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &961751930
+--- !u!21 &1201438972
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -786,7 +786,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2958810126634950945, guid: 5196764e5caa193488592cbe3ba988a7, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3753033503579246626, guid: 5196764e5caa193488592cbe3ba988a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -830,7 +830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3877707463522052675, guid: 5196764e5caa193488592cbe3ba988a7, type: 3}
       propertyPath: swimSpeed
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3877707463522052675, guid: 5196764e5caa193488592cbe3ba988a7, type: 3}
       propertyPath: surfaceJumpSpeed
@@ -2012,7 +2012,7 @@ PrefabInstance:
     - target: {fileID: 4593611037498499687, guid: 7f171a66d52b1ef4398b1422c8313795, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 681319170}
+      objectReference: {fileID: 1201438972}
     - target: {fileID: 4593611037498499704, guid: 7f171a66d52b1ef4398b1422c8313795, type: 3}
       propertyPath: fill
       value: 1
@@ -2031,7 +2031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6586569524842455871, guid: 7f171a66d52b1ef4398b1422c8313795, type: 3}
       propertyPath: m_Density
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6586569524842455871, guid: 7f171a66d52b1ef4398b1422c8313795, type: 3}
       propertyPath: m_SurfaceLevel
@@ -2376,7 +2376,7 @@ PrefabInstance:
     - target: {fileID: 4593611037498499687, guid: 7f171a66d52b1ef4398b1422c8313795, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 596582287}
+      objectReference: {fileID: 67861689}
     - target: {fileID: 4593611037498499704, guid: 7f171a66d52b1ef4398b1422c8313795, type: 3}
       propertyPath: size.x
       value: 11.129395
