@@ -7,6 +7,18 @@ public class SoulWorldController : MonoBehaviour
 {
     [SerializeField] private GameHUD gameHUD;
     [SerializeField] private float maxSoulTime = 5f;
+    [SerializeField, Min(1)]
+    private int maxDeaths = 5;
+    
+    private void Start()
+    {
+        UpdateDeathDisplay();
+    }
+
+    private void UpdateDeathDisplay()
+    {
+        gameHUD.SetDeathCount(deathCount, maxDeaths);
+    }
 
     public event Action OnSoulWorldEntered;
     public event Action OnReturnRequested;
@@ -27,7 +39,7 @@ public class SoulWorldController : MonoBehaviour
 
         deathCount++;
 
-        gameHUD.SetDeathCount(deathCount);
+        UpdateDeathDisplay();
 
         // 영혼세계 진입
         EnterSoulWorld();
@@ -86,9 +98,12 @@ public class SoulWorldController : MonoBehaviour
     }
 
     // 스테이지 재시작 시 초기화
+    // 스테이지 재시작 시 초기화
     public void ResetDeathCount()
     {
         deathCount = 0;
-        gameHUD.SetDeathCount(deathCount);
+        UpdateDeathDisplay();
     }
+
+    
 }
