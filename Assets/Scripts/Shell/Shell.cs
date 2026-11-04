@@ -8,8 +8,6 @@ public class Shell : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField, Min(0f)] float poisonHorizontalDamping = 8f;
-    [SerializeField, Min(0f)]
-    float spikeEmbedDepth = 0.2f;
 
     readonly HashSet<Collider2D> poisonContacts = new();
 
@@ -52,8 +50,6 @@ public class Shell : MonoBehaviour
     // ����: ���� ��ġ�� ����
     public void OnSpikeDeath()
     {
-        // 가시 사망일 때만 조금 아래에 배치
-        rb.position += Vector2.down * spikeEmbedDepth;
         Freeze();
     }
 
