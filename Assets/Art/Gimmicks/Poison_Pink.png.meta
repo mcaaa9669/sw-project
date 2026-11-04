@@ -1,0 +1,1963 @@
+fileFormatVersion: 2
+guid: 7c15adda4367749e09736377b5dd7b25
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7350264129913503836
+    second: Poison_Pink_0
+  - first:
+      213: -5861505168240349755
+    second: Poison_Pink_1
+  - first:
+      213: -4849612468144690126
+    second: Poison_Pink_2
+  - first:
+      213: -250940767804644612
+    second: Poison_Pink_3
+  - first:
+      213: -6690096552995277819
+    second: Poison_Pink_4
+  - first:
+      213: 5219458948103331381
+    second: Poison_Pink_5
+  - first:
+      213: -5386418412618524257
+    second: Poison_Pink_6
+  - first:
+      213: 3169719945161878187
+    second: Poison_Pink_7
+  - first:
+      213: -8162613557572812482
+    second: Poison_Pink_8
+  - first:
+      213: 586077567390527865
+    second: Poison_Pink_9
+  - first:
+      213: -2994997536187054223
+    second: Poison_Pink_10
+  - first:
+      213: -8170533801836373850
+    second: Poison_Pink_11
+  - first:
+      213: -5854436715475698451
+    second: Poison_Pink_12
+  - first:
+      213: 9036913169384970498
+    second: Poison_Pink_13
+  - first:
+      213: 2976266107253469485
+    second: Poison_Pink_14
+  - first:
+      213: 8995740059490877866
+    second: Poison_Pink_15
+  - first:
+      213: 7254087326346280304
+    second: Poison_Pink_16
+  - first:
+      213: -4132686380927944911
+    second: Poison_Pink_17
+  - first:
+      213: -8788825030493074603
+    second: Poison_Pink_18
+  - first:
+      213: -1552890425778543660
+    second: Poison_Pink_19
+  - first:
+      213: 6758495421915858019
+    second: Poison_Pink_20
+  - first:
+      213: -2498219505017632346
+    second: Poison_Pink_21
+  - first:
+      213: 8570473815544860199
+    second: Poison_Pink_22
+  - first:
+      213: -5269639309331657532
+    second: Poison_Pink_23
+  - first:
+      213: 3605239743308997635
+    second: Poison_Pink_24
+  - first:
+      213: 976007491821515705
+    second: Poison_Pink_25
+  - first:
+      213: -8227082451842797318
+    second: Poison_Pink_26
+  - first:
+      213: -2896139881398257075
+    second: Poison_Pink_27
+  - first:
+      213: 7935731761783449564
+    second: Poison_Pink_28
+  - first:
+      213: -463703798852089895
+    second: Poison_Pink_29
+  - first:
+      213: 1568549638429220556
+    second: Poison_Pink_30
+  - first:
+      213: 7312191996002590892
+    second: Poison_Pink_31
+  - first:
+      213: -2656149377700448545
+    second: Poison_Pink_32
+  - first:
+      213: 6626345141275222319
+    second: Poison_Pink_33
+  - first:
+      213: 115977574793325584
+    second: Poison_Pink_34
+  - first:
+      213: 979496393406637012
+    second: Poison_Pink_35
+  - first:
+      213: -5455722134673650205
+    second: Poison_Pink_36
+  - first:
+      213: 4822900426562813070
+    second: Poison_Pink_37
+  - first:
+      213: 5186714775432413903
+    second: Poison_Pink_38
+  - first:
+      213: -153801235560390172
+    second: Poison_Pink_39
+  - first:
+      213: 6337713417181951135
+    second: Poison_Pink_40
+  - first:
+      213: -1772119665117887283
+    second: Poison_Pink_41
+  - first:
+      213: -5696474172996197074
+    second: Poison_Pink_42
+  - first:
+      213: -2020251928258603222
+    second: Poison_Pink_43
+  - first:
+      213: -4016326564596117126
+    second: Poison_Pink_44
+  - first:
+      213: -4117100954999891127
+    second: Poison_Pink_45
+  - first:
+      213: -9024416950726342326
+    second: Poison_Pink_46
+  - first:
+      213: -3464036841544080297
+    second: Poison_Pink_47
+  - first:
+      213: 6271201518043178895
+    second: Poison_Pink_48
+  - first:
+      213: 7605744685596327201
+    second: Poison_Pink_49
+  - first:
+      213: 2460477576325283642
+    second: Poison_Pink_50
+  - first:
+      213: -5689819377098850661
+    second: Poison_Pink_51
+  - first:
+      213: 1123493602575389618
+    second: Poison_Pink_52
+  - first:
+      213: 8132670699449304395
+    second: Poison_Pink_53
+  - first:
+      213: -1658805510513576908
+    second: Poison_Pink_54
+  - first:
+      213: -8230438027166421589
+    second: Poison_Pink_55
+  - first:
+      213: -8357158706391630776
+    second: Poison_Pink_56
+  - first:
+      213: 7156167881520494840
+    second: Poison_Pink_57
+  - first:
+      213: 7610600005140517109
+    second: Poison_Pink_58
+  - first:
+      213: -6192138572446993650
+    second: Poison_Pink_59
+  - first:
+      213: -6705670773162776757
+    second: Poison_Pink_60
+  - first:
+      213: 7896739131255541279
+    second: Poison_Pink_61
+  - first:
+      213: 6121929137529226660
+    second: Poison_Pink_62
+  - first:
+      213: 6675598692618499191
+    second: Poison_Pink_63
+  - first:
+      213: 8671153159219561237
+    second: Poison_Pink_64
+  - first:
+      213: 1954944752544473267
+    second: Poison_Pink_65
+  - first:
+      213: 675183064486029826
+    second: Poison_Pink_66
+  - first:
+      213: 5824808501014185622
+    second: Poison_Pink_67
+  - first:
+      213: 7761824148834938009
+    second: Poison_Pink_68
+  - first:
+      213: -4292101045272459610
+    second: Poison_Pink_69
+  - first:
+      213: 2185891887030694714
+    second: Poison_Pink_70
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Poison_Pink_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 2027
+        height: 639
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4afb53b97bd9ef990800000000000000
+      internalID: -7350264129913503836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_1
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 607
+        width: 213
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cdeae5ea10c7aea0800000000000000
+      internalID: -5861505168240349755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_2
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 647
+        width: 57
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23c2ee19727b2bcb0800000000000000
+      internalID: -4849612468144690126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_3
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 599
+        width: 79
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf2275383ba748cf0800000000000000
+      internalID: -250940767804644612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_4
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 623
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 504b6a571a00823a0800000000000000
+      internalID: -6690096552995277819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_5
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 623
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ede69624e3f6840800000000000000
+      internalID: 5219458948103331381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_6
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 621
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f99df300ef89f35b0800000000000000
+      internalID: -5386418412618524257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_7
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 607
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baa28d80f7b1dfb20800000000000000
+      internalID: 3169719945161878187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_8
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 608
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e31c51e773298be80800000000000000
+      internalID: -8162613557572812482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_9
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 609
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 971332f317a222800800000000000000
+      internalID: 586077567390527865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_10
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 583
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1778668eb91af66d0800000000000000
+      internalID: -2994997536187054223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_11
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 145
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a8983cebce6c9e80800000000000000
+      internalID: -8170533801836373850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_12
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 129
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: decf01e43dcd0cea0800000000000000
+      internalID: -5854436715475698451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_13
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 112
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2099d3fd5a0996d70800000000000000
+      internalID: 9036913169384970498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_14
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 87
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d21b0ef6142dd4920800000000000000
+      internalID: 2976266107253469485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_15
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 47
+        width: 113
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa184b13ce947dc70800000000000000
+      internalID: 8995740059490877866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_16
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 114
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07d78805df1bba460800000000000000
+      internalID: 7254087326346280304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_17
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 97
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137f1b8e1afb5a6c0800000000000000
+      internalID: -4132686380927944911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_18
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 79
+        width: 67
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b06603332d70680800000000000000
+      internalID: -8788825030493074603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_19
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 114
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d36d54a266037ae0800000000000000
+      internalID: -1552890425778543660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_20
+      rect:
+        serializedVersion: 2
+        x: 1854
+        y: 98
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 364066737cffacd50800000000000000
+      internalID: 6758495421915858019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_21
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 77
+        width: 47
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9c878a89a845dd0800000000000000
+      internalID: -2498219505017632346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_22
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 84
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72e8654e68070f670800000000000000
+      internalID: 8570473815544860199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_23
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 99
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc0ad8c7fa7ed6b0800000000000000
+      internalID: -5269639309331657532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_24
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 95
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 304ad06f172680230800000000000000
+      internalID: 3605239743308997635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_25
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 95
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b3342884a97b8d00800000000000000
+      internalID: 976007491821515705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_26
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 63
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af07f08591883dd80800000000000000
+      internalID: -8227082451842797318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_27
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 69
+        width: 29
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4a3a6d4f18dec7d0800000000000000
+      internalID: -2896139881398257075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_28
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 77
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd723e5fdf1612e60800000000000000
+      internalID: 7935731761783449564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_29
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 64
+        width: 83
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d70c6c0ad79099f0800000000000000
+      internalID: -463703798852089895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_30
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 78
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce142be59b94c510800000000000000
+      internalID: 1568549638429220556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_31
+      rect:
+        serializedVersion: 2
+        x: 1798
+        y: 95
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca06033f0ef1a7560800000000000000
+      internalID: 7312191996002590892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_32
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 93
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd63acfb636732bd0800000000000000
+      internalID: -2656149377700448545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_33
+      rect:
+        serializedVersion: 2
+        x: 1832
+        y: 95
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2168d05cc185fb50800000000000000
+      internalID: 6626345141275222319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_34
+      rect:
+        serializedVersion: 2
+        x: 1838
+        y: 95
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01ca7736df80c9100800000000000000
+      internalID: 115977574793325584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_35
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 81
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d367cbb7ced79d00800000000000000
+      internalID: 979496393406637012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_36
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 79
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ed8a89cf916944b0800000000000000
+      internalID: -5455722134673650205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_37
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 79
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c3b5892626ee240800000000000000
+      internalID: 4822900426562813070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_38
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 55
+        width: 61
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc24bec9b99eaf740800000000000000
+      internalID: 5186714775432413903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_39
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 65
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e1286457969dddf0800000000000000
+      internalID: -153801235560390172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_40
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 77
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f947b5736c414f750800000000000000
+      internalID: 6337713417181951135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_41
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 75
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc40a2dbd8a2867e0800000000000000
+      internalID: -1772119665117887283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_42
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 67
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e25ef5ebbee02f0b0800000000000000
+      internalID: -5696474172996197074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_43
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 81
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a271953339f96f3e0800000000000000
+      internalID: -2020251928258603222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_44
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 73
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a719847d4442348c0800000000000000
+      internalID: -4016326564596117126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_45
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 58
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94b5fc8ae7e1dd6c0800000000000000
+      internalID: -4117100954999891127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_46
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 71
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4941f2c894d2c280800000000000000
+      internalID: -9024416950726342326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_47
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 78
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75426ea88d44defc0800000000000000
+      internalID: -3464036841544080297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_48
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 71
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f87aadded88c70750800000000000000
+      internalID: 6271201518043178895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_49
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 77
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12db84d9e780d8960800000000000000
+      internalID: 7605744685596327201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_50
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 76
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3fbeaac15f552220800000000000000
+      internalID: 2460477576325283642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_51
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 61
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9e73e72c63b901b0800000000000000
+      internalID: -5689819377098850661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_52
+      rect:
+        serializedVersion: 2
+        x: 1392
+        y: 71
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b31ee0aa73779f00800000000000000
+      internalID: 1123493602575389618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_53
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 65
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4547e399ec0dd070800000000000000
+      internalID: 8132670699449304395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_54
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 45
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 434b06a4d2dbaf8e0800000000000000
+      internalID: -1658805510513576908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_55
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 43
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bade0e4983c97cd80800000000000000
+      internalID: -8230438027166421589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_56
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 63
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84cb6f54f68650c80800000000000000
+      internalID: -8357158706391630776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_57
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 52
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f8b613f5c0df4360800000000000000
+      internalID: 7156167881520494840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_58
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 65
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f09cf9c1684e9960800000000000000
+      internalID: 7610600005140517109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_59
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 45
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e037d4596ca111aa0800000000000000
+      internalID: -6192138572446993650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_60
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 47
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b47e9e0c5fba0f2a0800000000000000
+      internalID: -6705670773162776757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_61
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 51
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1ec962b66ad69d60800000000000000
+      internalID: 7896739131255541279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_62
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 49
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a50b8e7d1675f450800000000000000
+      internalID: 6121929137529226660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_63
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 39
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774769064ad74ac50800000000000000
+      internalID: 6675598692618499191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_64
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 50
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 513c9484bdf165870800000000000000
+      internalID: 8671153159219561237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_65
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 32
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b06dea05eb512b10800000000000000
+      internalID: 1954944752544473267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_66
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 15
+        width: 43
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20aac0d7b6bbe5900800000000000000
+      internalID: 675183064486029826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_67
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 23
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69640a37870e5d050800000000000000
+      internalID: 5824808501014185622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_68
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 34
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99cea5080f987bb60800000000000000
+      internalID: 7761824148834938009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_69
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 33
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6c37007d46f64c0800000000000000
+      internalID: -4292101045272459610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Poison_Pink_70
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 39
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a337fd30719d55e10800000000000000
+      internalID: 2185891887030694714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Poison_Pink_0: -7350264129913503836
+      Poison_Pink_1: -5861505168240349755
+      Poison_Pink_10: -2994997536187054223
+      Poison_Pink_11: -8170533801836373850
+      Poison_Pink_12: -5854436715475698451
+      Poison_Pink_13: 9036913169384970498
+      Poison_Pink_14: 2976266107253469485
+      Poison_Pink_15: 8995740059490877866
+      Poison_Pink_16: 7254087326346280304
+      Poison_Pink_17: -4132686380927944911
+      Poison_Pink_18: -8788825030493074603
+      Poison_Pink_19: -1552890425778543660
+      Poison_Pink_2: -4849612468144690126
+      Poison_Pink_20: 6758495421915858019
+      Poison_Pink_21: -2498219505017632346
+      Poison_Pink_22: 8570473815544860199
+      Poison_Pink_23: -5269639309331657532
+      Poison_Pink_24: 3605239743308997635
+      Poison_Pink_25: 976007491821515705
+      Poison_Pink_26: -8227082451842797318
+      Poison_Pink_27: -2896139881398257075
+      Poison_Pink_28: 7935731761783449564
+      Poison_Pink_29: -463703798852089895
+      Poison_Pink_3: -250940767804644612
+      Poison_Pink_30: 1568549638429220556
+      Poison_Pink_31: 7312191996002590892
+      Poison_Pink_32: -2656149377700448545
+      Poison_Pink_33: 6626345141275222319
+      Poison_Pink_34: 115977574793325584
+      Poison_Pink_35: 979496393406637012
+      Poison_Pink_36: -5455722134673650205
+      Poison_Pink_37: 4822900426562813070
+      Poison_Pink_38: 5186714775432413903
+      Poison_Pink_39: -153801235560390172
+      Poison_Pink_4: -6690096552995277819
+      Poison_Pink_40: 6337713417181951135
+      Poison_Pink_41: -1772119665117887283
+      Poison_Pink_42: -5696474172996197074
+      Poison_Pink_43: -2020251928258603222
+      Poison_Pink_44: -4016326564596117126
+      Poison_Pink_45: -4117100954999891127
+      Poison_Pink_46: -9024416950726342326
+      Poison_Pink_47: -3464036841544080297
+      Poison_Pink_48: 6271201518043178895
+      Poison_Pink_49: 7605744685596327201
+      Poison_Pink_5: 5219458948103331381
+      Poison_Pink_50: 2460477576325283642
+      Poison_Pink_51: -5689819377098850661
+      Poison_Pink_52: 1123493602575389618
+      Poison_Pink_53: 8132670699449304395
+      Poison_Pink_54: -1658805510513576908
+      Poison_Pink_55: -8230438027166421589
+      Poison_Pink_56: -8357158706391630776
+      Poison_Pink_57: 7156167881520494840
+      Poison_Pink_58: 7610600005140517109
+      Poison_Pink_59: -6192138572446993650
+      Poison_Pink_6: -5386418412618524257
+      Poison_Pink_60: -6705670773162776757
+      Poison_Pink_61: 7896739131255541279
+      Poison_Pink_62: 6121929137529226660
+      Poison_Pink_63: 6675598692618499191
+      Poison_Pink_64: 8671153159219561237
+      Poison_Pink_65: 1954944752544473267
+      Poison_Pink_66: 675183064486029826
+      Poison_Pink_67: 5824808501014185622
+      Poison_Pink_68: 7761824148834938009
+      Poison_Pink_69: -4292101045272459610
+      Poison_Pink_7: 3169719945161878187
+      Poison_Pink_70: 2185891887030694714
+      Poison_Pink_8: -8162613557572812482
+      Poison_Pink_9: 586077567390527865
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
