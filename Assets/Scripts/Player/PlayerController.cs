@@ -258,6 +258,12 @@ public class PlayerController : MonoBehaviour, IKillable
         {
             BecomeSoul(shell);
         }
+        else if (useSoulWorld && soulWorldController != null && deathType == DeathType.Fall)
+        {
+            // 낭떠러지: 시체 없이 리스폰 포인트에서 영혼으로 시작
+            transform.position = GetRespawnPosition();
+            BecomeSoul(null);
+        }
         else
         {
             // 낭떠러지(shell 없음) 또는 영혼세계 미사용: 몸을 숨기고 잠시 뒤 부활
@@ -311,11 +317,13 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         isSoul = true;
 
-        // 영혼과 shell이 같은 위치에 겹쳐 있으므로 서로 밀어내지 않게 함
-        soulShellCollider = shell.GetComponent<Collider2D>();
-        if (col && soulShellCollider)
-            Physics2D.IgnoreCollision(col, soulShellCollider, true);
-
+        if (shell != null)
+        {
+            // 영혼과 shell이 같은 위치에 겹쳐 있으므로 서로 밀어내지 않게 함
+            soulShellCollider = shell.GetComponent<Collider2D>();
+            if (col && soulShellCollider)
+                Physics2D.IgnoreCollision(col, soulShellCollider, true);
+        }
         // 영혼은 독에 영향받지 않음
         if (poisonSwim != null) poisonSwim.enabled = false;
 
