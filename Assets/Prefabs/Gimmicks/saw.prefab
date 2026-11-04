@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9203448485965465371}
   - component: {fileID: 6956675886499813599}
   - component: {fileID: 4937771126132355633}
+  - component: {fileID: 4518706527072362624}
   m_Layer: 0
   m_Name: saw
   m_TagString: Untagged
@@ -142,3 +143,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SawRotate
   rotationSpeed: 120
+--- !u!114 &4518706527072362624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946247689689048929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275bcf10b2971de478c6dfda8d5f11e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hazard
+  isActive: 1
+  deathType: 6

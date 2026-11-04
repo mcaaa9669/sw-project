@@ -4771,7 +4771,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1620655540150052894
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4787,6 +4787,11 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4808,9 +4813,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4842,7 +4849,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &1866009694136763843
 GameObject:
   m_ObjectHideFlags: 0
@@ -4945,8 +4951,7 @@ MonoBehaviour:
   bubbleAmountMul: 1
   bubbleColorOutline: {r: 0.734247, g: 0.8270667, b: 0.9433962, a: 0.4}
   bubbleColorFill: {r: 0.2794144, g: 0.30859864, b: 0.6509434, a: 0.29803923}
-  bubblePrefab: {fileID: 1354388899100067157, guid: ba918cd723b452b4c80cc3c7dcbaea8c,
-    type: 3}
+  bubblePrefab: {fileID: 1354388899100067157, guid: ba918cd723b452b4c80cc3c7dcbaea8c, type: 3}
   splashEnabled: 1
   splashOnEnter: 1
   splashOnExit: 1
@@ -4957,23 +4962,19 @@ MonoBehaviour:
   - sizeRange: {x: 0, y: 0.2}
     minSpeed: 0.5
     minDepth: 0
-    splashPrefab: {fileID: 5800786323235578726, guid: e03b07e211ce1664faafa53bf1b64cb9,
-      type: 3}
+    splashPrefab: {fileID: 5800786323235578726, guid: e03b07e211ce1664faafa53bf1b64cb9, type: 3}
   - sizeRange: {x: 0.2, y: 0.4}
     minSpeed: 1.5
     minDepth: 0.1
-    splashPrefab: {fileID: 5800786323235578726, guid: 71e85c26489236d4899df3b6a181e804,
-      type: 3}
+    splashPrefab: {fileID: 5800786323235578726, guid: 71e85c26489236d4899df3b6a181e804, type: 3}
   - sizeRange: {x: 0.4, y: 1.2}
     minSpeed: 1.5
     minDepth: 0.12
-    splashPrefab: {fileID: 5800786323235578726, guid: ade0a54f6cb471945a03674b1e63ab06,
-      type: 3}
+    splashPrefab: {fileID: 5800786323235578726, guid: ade0a54f6cb471945a03674b1e63ab06, type: 3}
   - sizeRange: {x: 1.2, y: 100}
     minSpeed: 2
     minDepth: 0.2
-    splashPrefab: {fileID: 5800786323235578726, guid: ebdd47cc02199d6419e9dfd31e9ee9e6,
-      type: 3}
+    splashPrefab: {fileID: 5800786323235578726, guid: ebdd47cc02199d6419e9dfd31e9ee9e6, type: 3}
   surfaceParticleEnabled: 1
   surfaceParticleConfigs:
   - particleSystem: {fileID: 1395738343115737824}
@@ -5007,6 +5008,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5028,9 +5034,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1866009694136763870
 MeshFilter:
@@ -5042,6 +5050,7 @@ MeshFilter:
   m_Mesh: {fileID: 0}
 --- !u!253 &9021447951967945863
 BuoyancyEffector2D:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5054,8 +5063,8 @@ BuoyancyEffector2D:
     m_Bits: 2147483647
   m_SurfaceLevel: 2.415247
   m_Density: 20
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDamping: 5
+  m_AngularDamping: 0
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -5067,6 +5076,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866009694136763843}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -5089,8 +5099,9 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 1
-  m_UsedByEffector: 1
-  m_UsedByComposite: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 1.2076235}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -5101,7 +5112,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 6.1400905, y: 2.415247}
   m_EdgeRadius: 0
 --- !u!1 &2717119780001910660
@@ -9862,7 +9872,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &5698067262957747737
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9878,6 +9888,11 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9899,9 +9914,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9933,4 +9950,3 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
