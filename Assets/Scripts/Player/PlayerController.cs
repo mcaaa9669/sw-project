@@ -364,6 +364,19 @@ public class PlayerController : MonoBehaviour, IKillable
         return true;
     }
 
+    // 스테이지에 따라 영혼세계 기능을 켜고 끔 (1-3부터 켬)
+    public void SetSoulWorldEnabled(bool enabled)
+    {
+        useSoulWorld = enabled;
+
+        if (enabled && soulWorldController == null)
+        {
+            soulWorldController = FindFirstObjectByType<SoulWorldController>();
+            if (soulWorldController != null)
+                soulWorldController.OnReturnRequested += HandleReturn;
+        }
+    }
+
     // ===== 부활 =====
 
     public void Revive(Vector3 position)
