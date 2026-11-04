@@ -268,11 +268,7 @@ public class PlayerController : MonoBehaviour, IKillable
         inputX = 0f;
         jumpRequested = false;
 
-    if (poisonSwim != null)
-    {
-        poisonSwim.ResetPoisonState();
-        poisonSwim.enabled = false;
-    }
+  
         rb.linearVelocity = Vector2.zero;
 
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
@@ -340,8 +336,6 @@ public class PlayerController : MonoBehaviour, IKillable
         if (col && soulShellCollider)
             Physics2D.IgnoreCollision(col, soulShellCollider, true);
 
-        // 영혼은 독에 영향받지 않음
-        if (poisonSwim != null) poisonSwim.enabled = false;
 
         SetSoulLook(true);
 
