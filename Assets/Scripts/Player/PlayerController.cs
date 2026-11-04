@@ -13,6 +13,12 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
 
+    [SerializeField] Animator animator;          // 인스펙터에서 연결 
+    [SerializeField] SpriteRenderer spriteRenderer; // 좌우 반전용
+    // 파라미터 이름 오타 방지 + 성능
+    static readonly int SpeedHash = Animator.StringToHash("Speed");
+    static readonly int GroundedHash = Animator.StringToHash("IsGrounded");
+
     [Header("Death")]
     [SerializeField] Shell shellPrefab;                        // Shell.prefab 연결
     [SerializeField] float poisonDelay = 5f;                   // 독 사망까지 걸리는 시간 (명세: 5초)
@@ -208,6 +214,11 @@ public class PlayerController : MonoBehaviour, IKillable
                 * (Mathf.Max(1f, fallGravityMultiplier) - 1f)
                 * Time.fixedDeltaTime;
         }
+
+        animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x));
+        animator.SetBool(GroundedHash, grounded);
+
+        if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
 
     bool IsGrounded()
