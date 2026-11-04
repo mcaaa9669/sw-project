@@ -204,6 +204,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 1.2076235
       objectReference: {fileID: 0}
+    - target: {fileID: 3063698515212308602, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
+      propertyPath: m_Density
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -211,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_SurfaceLevel
       value: 2.415247
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
+      propertyPath: m_LinearDamping
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_ColliderMask.m_Bits

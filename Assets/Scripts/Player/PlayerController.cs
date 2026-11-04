@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour, IKillable
 {
+
+    [SerializeField] float fallGravityMultiplier = 2f;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpForce = 5f;
     [SerializeField] Transform groundCheck;
@@ -33,6 +35,11 @@ public class PlayerController : MonoBehaviour, IKillable
 
     float inputX;
     bool jumpRequested;
+    readonly ContactPoint2D[] groundContacts = new ContactPoint2D[16];
+    readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
+
+    [SerializeField] LayerMask wallLayer;
+    [SerializeField] float wallCheckDistance = 0.03f;
 
     bool isDead;        // 현실의 몸이 죽었는지 (영혼 상태 포함)
     bool isSoul;        // 영혼으로 활동 중인지
@@ -95,14 +102,96 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         if (!CanControl) return;
 
-        bool grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        rb.linearVelocity = new Vector2(inputX * moveSpeed, rb.linearVelocity.y);
+        bool grounded = IsGrounded();
+        bool inPoison = poisonSwim != null
+        && poisonSwim.isActiveAndEnabled
+        && poisonSwim.IsSwimming;
+
+        float targetSpeed = inputX * moveSpeed * (inPoison ? 0.5f : 1f);
+
+        // 벽을 향한 이동만 차단. 반대쪽 이동은 가능.
+        if (inputX != 0f && IsWallAhead(Mathf.Sign(inputX)))
+            targetSpeed = 0f;
+
+        Vector2 velocity = rb.linearVelocity;
+        velocity.x = targetSpeed;
 
         if (jumpRequested && grounded)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            velocity.y = jumpForce;
+
         jumpRequested = false;
+        rb.linearVelocity = velocity;
+
+        bool swimming = poisonSwim != null
+            && poisonSwim.isActiveAndEnabled
+            && poisonSwim.IsSwimming;
+
+        // 공중에서 내려갈 때만 추가 중력 적용
+        if (!grounded && !swimming && rb.linearVelocity.y < 0f)
+        {
+            rb.linearVelocity += Physics2D.gravity
+                * rb.gravityScale
+                * (Mathf.Max(1f, fallGravityMultiplier) - 1f)
+                * Time.fixedDeltaTime;
+        }
     }
 
+    bool IsGrounded()
+    {
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(groundLayer);
+        filter.useTriggers = false;
+
+        int count = col.GetContacts(filter, groundContacts);
+        Bounds bounds = col.bounds;
+
+        for (int i = 0; i < count; i++)
+        {
+            ContactPoint2D contact = groundContacts[i];
+
+            // 발 아래, 몸 중앙에 가까운 접촉만 바닥으로 인정.
+            // 캡슐 옆면이나 둥근 가장자리 접촉은 제외.
+            bool belowCenter = contact.point.y < bounds.center.y;
+            bool underBody = Mathf.Abs(contact.point.x - bounds.center.x)
+                <= bounds.extents.x * 0.5f;
+
+            if (contact.normal.y >= 0.9f && belowCenter && underBody)
+                return true;
+        }
+
+        return false;
+    }
+
+    bool IsWallAhead(float direction)
+    {
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(wallLayer);
+        filter.useTriggers = false;
+
+        Vector2 moveDirection = new Vector2(direction, 0f);
+
+        int count = col.Cast(
+            moveDirection,
+            filter,
+            wallHits,
+            Mathf.Max(0.001f, wallCheckDistance)
+        );
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector2 normal = wallHits[i].normal;
+
+            // 진행 방향을 막는 면인지 확인.
+            // 평평한 바닥은 제외하고 모서리의 비스듬한 면은 포함.
+            bool facesPlayer = normal.x * direction < -0.1f;
+            bool isSteep = normal.y < 0.9f;
+
+            if (facesPlayer && isSteep)
+                return true;
+        }
+
+        return false;
+    }
     // ===== 사망 =====
 
     // Hazard가 보내는 사망 신호 (IKillable). 영혼 상태에서는 무시
