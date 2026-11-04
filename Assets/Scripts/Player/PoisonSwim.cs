@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PoisonSwim : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PoisonSwim : MonoBehaviour
     private float originalGravityScale;
     private bool isInPoison;
     private bool jumpHeld;
+    public bool IsSwimming => isInPoison;
 
     private void Awake()
     {
@@ -78,12 +80,7 @@ public class PoisonSwim : MonoBehaviour
         isInPoison = false;
         rb.gravityScale = originalGravityScale;
 
-        if (leavingSurface)
-        {
-            Vector2 velocity = rb.linearVelocity;
-            velocity.y = Mathf.Max(velocity.y, surfaceJumpSpeed);
-            rb.linearVelocity = velocity;
-        }
+      
     }
 
     private void OnDisable()

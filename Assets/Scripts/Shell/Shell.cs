@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 // �÷��̾ ���� �ڸ��� ���� shell
 // ��� ������ ���� PlayerController�� �Ʒ� �Լ� �� �ϳ��� ȣ��
@@ -6,6 +7,43 @@ using UnityEngine;
 public class Shell : MonoBehaviour
 {
     Rigidbody2D rb;
+    [SerializeField, Min(0f)] float poisonHorizontalDamping = 8f;
+
+    readonly HashSet<Collider2D> poisonContacts = new();
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<PoisonTrigger>() != null)
+            poisonContacts.Add(other);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        poisonContacts.Remove(other);
+    }
+
+    void FixedUpdate()
+    {
+        // 비활성화되거나 삭제된 독 영역은 제외
+        poisonContacts.RemoveWhere(c =>
+            c == null || !c.enabled || !c.gameObject.activeInHierarchy);
+
+        if (poisonContacts.Count == 0) return;
+        if (rb.bodyType != RigidbodyType2D.Dynamic) return;
+
+        Vector2 velocity = rb.linearVelocity;
+
+        // 가로 속도만 감쇠. 세로 속도는 유지.
+        velocity.x *= Mathf.Exp(
+            -poisonHorizontalDamping * Time.fixedDeltaTime);
+
+        rb.linearVelocity = velocity;
+    }
+
+    void OnDisable()
+    {
+        poisonContacts.Clear();
+    }
 
     void Awake() => rb = GetComponent<Rigidbody2D>();
 

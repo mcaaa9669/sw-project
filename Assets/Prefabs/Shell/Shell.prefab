@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4497761643912497225}
   - component: {fileID: 4324133703547991352}
   - component: {fileID: 2627427689891369218}
-  - component: {fileID: 3355737069648296194}
-  m_Layer: 3
+  - component: {fileID: 9211464462974722958}
+  m_Layer: 8
   m_Name: Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +94,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+
 --- !u!50 &4324133703547991352
 Rigidbody2D:
   serializedVersion: 5
@@ -106,7 +107,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 4
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -133,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0d289379b7ec745a42cbca5d9e2623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shell
---- !u!61 &3355737069648296194
+  poisonHorizontalDamping: 8
+--- !u!61 &9211464462974722958
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
