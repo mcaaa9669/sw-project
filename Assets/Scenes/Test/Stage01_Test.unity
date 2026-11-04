@@ -1108,11 +1108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272563399462149784, guid: af91ca0183cef4395929f836cb6b1789, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.7309
+      value: 16.79
       objectReference: {fileID: 0}
     - target: {fileID: 272563399462149784, guid: af91ca0183cef4395929f836cb6b1789, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.03
+      value: -1.01
       objectReference: {fileID: 0}
     - target: {fileID: 272563399462149784, guid: af91ca0183cef4395929f836cb6b1789, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7023,6 +7023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoulWorldController
   gameHUD: {fileID: 965168241}
   maxSoulTime: 5
+  maxDeaths: 5
 --- !u!4 &2041772941
 Transform:
   m_ObjectHideFlags: 0
@@ -7176,23 +7177,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: d32dfa8ba84f849c19d61b841c4dc400, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.22916684
+      value: 0.35408536
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: d32dfa8ba84f849c19d61b841c4dc400, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.22916684
+      value: 0.37072304
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: d32dfa8ba84f849c19d61b841c4dc400, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.551412
+      value: 0.62747526
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: d32dfa8ba84f849c19d61b841c4dc400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.7
+      value: 16.77
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: d32dfa8ba84f849c19d61b841c4dc400, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.23
+      value: 3.79
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: d32dfa8ba84f849c19d61b841c4dc400, type: 3}
       propertyPath: m_LocalPosition.z
