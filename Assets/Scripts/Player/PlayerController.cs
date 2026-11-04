@@ -38,11 +38,15 @@ public class PlayerController : MonoBehaviour, IKillable
 
     float inputX;
     bool jumpRequested;
+    bool wasWallBlocked;
     readonly ContactPoint2D[] groundContacts = new ContactPoint2D[16];
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
 
     [SerializeField] LayerMask wallLayer;
     [SerializeField] float wallCheckDistance = 0.03f;
+
+    [SerializeField] float jumpBufferTime = 0.12f;
+    float jumpBufferTimer;
 
     bool isDead;        // 현실의 몸이 죽었는지 (영혼 상태 포함)
     bool isSoul;        // 영혼으로 활동 중인지
@@ -101,7 +105,17 @@ public class PlayerController : MonoBehaviour, IKillable
             poisonSwim.SetJumpHeld(kb.spaceKey.isPressed || kb.wKey.isPressed);
 
         inputX = (kb.dKey.isPressed ? 1 : 0) - (kb.aKey.isPressed ? 1 : 0);
-        if (kb.spaceKey.wasPressedThisFrame || kb.wKey.wasPressedThisFrame) jumpRequested = true;
+
+        if (kb.spaceKey.wasPressedThisFrame || kb.wKey.wasPressedThisFrame)
+        {
+            jumpRequested = true;
+
+            Debug.Log(
+                $"[점프 입력] 위치={rb.position}, 세로속도={rb.linearVelocity.y:F2}",
+                this
+            );
+        }
+
     }
 
     void FixedUpdate()
@@ -134,16 +148,52 @@ public class PlayerController : MonoBehaviour, IKillable
     float targetSpeed = inputX * moveSpeed * speedMultiplier;
 
         // 벽을 향한 이동만 차단. 반대쪽 이동은 가능.
-        if (inputX != 0f && IsWallAhead(Mathf.Sign(inputX)))
+        bool wallBlocked =
+            inputX != 0f && IsWallAhead(Mathf.Sign(inputX));
+
+        if (wallBlocked)
             targetSpeed = 0f;
+
+        if (wallBlocked != wasWallBlocked)
+        {
+            Debug.Log(
+                $"[이동 판정] 벽 차단={wallBlocked}, " +
+                $"방향={inputX}, 바닥={grounded}",
+                this
+            );
+        }
+
+        wasWallBlocked = wallBlocked;
 
         Vector2 velocity = rb.linearVelocity;
         velocity.x = targetSpeed;
 
-        if (jumpRequested && grounded)
-            velocity.y = jumpForce;
+        if (jumpRequested)
+        {
+            jumpBufferTimer = jumpBufferTime;
+
+            Debug.Log(
+                $"[점프 접수] 바닥={grounded}, 독 안={inPoison}, " +
+                $"대기시간={jumpBufferTimer:F2}",
+                this
+            );
+        }
 
         jumpRequested = false;
+
+        if (jumpBufferTimer > 0f && grounded && !inPoison)
+        {
+            velocity.y = jumpForce;
+            jumpBufferTimer = 0f;
+
+            Debug.Log("[점프 실행] 바닥 확인 후 실행", this);
+        }
+        else
+        {
+            jumpBufferTimer = Mathf.Max(
+                0f, jumpBufferTimer - Time.fixedDeltaTime);
+        }
+
         rb.linearVelocity = velocity;
 
         bool swimming = poisonSwim != null
@@ -211,7 +261,19 @@ public class PlayerController : MonoBehaviour, IKillable
             bool isSteep = normal.y < 0.9f;
 
             if (facesPlayer && isSteep)
+            {
+                if (!wasWallBlocked)
+                {
+                    Debug.Log(
+                        $"[벽 감지 대상] 이름={wallHits[i].collider.name}, " +
+                        $"방향={direction}, 접촉면={normal}, " +
+                        $"거리={wallHits[i].distance:F3}",
+                        this
+                    );
+                }
+
                 return true;
+            }
         }
 
         return false;
@@ -267,6 +329,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
         inputX = 0f;
         jumpRequested = false;
+        jumpBufferTimer = 0f;
 
   
         rb.linearVelocity = Vector2.zero;
@@ -387,6 +450,7 @@ public class PlayerController : MonoBehaviour, IKillable
         isDead = false;
         inputX = 0f;
         jumpRequested = false;
+        jumpBufferTimer = 0f;
 
         transform.position = position;
 
