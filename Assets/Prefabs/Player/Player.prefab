@@ -135,7 +135,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7ad81ee370d44ff4eb63d7accc45bc4c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -174,8 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55cb54c8bc5bf1f4e9b34da8a5c66e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControll
-  moveSpeed: 5
-  jumpForce: 5
+  fallGravityMultiplier: 2
+  moveSpeed: 3
+  jumpForce: 4.5
   groundCheck: {fileID: 4011528642104374960}
   groundRadius: 0.1
   groundLayer:
@@ -188,6 +189,10 @@ MonoBehaviour:
   useSoulWorld: 1
   soulWorldController: {fileID: 0}
   soulTint: {r: 0.6, g: 0.85, b: 1, a: 0.5}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  wallCheckDistance: 0.03
 --- !u!95 &-540795473628240258
 Animator:
   serializedVersion: 7
