@@ -210,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_Density
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_Enabled
@@ -222,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_LinearDamping
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9021447951967945863, guid: 9f2fcdebbc53f6c4bb81a38283db78b1, type: 3}
       propertyPath: m_ColliderMask.m_Bits

@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -183,16 +183,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 904
   shellPrefab: {fileID: 2627427689891369218, guid: 7132d195e779d1949b9a38c430f5f5d4, type: 3}
-  poisonDelay: 5
+  poisonDelay: 4
   respawnPoint: {fileID: 0}
   respawnDelay: 1
   useSoulWorld: 1
   soulWorldController: {fileID: 0}
   soulTint: {r: 0.6, g: 0.85, b: 1, a: 0.5}
+  swimMoveMultiplier: 0.3
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
   wallCheckDistance: 0.03
+  jumpBufferTime: 0.12
+  surfaceMoveMultiplier: 0.5
 --- !u!95 &-540795473628240258
 Animator:
   serializedVersion: 7
@@ -227,10 +230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f23fba02296434a98012cda7f6714d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoisonSwim
-  surfaceJumpSpeed: 6
   sinkGravityScale: 0.6
   swimSpeed: 1.5
   maxSinkSpeed: 2
+  surfaceJumpSpeed: 2
 --- !u!1 &7326402562999910989
 GameObject:
   m_ObjectHideFlags: 0
