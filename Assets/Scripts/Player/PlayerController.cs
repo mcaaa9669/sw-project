@@ -13,6 +13,12 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
 
+    [SerializeField] Animator animator;          // 인스펙터에서 연결 
+    [SerializeField] SpriteRenderer spriteRenderer; // 좌우 반전용
+    // 파라미터 이름 오타 방지 + 성능
+    static readonly int SpeedHash = Animator.StringToHash("Speed");
+    static readonly int GroundedHash = Animator.StringToHash("IsGrounded");
+
     [Header("Death")]
     [SerializeField] Shell shellPrefab;                        // Shell.prefab 연결
     [SerializeField] float poisonDelay = 5f;                   // 독 사망까지 걸리는 시간 (명세: 5초)
@@ -208,6 +214,11 @@ public class PlayerController : MonoBehaviour, IKillable
                 * (Mathf.Max(1f, fallGravityMultiplier) - 1f)
                 * Time.fixedDeltaTime;
         }
+
+        animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x));
+        animator.SetBool(GroundedHash, grounded);
+
+        if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
 
     bool IsGrounded()
@@ -341,6 +352,12 @@ public class PlayerController : MonoBehaviour, IKillable
         {
             BecomeSoul(shell);
         }
+        else if (useSoulWorld && soulWorldController != null && deathType == DeathType.Fall)
+        {
+            // 낭떠러지: 시체 없이 리스폰 포인트에서 영혼으로 시작
+            transform.position = GetRespawnPosition();
+            BecomeSoul(null);
+        }
         else
         {
             // 낭떠러지(shell 없음) 또는 영혼세계 미사용: 몸을 숨기고 잠시 뒤 부활
@@ -394,11 +411,16 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         isSoul = true;
 
-        // 영혼과 shell이 같은 위치에 겹쳐 있으므로 서로 밀어내지 않게 함
-        soulShellCollider = shell.GetComponent<Collider2D>();
-        if (col && soulShellCollider)
-            Physics2D.IgnoreCollision(col, soulShellCollider, true);
 
+        if (shell != null)
+        {
+            // 영혼과 shell이 같은 위치에 겹쳐 있으므로 서로 밀어내지 않게 함
+            soulShellCollider = shell.GetComponent<Collider2D>();
+            if (col && soulShellCollider)
+                Physics2D.IgnoreCollision(col, soulShellCollider, true);
+        }
+        // 영혼은 독에 영향받지 않음
+        if (poisonSwim != null) poisonSwim.enabled = false;
 
         SetSoulLook(true);
 
@@ -435,6 +457,19 @@ public class PlayerController : MonoBehaviour, IKillable
 
         respawnPoint = point;
         return true;
+    }
+
+    // 스테이지에 따라 영혼세계 기능을 켜고 끔 (1-3부터 켬)
+    public void SetSoulWorldEnabled(bool enabled)
+    {
+        useSoulWorld = enabled;
+
+        if (enabled && soulWorldController == null)
+        {
+            soulWorldController = FindFirstObjectByType<SoulWorldController>();
+            if (soulWorldController != null)
+                soulWorldController.OnReturnRequested += HandleReturn;
+        }
     }
 
     // ===== 부활 =====
