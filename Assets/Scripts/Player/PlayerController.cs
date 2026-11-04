@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] SoulWorldController soulWorldController;  // 비우면 씬에서 자동으로 찾음
     [SerializeField] Color soulTint = new Color(0.6f, 0.85f, 1f, 0.5f); // 영혼 외형 (임시)
 
+    [SerializeField, Range(0f, 1f)]
+    float swimMoveMultiplier = 0.5f;
+
     Rigidbody2D rb;
     Collider2D col;
     PoisonSwim poisonSwim;
@@ -107,7 +110,7 @@ public class PlayerController : MonoBehaviour, IKillable
         && poisonSwim.isActiveAndEnabled
         && poisonSwim.IsSwimming;
 
-        float targetSpeed = inputX * moveSpeed * (inPoison ? 0.5f : 1f);
+        float targetSpeed = inputX * moveSpeed * (inPoison ? swimMoveMultiplier : 1f);
 
         // 벽을 향한 이동만 차단. 반대쪽 이동은 가능.
         if (inputX != 0f && IsWallAhead(Mathf.Sign(inputX)))

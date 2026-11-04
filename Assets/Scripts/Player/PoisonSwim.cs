@@ -4,6 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PoisonSwim : MonoBehaviour
 {
+    [Header("수면 점프 시작 깊이")]
+    [SerializeField, Range(0.1f, 0.8f)]
+    private float surfaceSubmergeRatio = 0.3f;
+
+    private Collider2D bodyCollider;
+    private Collider2D poisonArea;
+    private bool surfaceJumping;
+
     [Header("수면 탈출 점프")]
     [SerializeField] private float surfaceJumpSpeed = 6f;
 
@@ -21,6 +29,7 @@ public class PoisonSwim : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         originalGravityScale = rb.gravityScale;
+        bodyCollider = GetComponent<Collider2D>();
     }
 
     // 기존 PlayerController에서 점프 입력을 전달
@@ -34,13 +43,47 @@ public class PoisonSwim : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isInPoison) return;
+        if (!isInPoison || poisonArea == null) return;
+
+        Bounds body = bodyCollider.bounds;
+        float surfaceY = poisonArea.bounds.max.y;
+
+        // 발이 이 높이에 오면, 하반신이 일부 잠긴 상태
+        float jumpStartFeetY =
+            surfaceY - body.size.y * surfaceSubmergeRatio;
+
+        if (surfaceJumping)
+        {
+            // 점프 중에는 수영 코드로 세로 속도를 덮어쓰지 않음.
+            // 다시 충분히 잠겼을 때 수영으로 복귀.
+            if (rb.linearVelocity.y <= 0f)
+            {
+                surfaceJumping = false;
+                rb.gravityScale = sinkGravityScale;
+            }
+            else
+            {
+                return;
+            }
+        }
 
         Vector2 velocity = rb.linearVelocity;
 
         if (jumpHeld)
         {
-            velocity.y = swimSpeed;
+            // 이미 몸 전체가 나온 상태에서는 수면 점프 금지
+            bool partlySubmerged = body.min.y < surfaceY;
+
+            if (partlySubmerged && body.min.y >= jumpStartFeetY)
+            {
+                surfaceJumping = true;
+                rb.gravityScale = originalGravityScale;
+                velocity.y = surfaceJumpSpeed;
+            }
+            else if (body.min.y < jumpStartFeetY)
+            {
+                velocity.y = swimSpeed;
+            }
         }
         else if (velocity.y < -maxSinkSpeed)
         {
@@ -52,35 +95,22 @@ public class PoisonSwim : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"[영역 이탈] {other.name}");
-
-        Debug.Log(
-        $"[영역 진입] {other.name}, " +
-        $"독 감지={other.GetComponentInParent<PoisonTrigger>() != null}"
-        );
-
         if (!other.TryGetComponent<PoisonTrigger>(out _))
-        return;
+            return;
 
+        poisonArea = other;
         isInPoison = true;
         rb.gravityScale = sinkGravityScale;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.TryGetComponent<PoisonTrigger>(out _))
-            return;
+        if (other != poisonArea) return;
 
-        // 위로 헤엄치면서 독 영역의 위쪽으로 나왔는지 확인
-        bool leavingSurface =
-            jumpHeld &&
-            rb.linearVelocity.y > 0f &&
-            rb.position.y >= other.bounds.max.y;
-
+        poisonArea = null;
         isInPoison = false;
+        surfaceJumping = false;
         rb.gravityScale = originalGravityScale;
-
-      
     }
 
     private void OnDisable()
@@ -92,6 +122,9 @@ public class PoisonSwim : MonoBehaviour
     {
         isInPoison = false;
         jumpHeld = false;
+        
+        poisonArea = null;
+        surfaceJumping = false;
 
         if (rb != null)
             rb.gravityScale = originalGravityScale;
