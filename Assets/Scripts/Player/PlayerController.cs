@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         if (!CanControl) return;
 
-        bool grounded = IsGrounded();
+        bool grounded = IsGrounded(out bool onBelt);
         bool inPoison = poisonSwim != null
         && poisonSwim.isActiveAndEnabled
         && poisonSwim.IsSwimming;
@@ -172,7 +172,8 @@ public class PlayerController : MonoBehaviour, IKillable
         wasWallBlocked = wallBlocked;
 
         Vector2 velocity = rb.linearVelocity;
-        velocity.x = targetSpeed;
+       if (!onBelt || inputX != 0f)
+            velocity.x = targetSpeed;
 
         if (jumpRequested)
         {
@@ -221,8 +222,11 @@ public class PlayerController : MonoBehaviour, IKillable
         if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
 
-    bool IsGrounded()
+    bool IsGrounded(out bool onBelt)
     {
+        onBelt = false;
+        bool grounded = false;
+
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(groundLayer);
         filter.useTriggers = false;
@@ -233,18 +237,29 @@ public class PlayerController : MonoBehaviour, IKillable
         for (int i = 0; i < count; i++)
         {
             ContactPoint2D contact = groundContacts[i];
-
-            // 발 아래, 몸 중앙에 가까운 접촉만 바닥으로 인정.
-            // 캡슐 옆면이나 둥근 가장자리 접촉은 제외.
             bool belowCenter = contact.point.y < bounds.center.y;
             bool underBody = Mathf.Abs(contact.point.x - bounds.center.x)
                 <= bounds.extents.x * 0.5f;
 
-            if (contact.normal.y >= 0.9f && belowCenter && underBody)
-                return true;
+            if (contact.normal.y < 0.9f || !belowCenter || !underBody)
+                continue;
+
+            grounded = true;
+
+            Collider2D floor = contact.collider == col
+                ? contact.otherCollider
+                : contact.collider;
+
+            if (floor != null && floor.usedByEffector &&
+                floor.TryGetComponent<SurfaceEffector2D>(out var effector) &&
+                effector.isActiveAndEnabled)
+            {
+                onBelt = true;
+                break;
+            }
         }
 
-        return false;
+        return grounded;
     }
 
     bool IsWallAhead(float direction)
