@@ -48,9 +48,20 @@ public class Shell : MonoBehaviour
     void Awake() => rb = GetComponent<Rigidbody2D>();
 
     // ����: ���� ��ġ�� ����
-    public void OnSpikeDeath()
+    public void OnSpikeDeath(Transform spikeAnchor = null)
     {
-        Freeze();
+        if (spikeAnchor == null)
+        {
+            Freeze();
+            return;
+        }
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.freezeRotation = false;
+
+        transform.SetParent(spikeAnchor, true);
     }
 
     // ������: ���� ��Ģ�� ���� �������ų� ���ο��� �̲�����

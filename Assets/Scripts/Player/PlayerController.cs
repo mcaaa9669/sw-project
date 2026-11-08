@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         if (!CanControl) return;
 
-        bool grounded = IsGrounded();
+        bool grounded = IsGrounded(out bool onBelt);
         bool inPoison = poisonSwim != null
         && poisonSwim.isActiveAndEnabled
         && poisonSwim.IsSwimming;
@@ -172,7 +172,8 @@ public class PlayerController : MonoBehaviour, IKillable
         wasWallBlocked = wallBlocked;
 
         Vector2 velocity = rb.linearVelocity;
-        velocity.x = targetSpeed;
+       if (!onBelt || inputX != 0f)
+            velocity.x = targetSpeed;
 
         if (jumpRequested)
         {
@@ -221,8 +222,11 @@ public class PlayerController : MonoBehaviour, IKillable
         if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
 
-    bool IsGrounded()
+    bool IsGrounded(out bool onBelt)
     {
+        onBelt = false;
+        bool grounded = false;
+
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(groundLayer);
         filter.useTriggers = false;
@@ -233,18 +237,29 @@ public class PlayerController : MonoBehaviour, IKillable
         for (int i = 0; i < count; i++)
         {
             ContactPoint2D contact = groundContacts[i];
-
-            // 발 아래, 몸 중앙에 가까운 접촉만 바닥으로 인정.
-            // 캡슐 옆면이나 둥근 가장자리 접촉은 제외.
             bool belowCenter = contact.point.y < bounds.center.y;
             bool underBody = Mathf.Abs(contact.point.x - bounds.center.x)
                 <= bounds.extents.x * 0.5f;
 
-            if (contact.normal.y >= 0.9f && belowCenter && underBody)
-                return true;
+            if (contact.normal.y < 0.9f || !belowCenter || !underBody)
+                continue;
+
+            grounded = true;
+
+            Collider2D floor = contact.collider == col
+                ? contact.otherCollider
+                : contact.collider;
+
+            if (floor != null && floor.usedByEffector &&
+                floor.TryGetComponent<SurfaceEffector2D>(out var effector) &&
+                effector.isActiveAndEnabled)
+            {
+                onBelt = true;
+                break;
+            }
         }
 
-        return false;
+        return grounded;
     }
 
     bool IsWallAhead(float direction)
@@ -294,6 +309,11 @@ public class PlayerController : MonoBehaviour, IKillable
     // Hazard가 보내는 사망 신호 (IKillable). 영혼 상태에서는 무시
     public void Kill(DeathType deathType)
     {
+        Kill(deathType, null);
+    }
+
+    public void Kill(DeathType deathType, Transform spikeAnchor)
+    {
         if (isDead) return;
 
         switch (deathType)
@@ -302,11 +322,10 @@ public class PlayerController : MonoBehaviour, IKillable
             case DeathType.laser:
             case DeathType.saw:
             case DeathType.Fall:
-                Die(deathType);
+                Die(deathType, spikeAnchor);
                 break;
 
             case DeathType.poison:
-                // 아직 사망 확정 아님. 이미 중독 중이면 타이머를 새로 시작하지 않음
                 if (poisonRoutine == null)
                     poisonRoutine = StartCoroutine(PoisonRoutine());
                 break;
@@ -316,7 +335,6 @@ public class PlayerController : MonoBehaviour, IKillable
                 break;
         }
     }
-
     // 독: poisonDelay 뒤 '그때의 위치'에서 사망
     IEnumerator PoisonRoutine()
     {
@@ -328,7 +346,7 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // 사망 확정: shell 생성 → 영혼세계 진입 (영혼세계가 없으면 잠시 뒤 부활)
-    void Die(DeathType deathType)
+   	void Die(DeathType deathType, Transform spikeAnchor = null)
     {
         isDead = true;
 
@@ -346,7 +364,7 @@ public class PlayerController : MonoBehaviour, IKillable
         rb.linearVelocity = Vector2.zero;
 
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
-        Shell shell = SpawnShellFor(deathType);
+        Shell shell = SpawnShellFor(deathType, spikeAnchor);
 
         if (useSoulWorld && soulWorldController != null && shell != null)
         {
@@ -369,7 +387,7 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // 사망 종류별 shell 생성 (shell이 없는 사망은 null)
-    Shell SpawnShellFor(DeathType deathType)
+    	Shell SpawnShellFor(DeathType deathType, Transform spikeAnchor)
     {
         if (shellPrefab == null) return null;
 
@@ -378,7 +396,7 @@ public class PlayerController : MonoBehaviour, IKillable
             case DeathType.Spike:
                 {
                     Shell shell = SpawnShell();
-                    shell.OnSpikeDeath();       // 그 자리에 고정
+                    shell.OnSpikeDeath(spikeAnchor);      // 그 자리에 고정
                     return shell;
                 }
             case DeathType.poison:
