@@ -309,6 +309,11 @@ public class PlayerController : MonoBehaviour, IKillable
     // Hazard가 보내는 사망 신호 (IKillable). 영혼 상태에서는 무시
     public void Kill(DeathType deathType)
     {
+        Kill(deathType, null);
+    }
+
+    public void Kill(DeathType deathType, Transform spikeAnchor)
+    {
         if (isDead) return;
 
         switch (deathType)
@@ -317,11 +322,10 @@ public class PlayerController : MonoBehaviour, IKillable
             case DeathType.laser:
             case DeathType.saw:
             case DeathType.Fall:
-                Die(deathType);
+                Die(deathType, spikeAnchor);
                 break;
 
             case DeathType.poison:
-                // 아직 사망 확정 아님. 이미 중독 중이면 타이머를 새로 시작하지 않음
                 if (poisonRoutine == null)
                     poisonRoutine = StartCoroutine(PoisonRoutine());
                 break;
@@ -331,7 +335,6 @@ public class PlayerController : MonoBehaviour, IKillable
                 break;
         }
     }
-
     // 독: poisonDelay 뒤 '그때의 위치'에서 사망
     IEnumerator PoisonRoutine()
     {
@@ -343,7 +346,7 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // 사망 확정: shell 생성 → 영혼세계 진입 (영혼세계가 없으면 잠시 뒤 부활)
-    void Die(DeathType deathType)
+   	void Die(DeathType deathType, Transform spikeAnchor = null)
     {
         isDead = true;
 
@@ -361,7 +364,7 @@ public class PlayerController : MonoBehaviour, IKillable
         rb.linearVelocity = Vector2.zero;
 
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
-        Shell shell = SpawnShellFor(deathType);
+        Shell shell = SpawnShellFor(deathType, spikeAnchor);
 
         if (useSoulWorld && soulWorldController != null && shell != null)
         {
@@ -384,7 +387,7 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // 사망 종류별 shell 생성 (shell이 없는 사망은 null)
-    Shell SpawnShellFor(DeathType deathType)
+    	Shell SpawnShellFor(DeathType deathType, Transform spikeAnchor)
     {
         if (shellPrefab == null) return null;
 
@@ -393,7 +396,7 @@ public class PlayerController : MonoBehaviour, IKillable
             case DeathType.Spike:
                 {
                     Shell shell = SpawnShell();
-                    shell.OnSpikeDeath();       // 그 자리에 고정
+                    shell.OnSpikeDeath(spikeAnchor);      // 그 자리에 고정
                     return shell;
                 }
             case DeathType.poison:

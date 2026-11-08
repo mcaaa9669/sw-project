@@ -9,21 +9,32 @@ public class Hazard : MonoBehaviour
     {
         isActive = active;
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isActive) return;
-        // 죽을 수 있는 오브젝트일 때
-        if (other.TryGetComponent(out IKillable target))
-        {
-            target.Kill(deathType);
-        }
+        TryKill(other);
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isActive) return;
-        if (collision.collider.TryGetComponent(out IKillable target))
+        TryKill(collision.collider);
+    }
+
+    void TryKill(Collider2D other)
+    {
+        if (!isActive || !other.TryGetComponent(out IKillable target))
+            return;
+
+        if (deathType == DeathType.Spike && target is PlayerController player)
         {
-            target.Kill(deathType);
+            var rotatingBlock = GetComponentInParent<RotatingSpikeBlock>();
+            if (rotatingBlock != null)
+            {
+                player.Kill(deathType, rotatingBlock.transform);
+                return;
+            }
         }
+
+        target.Kill(deathType);
     }
 }
