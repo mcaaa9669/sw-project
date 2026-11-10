@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         if (!CanControl) return;
 
-        bool grounded = IsGrounded(out bool onBelt);
+        bool grounded = IsGrounded(out bool onBelt, out float beltSpeed);
         bool inPoison = poisonSwim != null
         && poisonSwim.isActiveAndEnabled
         && poisonSwim.IsSwimming;
@@ -153,6 +153,10 @@ public class PlayerController : MonoBehaviour, IKillable
 
     float targetSpeed = inputX * moveSpeed * speedMultiplier;
 
+    if (onBelt && inputX * beltSpeed < 0f)
+    {
+        targetSpeed *= 0.6f;
+    }
         // 벽을 향한 이동만 차단. 반대쪽 이동은 가능.
         bool wallBlocked =
             inputX != 0f && IsWallAhead(Mathf.Sign(inputX));
@@ -222,9 +226,10 @@ public class PlayerController : MonoBehaviour, IKillable
         if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
 
-    bool IsGrounded(out bool onBelt)
+    bool IsGrounded(out bool onBelt, out float beltSpeed)
     {
         onBelt = false;
+        beltSpeed = 0f;
         bool grounded = false;
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -255,6 +260,7 @@ public class PlayerController : MonoBehaviour, IKillable
                 effector.isActiveAndEnabled)
             {
                 onBelt = true;
+                beltSpeed = effector.speed;
                 break;
             }
         }
