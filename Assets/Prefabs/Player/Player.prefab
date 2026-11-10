@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControll
   fallGravityMultiplier: 2
   moveSpeed: 3.5
-  jumpForce: 4.8
+  jumpForce: 5
   groundCheck: {fileID: 4011528642104374960}
   groundRadius: 0.1
   groundLayer:
@@ -196,7 +196,7 @@ MonoBehaviour:
     m_Bits: 8
   wallCheckDistance: 0.03
   jumpBufferTime: 0.12
-  surfaceMoveMultiplier: 0.5
+  surfaceMoveMultiplier: 1
 --- !u!95 &-540795473628240258
 Animator:
   serializedVersion: 7
@@ -234,7 +234,7 @@ MonoBehaviour:
   sinkGravityScale: 0.6
   swimSpeed: 1.5
   maxSinkSpeed: 2
-  surfaceJumpSpeed: 3
+  surfaceJumpSpeed: 4
 --- !u!1 &8190530950762768709
 GameObject:
   m_ObjectHideFlags: 0

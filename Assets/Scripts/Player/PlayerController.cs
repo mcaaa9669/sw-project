@@ -376,15 +376,17 @@ public class PlayerController : MonoBehaviour, IKillable
         {
             BecomeSoul(shell);
         }
-        else if (useSoulWorld && soulWorldController != null && deathType == DeathType.Fall)
-        {
-            // 낭떠러지: 시체 없이 리스폰 포인트에서 영혼으로 시작
-            transform.position = GetRespawnPosition();
-            BecomeSoul(null);
-        }
         else
         {
-            // 낭떠러지(shell 없음) 또는 영혼세계 미사용: 몸을 숨기고 잠시 뒤 부활
+            if (deathType == DeathType.Fall)
+            {
+                SoulWorldController deathCounter = soulWorldController != null
+                    ? soulWorldController
+                    : FindFirstObjectByType<SoulWorldController>();
+                deathCounter?.RegisterDeath();
+            }
+
+            // 몸을 숨기고 잠시 뒤 체크포인트에서 부활
             rb.simulated = false;
             if (col) col.enabled = false;
             SetBodyVisible(false);
@@ -469,6 +471,8 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // ===== 체크포인트 =====
+
+    public bool IsCurrentRespawnPoint(RespawnPoint point) => point != null && respawnPoint == point;
 
     // RespawnPoint가 호출. 앞 순서 지점으로는 되돌아가지 않음, 영혼은 갱신 불가
     public bool SetRespawnPoint(RespawnPoint point)

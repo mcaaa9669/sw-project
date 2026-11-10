@@ -37,12 +37,14 @@ public class SoulWorldController : MonoBehaviour
         if (isSoulWorld)
             return;
 
-        deathCount++;
-
-        UpdateDeathDisplay();
-
-        // 영혼세계 진입
+        RegisterDeath();
         EnterSoulWorld();
+    }
+
+    public void RegisterDeath()
+    {
+        deathCount++;
+        UpdateDeathDisplay();
     }
 
     // 영혼세계 진입 및 타이머 시작
