@@ -234,7 +234,7 @@ MonoBehaviour:
   sinkGravityScale: 0.6
   swimSpeed: 1.5
   maxSinkSpeed: 2
-  surfaceJumpSpeed: 2
+  surfaceJumpSpeed: 3
 --- !u!1 &8190530950762768709
 GameObject:
   m_ObjectHideFlags: 0
