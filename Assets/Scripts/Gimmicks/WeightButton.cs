@@ -22,6 +22,8 @@ public class WeightButton : MonoBehaviour
 
     [Tooltip("압력이 사라진 뒤 버튼이 올라오기까지 기다리는 시간. 점프로 잠깐 뜰 때 깜빡이지 않게 함")]
     [SerializeField] private float releaseDelay = 0.1f;
+    [SerializeField] private bool holdShellOnPlate;
+    [SerializeField] private bool soulOnly;
 
     // 다른 장치를 작동시키는 이벤트
     public UnityEvent onPressed;
@@ -84,11 +86,19 @@ public class WeightButton : MonoBehaviour
             if (other == null || !other.enabled) continue;
 
             // shell (시체)
-            if (other.GetComponentInParent<Shell>() != null)
+            if (!soulOnly && other.GetComponentInParent<Shell>() != null)
+            {
+                Rigidbody2D body = other.attachedRigidbody;
+                if (holdShellOnPlate && body != null && body.bodyType == RigidbodyType2D.Dynamic)
+                    body.linearVelocityX = 0f;
+
                 return true;
+            }
+
+            if (holdShellOnPlate && !soulOnly) continue;
 
             PlayerController player = other.GetComponentInParent<PlayerController>();
-            if (player != null && (!player.IsDead || player.IsSoul))
+            if (player != null && (player.IsSoul || (!soulOnly && !player.IsDead)))
                 return true;
         }
 

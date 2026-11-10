@@ -22,6 +22,12 @@ public class ConveyorOnReturn : MonoBehaviour
             effector.enabled = false;
     }
 
+    public void StartBelt()
+    {
+        isRunning = true;
+        effector.enabled = true;
+    }
+
     public void ToggleBelt()
     {
         isRunning = !isRunning;
