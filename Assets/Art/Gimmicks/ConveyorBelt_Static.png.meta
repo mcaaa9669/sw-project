@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 28206dfdc0e2c4970b6b76a183bdfc7f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3190385588279684302
+    second: ConveyorBelt_Static_0
+  - first:
+      213: -2132688142237411942
+    second: ConveyorBelt_Static_1
+  - first:
+      213: 44827688972189050
+    second: ConveyorBelt_Static_2
+  - first:
+      213: -6017612669892834638
+    second: ConveyorBelt_Static_3
+  - first:
+      213: 8469904629665069906
+    second: ConveyorBelt_Static_4
+  - first:
+      213: 2352286596517053917
+    second: ConveyorBelt_Static_5
+  - first:
+      213: -9100779295335585180
+    second: ConveyorBelt_Static_6
+  - first:
+      213: -1052842378501804726
+    second: ConveyorBelt_Static_7
+  - first:
+      213: 322425072360303805
+    second: ConveyorBelt_Static_8
+  - first:
+      213: -8745257485168290298
+    second: ConveyorBelt_Static_9
+  - first:
+      213: -8305529623362321655
+    second: ConveyorBelt_Static_10
+  - first:
+      213: 3624858556794562478
+    second: ConveyorBelt_Static_11
+  - first:
+      213: -3173399785301341006
+    second: ConveyorBelt_Static_12
+  - first:
+      213: 6866496456039205106
+    second: ConveyorBelt_Static_13
+  - first:
+      213: -1144791601741869555
+    second: ConveyorBelt_Static_14
+  - first:
+      213: 8704099850221796019
+    second: ConveyorBelt_Static_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 400
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 31
+        width: 2153
+        height: 690
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eccafe50ac6864c20800000000000000
+      internalID: 3190385588279684302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_1
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 699
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9550412f6b2762e0800000000000000
+      internalID: -2132688142237411942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_2
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 692
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7df94dab824f9000800000000000000
+      internalID: 44827688972189050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_3
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 667
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bac52fc8252d7ca0800000000000000
+      internalID: -6017612669892834638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_4
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 658
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25b7f9c92652b8570800000000000000
+      internalID: 8469904629665069906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_5
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 663
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd5cf43523005a020800000000000000
+      internalID: 2352286596517053917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_6
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 661
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46aea4ae27983b180800000000000000
+      internalID: -9100779295335585180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_7
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 657
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4d2ce85f6d8361f0800000000000000
+      internalID: -1052842378501804726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_8
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 659
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbc27b025eb797400800000000000000
+      internalID: 322425072360303805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_9
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 659
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 606d73fc6aa92a680800000000000000
+      internalID: -8745257485168290298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_10
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 647
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9034108efc4dcbc80800000000000000
+      internalID: -8305529623362321655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_11
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 645
+        width: 6
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea766cee6a51e4230800000000000000
+      internalID: 3624858556794562478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_12
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 646
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bc00da65b1d5f3d0800000000000000
+      internalID: -3173399785301341006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_13
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 644
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f802b18522ba4f50800000000000000
+      internalID: 6866496456039205106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_14
+      rect:
+        serializedVersion: 2
+        x: 2087
+        y: 630
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0e43548a12ec10f0800000000000000
+      internalID: -1144791601741869555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_Static_15
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 49
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ba300e82bc2bc870800000000000000
+      internalID: 8704099850221796019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ConveyorBelt_Static_0: 3190385588279684302
+      ConveyorBelt_Static_1: -2132688142237411942
+      ConveyorBelt_Static_10: -8305529623362321655
+      ConveyorBelt_Static_11: 3624858556794562478
+      ConveyorBelt_Static_12: -3173399785301341006
+      ConveyorBelt_Static_13: 6866496456039205106
+      ConveyorBelt_Static_14: -1144791601741869555
+      ConveyorBelt_Static_15: 8704099850221796019
+      ConveyorBelt_Static_2: 44827688972189050
+      ConveyorBelt_Static_3: -6017612669892834638
+      ConveyorBelt_Static_4: 8469904629665069906
+      ConveyorBelt_Static_5: 2352286596517053917
+      ConveyorBelt_Static_6: -9100779295335585180
+      ConveyorBelt_Static_7: -1052842378501804726
+      ConveyorBelt_Static_8: 322425072360303805
+      ConveyorBelt_Static_9: -8745257485168290298
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

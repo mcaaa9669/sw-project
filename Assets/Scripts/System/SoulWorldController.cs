@@ -17,7 +17,8 @@ public class SoulWorldController : MonoBehaviour
 
     private void UpdateDeathDisplay()
     {
-        gameHUD.SetDeathCount(deathCount, maxDeaths);
+        if (gameHUD != null)
+            gameHUD.SetDeathCount(deathCount, maxDeaths);
     }
 
     public event Action OnSoulWorldEntered;
@@ -37,12 +38,14 @@ public class SoulWorldController : MonoBehaviour
         if (isSoulWorld)
             return;
 
-        deathCount++;
-
-        UpdateDeathDisplay();
-
-        // 영혼세계 진입
+        RegisterDeath();
         EnterSoulWorld();
+    }
+
+    public void RegisterDeath()
+    {
+        deathCount++;
+        UpdateDeathDisplay();
     }
 
     // 영혼세계 진입 및 타이머 시작
@@ -54,8 +57,11 @@ public class SoulWorldController : MonoBehaviour
         isSoulWorld = true;
         remainingTime = maxSoulTime;
 
-        gameHUD.SetSoulTime(remainingTime, maxSoulTime);
-        gameHUD.ShowSoulTimer(true);
+        if (gameHUD != null)
+        {
+            gameHUD.SetSoulTime(remainingTime, maxSoulTime);
+            gameHUD.ShowSoulTimer(true);
+        }
 
         OnSoulWorldEntered?.Invoke();
     }
@@ -73,7 +79,8 @@ public class SoulWorldController : MonoBehaviour
         );
 
         // 게이지 갱신
-        gameHUD.SetSoulTime(remainingTime, maxSoulTime);
+        if (gameHUD != null)
+            gameHUD.SetSoulTime(remainingTime, maxSoulTime);
 
         // E키로 조기 복귀
         bool pressedE =
@@ -92,7 +99,8 @@ public class SoulWorldController : MonoBehaviour
     {
         isSoulWorld = false;
 
-        gameHUD.ShowSoulTimer(false);
+        if (gameHUD != null)
+            gameHUD.ShowSoulTimer(false);
 
         OnReturnRequested?.Invoke();
     }
