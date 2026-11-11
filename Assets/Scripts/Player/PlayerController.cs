@@ -28,15 +28,17 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] float respawnDelay = 1f;                  // 영혼세계 없이 부활할 때 걸리는 시간
 
     [Header("Soul World")]
-    [SerializeField] bool useSoulWorld = true;                 // 끄면 영혼세계 없이 바로 부활
+    [SerializeField] bool useSoulWorld = true;
+    [SerializeField] bool soulWorldOnFall = true;              // 추가: 끄면 낭떠러지 사망은 영혼세계 없이 바로 부활// 끄면 영혼세계 없이 바로 부활
     [SerializeField] SoulWorldController soulWorldController;  // 비우면 씬에서 자동으로 찾음
     [SerializeField] Color soulTint = new Color(0.6f, 0.85f, 1f, 0.5f); // 영혼 외형 (임시)
+
 
     [SerializeField, Range(0f, 1f)]
     float swimMoveMultiplier = 0.5f;
 
     Rigidbody2D rb;
-    Collider2D col;
+    Collider2D col;           // 추가: 끄면 낭떠러지 사망은 영혼세계 없이 바로 부활
     PoisonSwim poisonSwim;
     SpriteRenderer[] renderers;
     Color[] originalColors;
@@ -380,9 +382,18 @@ public class PlayerController : MonoBehaviour, IKillable
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
         Shell shell = SpawnShellFor(deathType, spikeAnchor);
 
-        if (useSoulWorld && soulWorldController != null && shell != null)
+        bool canUseSoulWorld = useSoulWorld && soulWorldController != null;
+
+        if (canUseSoulWorld && shell != null)
         {
             BecomeSoul(shell);
+        }
+        else if (canUseSoulWorld && soulWorldOnFall && deathType == DeathType.Fall)
+        {
+            // 낭떠러지: shell 없이 리스폰 포인트에서 영혼으로 시작
+            transform.position = GetRespawnPosition();
+            rb.linearVelocity = Vector2.zero;
+            BecomeSoul(null);
         }
         else
         {
