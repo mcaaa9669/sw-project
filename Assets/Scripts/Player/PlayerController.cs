@@ -421,6 +421,7 @@ public class PlayerController : MonoBehaviour, IKillable
         switch (deathType)
         {
             case DeathType.Spike:
+            case DeathType.saw when spikeAnchor != null:
                 {
                     Shell shell = SpawnShell();
                     shell.OnSpikeDeath(spikeAnchor);      // 그 자리에 고정
