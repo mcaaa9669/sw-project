@@ -9,14 +9,30 @@ public sealed class StageViewTrigger : MonoBehaviour
     [SerializeField] private RespawnPoint introFallCheckpoint;
 
     private bool used;
+    private RespawnPoint checkpoint;
+
+    private void OnEnable()
+    {
+        checkpoint = GetComponent<RespawnPoint>();
+        if (checkpoint != null)
+            checkpoint.Reached += ActivateView;
+    }
+
+    private void OnDisable()
+    {
+        if (checkpoint != null)
+            checkpoint.Reached -= ActivateView;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (used || stageView == null)
-            return;
+        if (checkpoint == null)
+            ActivateView(other.GetComponentInParent<PlayerController>());
+    }
 
-        PlayerController player = other.GetComponentInParent<PlayerController>();
-        if (player == null || !stageView.ControlsPlayer(player))
+    private void ActivateView(PlayerController player)
+    {
+        if (used || stageView == null || player == null || !stageView.ControlsPlayer(player))
             return;
 
         if (introFallCheckpoint != null && !player.SetRespawnPoint(introFallCheckpoint))
