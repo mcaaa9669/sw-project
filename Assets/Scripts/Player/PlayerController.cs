@@ -380,9 +380,18 @@ public class PlayerController : MonoBehaviour, IKillable
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
         Shell shell = SpawnShellFor(deathType, spikeAnchor);
 
-        if (useSoulWorld && soulWorldController != null && shell != null)
+        bool canUseSoulWorld = useSoulWorld && soulWorldController != null;
+
+        if (canUseSoulWorld && shell != null)
         {
             BecomeSoul(shell);
+        }
+        else if (canUseSoulWorld && deathType == DeathType.Fall)
+        {
+            // 낭떠러지: shell 없이 리스폰 포인트에서 영혼으로 시작
+            transform.position = GetRespawnPosition();
+            rb.linearVelocity = Vector2.zero;
+            BecomeSoul(null);
         }
         else
         {
