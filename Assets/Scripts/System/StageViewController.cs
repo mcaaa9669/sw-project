@@ -13,6 +13,7 @@ public sealed class StageViewController : MonoBehaviour
         public string name;
         public ViewMode cameraMode;
         public Vector2 cameraCenter;
+        public BoxCollider2D leftExitBarrier;
         [Min(0.01f)] public float orthographicSize;
         public ViewMode backgroundMode;
         public Vector2 backgroundCenter;
@@ -21,12 +22,15 @@ public sealed class StageViewController : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private Transform background;
+    [SerializeField] private Transform[] zoomScaledLayers = Array.Empty<Transform>();
     [SerializeField] private View[] views;
 
     private int currentView = -1;
     private Camera viewCamera;
     private float startingSize;
     private float sceneSize;
+    private float referenceZoom;
+    private Vector3[] originalLayerScales;
     private Vector2 cameraStart;
     private Vector2 backgroundStart;
     private float elapsed;
@@ -37,6 +41,14 @@ public sealed class StageViewController : MonoBehaviour
     {
         viewCamera = GetComponent<Camera>();
         sceneSize = viewCamera.orthographicSize;
+        referenceZoom = views != null && views.Length > 0 && views[0].orthographicSize > 0f
+            ? views[0].orthographicSize : sceneSize;
+        originalLayerScales = new Vector3[zoomScaledLayers.Length];
+        for (int i = 0; i < zoomScaledLayers.Length; i++)
+        {
+            if (zoomScaledLayers[i] != null)
+                originalLayerScales[i] = zoomScaledLayers[i].localScale;
+        }
     }
 
     private void Start() => SetView(0);
@@ -52,9 +64,25 @@ public sealed class StageViewController : MonoBehaviour
         if (background != null)
             backgroundStart = background.position;
         elapsed = 0f;
+        ActivateLeftExitBarrier(views[index]);
 
         if (index == 0 || views[index].transitionDuration <= 0f)
             UpdateView(1f);
+    }
+
+    private void ActivateLeftExitBarrier(View view)
+    {
+        BoxCollider2D barrier = view.leftExitBarrier;
+        if (barrier == null)
+            return;
+
+        float size = view.orthographicSize > 0f ? view.orthographicSize : sceneSize;
+        float leftEdge = view.cameraCenter.x - size * viewCamera.aspect;
+        if (player != null && player.TryGetComponent(out Collider2D playerCollider))
+            leftEdge = Mathf.Min(leftEdge, playerCollider.bounds.min.x - 0.01f);
+
+        SetCenter(barrier.transform, new Vector2(leftEdge - barrier.size.x * 0.5f, view.cameraCenter.y));
+        barrier.enabled = true;
     }
 
     private void LateUpdate()
@@ -76,6 +104,15 @@ public sealed class StageViewController : MonoBehaviour
         SetCenter(transform, Vector2.Lerp(cameraStart, cameraGoal, t));
         float size = view.orthographicSize > 0f ? view.orthographicSize : sceneSize;
         viewCamera.orthographicSize = Mathf.Lerp(startingSize, size, t);
+        float zoomRatio = viewCamera.orthographicSize / referenceZoom;
+        for (int i = 0; i < zoomScaledLayers.Length; i++)
+        {
+            if (zoomScaledLayers[i] == null)
+                continue;
+
+            Vector3 original = originalLayerScales[i];
+            zoomScaledLayers[i].localScale = new Vector3(original.x * zoomRatio, original.y * zoomRatio, original.z);
+        }
 
         if (background == null)
             return;
