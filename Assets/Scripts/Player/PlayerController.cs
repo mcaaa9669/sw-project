@@ -315,6 +315,14 @@ public class PlayerController : MonoBehaviour, IKillable
     // Hazard가 보내는 사망 신호 (IKillable). 영혼 상태에서는 무시
     public void Kill(DeathType deathType)
     {
+        if (isSoul && deathType == DeathType.Fall)
+        {
+            transform.position = GetRespawnPosition();
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (isDead) return;
         Kill(deathType, null);
     }
 
