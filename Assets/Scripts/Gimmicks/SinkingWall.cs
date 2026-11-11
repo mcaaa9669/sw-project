@@ -25,6 +25,11 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
         target = upPosition + Vector3.down * sinkDepth;
     }
 
+    public void RetractUp()
+    {
+        target = upPosition + Vector3.up * sinkDepth;
+    }
+
     // ¹öÆ° ¶¼Áü ¡æ ¿ø·¡ À§Ä¡·Î
     public void Rise()
     {
