@@ -7,6 +7,8 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     [SerializeField] float sinkDepth = 4f;   // 내려가는 거리 (벽 높이보다 조금 크게)
     [SerializeField] float speed = 6f;       // 초당 이동 거리
 
+    [SerializeField] bool moveInSpiritWorld;
+
     Vector3 upPosition;     // 원래 위치
     Vector3 target;
     bool paused;
@@ -30,7 +32,7 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     }
 
     // 영혼세계 동안 멈춤 (WorldStateManager가 자동 호출)
-    public void SetWorldPaused(bool p) => paused = p;
+    public void SetWorldPaused(bool p) => paused = p && !moveInSpiritWorld;
 
     void Update()
     {

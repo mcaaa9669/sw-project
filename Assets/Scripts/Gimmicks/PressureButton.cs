@@ -18,7 +18,7 @@ public class PressureButton : MonoBehaviour
     public UnityEvent onPressed;
     public UnityEvent onReleased;
 
-    private readonly HashSet<Collider2D> touchingPlayers = new();
+    private readonly HashSet<Collider2D> pressingColliders = new();
 
     void Awake()
     {
@@ -31,14 +31,15 @@ public class PressureButton : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // 플레이어만 버튼을 누를 수 있음
-        if (other.GetComponentInParent<PlayerController>() == null)
+        if (!isActiveAndEnabled ||
+            (other.GetComponentInParent<PlayerController>() == null &&
+             other.GetComponentInParent<Shell>() == null))
             return;
 
-        if (!touchingPlayers.Add(other))
+        if (!pressingColliders.Add(other))
             return;
 
-        if (touchingPlayers.Count == 1)
+        if (pressingColliders.Count == 1)
         {
             // 빨간 버튼이 낮아진 이미지로 변경
             if (targetRenderer != null && pressedSprite != null)
@@ -51,10 +52,10 @@ public class PressureButton : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!touchingPlayers.Remove(other))
+        if (!isActiveAndEnabled || !pressingColliders.Remove(other))
             return;
 
-        if (touchingPlayers.Count == 0)
+        if (pressingColliders.Count == 0)
         {
             // 원래 버튼 이미지로 복구
             if (targetRenderer != null && defaultSprite != null)
