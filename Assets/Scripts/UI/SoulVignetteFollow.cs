@@ -4,6 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 // 영혼세계 비네팅의 중심을 플레이어 위치로 따라가게 함
 // SoulWorldVignette 오브젝트(Volume이 있는 곳)에 같이 붙여서 사용
+[DefaultExecutionOrder(120)]
 [RequireComponent(typeof(Volume))]
 public class SoulVignetteFollow : MonoBehaviour
 {

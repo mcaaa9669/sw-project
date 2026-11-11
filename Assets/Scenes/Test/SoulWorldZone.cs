@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾î°¡ Áö³ª°¡¸é ¿µÈ¥¼¼°è ±â´ÉÀ» ÄÑ°Å³ª ²û
+// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Å³ï¿½ ï¿½ï¿½
 [RequireComponent(typeof(Collider2D))]
 public class SoulWorldZone : MonoBehaviour
 {

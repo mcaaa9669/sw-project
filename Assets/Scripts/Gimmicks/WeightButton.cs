@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 // 무게 버튼 (압력 유지 방식)
 // - 기존 PressureButton(닿는 순간·떠나는 순간 방식)과 별도로 사용
@@ -24,6 +25,10 @@ public class WeightButton : MonoBehaviour
     [SerializeField] private float releaseDelay = 0.1f;
     [SerializeField] private bool holdShellOnPlate;
     [SerializeField] private bool soulOnly;
+    [FormerlySerializedAs("effectsOnlyInSpiritWorld")]
+    [SerializeField] private bool allowPlayerOnShellPlate;
+    [SerializeField] private GameObject platformWhilePressed;
+    [SerializeField] private Transform pressurePlayer;
 
     // 다른 장치를 작동시키는 이벤트
     public UnityEvent onPressed;
@@ -31,6 +36,8 @@ public class WeightButton : MonoBehaviour
 
     public bool IsPressed { get; private set; }
 
+    private PlayerController assignedPlayer;
+    private Collider2D assignedPlayerCollider;
     private Collider2D area;                                    // 버튼 위 감지 영역 (Is Trigger)
     private readonly List<Collider2D> overlaps = new();
     private ContactFilter2D filter;
@@ -39,6 +46,13 @@ public class WeightButton : MonoBehaviour
     void Awake()
     {
         area = GetComponent<Collider2D>();
+        if (pressurePlayer != null)
+            assignedPlayer = pressurePlayer.GetComponent<PlayerController>();
+        else if (allowPlayerOnShellPlate && platformWhilePressed != null)
+            assignedPlayer = FindFirstObjectByType<PlayerController>();
+
+        if (assignedPlayer != null)
+            assignedPlayerCollider = assignedPlayer.GetComponent<Collider2D>();
 
         if (targetRenderer == null)
             targetRenderer = GetComponentInParent<SpriteRenderer>();
@@ -52,7 +66,15 @@ public class WeightButton : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (HasPressure())
+        bool hasPressure = HasPressure();
+        if (assignedPlayer != null && assignedPlayerCollider != null && area.enabled &&
+            assignedPlayerCollider.enabled && (!assignedPlayer.IsDead || assignedPlayer.IsSoul))
+        {
+            ColliderDistance2D contact = area.Distance(assignedPlayerCollider);
+            bool playerOnPlate = contact.isValid && contact.distance <= 0.03f;
+            hasPressure |= playerOnPlate;
+        }
+        if (hasPressure)
             lastPressureTime = Time.time;
 
         bool shouldBePressed = Time.time - lastPressureTime <= releaseDelay;
@@ -71,6 +93,9 @@ public class WeightButton : MonoBehaviour
             Debug.Log("버튼 복구!");
             onReleased?.Invoke();
         }
+
+        if (platformWhilePressed != null && platformWhilePressed.activeSelf != shouldBePressed)
+            platformWhilePressed.SetActive(shouldBePressed);
     }
 
     // 지금 버튼 위에 압력을 주는 것이 있는지
@@ -95,7 +120,7 @@ public class WeightButton : MonoBehaviour
                 return true;
             }
 
-            if (holdShellOnPlate && !soulOnly) continue;
+            if (holdShellOnPlate && !soulOnly && !allowPlayerOnShellPlate) continue;
 
             PlayerController player = other.GetComponentInParent<PlayerController>();
             if (player != null && (player.IsSoul || (!soulOnly && !player.IsDead)))
