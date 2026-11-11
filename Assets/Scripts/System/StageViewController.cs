@@ -14,10 +14,13 @@ public sealed class StageViewController : MonoBehaviour
         public ViewMode cameraMode;
         public Vector2 cameraCenter;
         public bool followBelowHeight;
+        public bool followAtOrAboveHeight;
         public float followHeight;
         [Min(0.01f)] public float followOrthographicSize = 5f;
         public bool enableSoulVignette;
+        public bool maximizeSoulVignette;
         public bool enableSoulWorld;
+        [Min(0f)] public float soulWorldTimeOverride;
         public RespawnPoint startWhenPastCheckpoint;
         public BoxCollider2D leftExitBarrier;
         [Min(0.01f)] public float orthographicSize;
@@ -29,6 +32,7 @@ public sealed class StageViewController : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Transform background;
     [SerializeField] private GameObject soulVignette;
+    [SerializeField] private SoulWorldController soulWorldController;
     [SerializeField] private Transform[] zoomScaledLayers = Array.Empty<Transform>();
     [SerializeField] private View[] views;
 
@@ -43,7 +47,7 @@ public sealed class StageViewController : MonoBehaviour
     private Vector2 cameraStart;
     private Vector2 backgroundStart;
     private float elapsed;
-    private bool followingBelowHeight;
+    private bool followingHeightOverride;
 
     public bool ControlsPlayer(PlayerController candidate) => candidate.transform == player;
 
@@ -84,19 +88,24 @@ public sealed class StageViewController : MonoBehaviour
 
     public void SetView(int index)
     {
-        if (views == null || index < 0 || index >= views.Length || index == currentView)
+        if (views == null || index < 0 || index >= views.Length || index <= currentView)
             return;
 
         bool firstView = currentView < 0;
         currentView = index;
         View view = views[index];
-        followingBelowHeight = ShouldFollowBelowHeight(view);
+        followingHeightOverride = ShouldFollowAtHeight(view);
         BeginTransition();
         ActivateLeftExitBarrier(view);
+        if (soulWorldController != null)
+            soulWorldController.SetStageTimeOverride(view.soulWorldTimeOverride);
         if (view.enableSoulWorld && player != null && player.TryGetComponent(out PlayerController controller))
             controller.SetSoulWorldEnabled(true);
-        if (view.enableSoulVignette && soulVignette != null)
-            soulVignette.SetActive(true);
+        if (soulVignette != null)
+            soulVignette.SetActive(view.enableSoulVignette);
+        if (soulVignette != null && soulVignette.activeInHierarchy &&
+            soulVignette.TryGetComponent(out SoulWorldVignette vignette))
+            vignette.SetMaximumStrength(view.maximizeSoulVignette);
 
         if (firstView || view.transitionDuration <= 0f)
         {
@@ -105,9 +114,14 @@ public sealed class StageViewController : MonoBehaviour
         }
     }
 
-    private bool ShouldFollowBelowHeight(View view)
+    private bool ShouldFollowAtHeight(View view)
     {
-        return view.followBelowHeight && player != null && player.localPosition.y < view.followHeight;
+        if (player == null)
+            return false;
+
+        float height = player.localPosition.y;
+        return (view.followBelowHeight && height < view.followHeight) ||
+            (view.followAtOrAboveHeight && height >= view.followHeight);
     }
 
     private void BeginTransition()
@@ -141,10 +155,10 @@ public sealed class StageViewController : MonoBehaviour
             return;
 
         View view = views[currentView];
-        bool follow = ShouldFollowBelowHeight(view);
-        if (followingBelowHeight != follow)
+        bool follow = ShouldFollowAtHeight(view);
+        if (followingHeightOverride != follow)
         {
-            followingBelowHeight = follow;
+            followingHeightOverride = follow;
             BeginTransition();
         }
 
@@ -158,13 +172,13 @@ public sealed class StageViewController : MonoBehaviour
     {
         View view = views[currentView];
         Vector2 cameraGoal = view.cameraCenter;
-        if (followingBelowHeight)
+        if (followingHeightOverride)
             cameraGoal = player.position;
         else if (view.cameraMode == ViewMode.FollowPlayer && player != null)
             cameraGoal += (Vector2)player.position;
         SetCenter(transform, Vector2.Lerp(cameraStart, cameraGoal, t));
         float size = view.orthographicSize > 0f ? view.orthographicSize : sceneSize;
-        float cameraSize = followingBelowHeight ? view.followOrthographicSize : size;
+        float cameraSize = followingHeightOverride ? view.followOrthographicSize : size;
         viewCamera.orthographicSize = Mathf.Lerp(startingSize, cameraSize, t);
         frameSize = Mathf.Lerp(startingFrameSize, size, t);
         float zoomRatio = frameSize / referenceZoom;
