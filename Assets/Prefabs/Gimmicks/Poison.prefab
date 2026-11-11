@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hazard
   isActive: 1
   deathType: 3
+  stickShellToSaw: 0
 --- !u!1001 &2763711574036998072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,3 +284,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hazard
   isActive: 1
   deathType: 3
+  stickShellToSaw: 0

@@ -423,12 +423,20 @@ PrefabInstance:
       value: StickySaw
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.1
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -461,14 +469,6 @@ PrefabInstance:
     - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 3940812087299591342, guid: e5e13900b31d46f4a84c65066b40d52f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
