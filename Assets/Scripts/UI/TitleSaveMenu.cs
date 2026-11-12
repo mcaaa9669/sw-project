@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,11 +11,13 @@ public class TitleSaveMenu : MonoBehaviour
     [SerializeField] Button continueButton;
     [SerializeField] Button quitButton;
 
-    const int PageSize = 4;
+    const int VisibleRows = 5;
+    const float RowHeight = 88f;
+    const float RowSpacing = 8f;
+    static readonly CultureInfo KoreanCulture = CultureInfo.GetCultureInfo("ko-KR");
     GameSave[] saves = Array.Empty<GameSave>();
     RectTransform panel;
     TMP_Text status;
-    int page;
     bool busy;
 
     void Awake()
@@ -64,7 +67,6 @@ public class TitleSaveMenu : MonoBehaviour
             return;
         }
 
-        page = 0;
         SetBusy(false, "");
         newGameButton.gameObject.SetActive(false);
         continueButton.gameObject.SetActive(false);
@@ -74,53 +76,98 @@ public class TitleSaveMenu : MonoBehaviour
 
     void RenderList()
     {
-        if (panel != null)
-        {
-            panel.gameObject.SetActive(false);
-            Destroy(panel.gameObject);
-        }
-
         var list = new GameObject("SaveList", typeof(RectTransform), typeof(VerticalLayoutGroup));
         panel = (RectTransform)list.transform;
         panel.SetParent(transform, false);
-        panel.anchorMin = new Vector2(0.26f, 0.12f);
+        panel.anchorMin = new Vector2(0.26f, 0.10f);
         panel.anchorMax = new Vector2(0.74f, 0.67f);
         panel.offsetMin = panel.offsetMax = Vector2.zero;
         var layout = list.GetComponent<VerticalLayoutGroup>();
-        layout.spacing = 8;
-        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.spacing = RowSpacing;
+        layout.childAlignment = TextAnchor.UpperCenter;
         layout.childForceExpandHeight = false;
 
-        CreateLabel(saves.Length == 0 ? "저장된 게임이 없습니다." : "저장 선택",
+        var heading = CreateLabel(saves.Length == 0 ? "저장된 게임이 없습니다." : "저장 선택",
             panel, status, 34);
+        heading.gameObject.AddComponent<LayoutElement>().preferredHeight = 48;
 
-        int start = page * PageSize;
-        for (int i = start; i < Mathf.Min(start + PageSize, saves.Length); i++)
+        if (saves.Length > 0)
         {
-            GameSave save = saves[i];
-            string date = DateTimeOffset.TryParse(save.updatedAt, out var time)
-                ? time.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss") : save.updatedAt;
-            AddOption($"{save.stage}  ·  {date}  ·  {save.id.Substring(0, 6)}",
-                () => ResumeSave(save.id));
+            var content = CreateSaveScroll();
+            foreach (GameSave save in saves)
+            {
+                string stageName = save.stage switch
+                {
+                    SaveSession.FirstStage => "스테이지 1",
+                    "Stage02" => "스테이지 2",
+                    "Stage03" => "스테이지 3",
+                    "Ending" => "엔딩",
+                    _ => "저장된 게임"
+                };
+                string savedAt = DateTimeOffset.Parse(save.updatedAt).ToLocalTime()
+                    .ToString("yyyy년 M월 d일 tt h:mm:ss", KoreanCulture);
+                var row = AddOption(content, stageName, RowHeight, () => ResumeSave(save.id), 0.43f);
+                var subtitle = CreateLabel($"{savedAt} 저장", row, status, 23);
+                subtitle.color = new Color(0.79f, 0.84f, 0.91f);
+                subtitle.rectTransform.anchorMin = Vector2.zero;
+                subtitle.rectTransform.anchorMax = new Vector2(1f, 0.43f);
+                subtitle.rectTransform.offsetMin = subtitle.rectTransform.offsetMax = Vector2.zero;
+            }
         }
 
-        if (page > 0) AddOption("이전 페이지", () => { page--; RenderList(); });
-        if (start + PageSize < saves.Length) AddOption("다음 페이지", () => { page++; RenderList(); });
-        AddOption("뒤로", CloseList);
+        AddOption(panel, "뒤로", 48, CloseList);
     }
 
-    void AddOption(string label, Action action)
+    RectTransform CreateSaveScroll()
+    {
+        var viewport = new GameObject("SaveViewport", typeof(RectTransform), typeof(Image),
+            typeof(RectMask2D), typeof(ScrollRect), typeof(LayoutElement));
+        viewport.transform.SetParent(panel, false);
+        viewport.GetComponent<Image>().color = Color.clear;
+        var viewportRect = (RectTransform)viewport.transform;
+        var content = new GameObject("SaveRows", typeof(RectTransform), typeof(VerticalLayoutGroup));
+        var contentRect = (RectTransform)content.transform;
+        contentRect.SetParent(viewportRect, false);
+        contentRect.anchorMin = new Vector2(0f, 1f);
+        contentRect.anchorMax = Vector2.one;
+        contentRect.pivot = new Vector2(0.5f, 1f);
+        contentRect.anchoredPosition = Vector2.zero;
+        contentRect.sizeDelta = new Vector2(0f, saves.Length * RowHeight + (saves.Length - 1) * RowSpacing);
+
+        var layout = content.GetComponent<VerticalLayoutGroup>();
+        layout.spacing = RowSpacing;
+        layout.childForceExpandHeight = false;
+        int visibleRows = Mathf.Min(saves.Length, VisibleRows);
+        var viewportLayout = viewport.GetComponent<LayoutElement>();
+        viewportLayout.preferredHeight = visibleRows * RowHeight + (visibleRows - 1) * RowSpacing;
+        viewportLayout.minHeight = viewportLayout.preferredHeight;
+
+        var scroll = viewport.GetComponent<ScrollRect>();
+        scroll.viewport = viewportRect;
+        scroll.content = contentRect;
+        scroll.horizontal = false;
+        scroll.vertical = saves.Length > VisibleRows;
+        scroll.movementType = ScrollRect.MovementType.Clamped;
+        scroll.scrollSensitivity = RowHeight;
+        return contentRect;
+    }
+
+    Transform AddOption(Transform parent, string label, float height, Action action, float labelBottom = 0f)
     {
         var row = new GameObject(label, typeof(RectTransform), typeof(Image),
             typeof(Button), typeof(LayoutElement));
-        row.transform.SetParent(panel, false);
-        row.GetComponent<Image>().color = new Color(0.12f, 0.16f, 0.23f, 0.96f);
-        row.GetComponent<LayoutElement>().preferredHeight = 48;
-        row.GetComponent<Button>().onClick.AddListener(() => { if (!busy) action(); });
+        row.transform.SetParent(parent, false);
+        var image = row.GetComponent<Image>();
+        image.color = new Color(0.12f, 0.16f, 0.23f, 0.96f);
+        row.GetComponent<LayoutElement>().preferredHeight = height;
+        var button = row.GetComponent<Button>();
+        button.targetGraphic = image;
+        button.onClick.AddListener(() => { if (!busy) action(); });
         var text = CreateLabel(label, row.transform, status, 30);
-        text.rectTransform.anchorMin = Vector2.zero;
+        text.rectTransform.anchorMin = new Vector2(0f, labelBottom);
         text.rectTransform.anchorMax = Vector2.one;
         text.rectTransform.offsetMin = text.rectTransform.offsetMax = Vector2.zero;
+        return row.transform;
     }
 
     static TMP_Text CreateLabel(string label, Transform parent, TMP_Text template, float size)
