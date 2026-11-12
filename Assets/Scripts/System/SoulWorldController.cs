@@ -73,8 +73,8 @@ public class SoulWorldController : MonoBehaviour
 
     private void Update()
     {
-        // 영혼세계가 아니면 타이머 실행 X
-        if (!isSoulWorld)
+        // 일시정지 중에는 타이머와 E키 복귀를 멈춤
+        if (!isSoulWorld || Time.timeScale == 0f)
             return;
 
         // 남은 시간 감소
