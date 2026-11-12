@@ -24,12 +24,16 @@ public class SoulWorldController : MonoBehaviour
     public event Action OnSoulWorldEntered;
     public event Action OnReturnRequested;
 
+    private float stageTimeOverride;
+    private float activeDuration;
     private float remainingTime;
     private bool isSoulWorld = false;
     private int deathCount = 0;
 
     public bool IsSoulWorld => isSoulWorld;
     public int DeathCount => deathCount;
+
+    public void SetStageTimeOverride(float seconds) => stageTimeOverride = seconds;
 
     // 사망 신호 수신
     public void HandlePlayerDeath()
@@ -55,11 +59,12 @@ public class SoulWorldController : MonoBehaviour
             return;
 
         isSoulWorld = true;
-        remainingTime = maxSoulTime;
+        activeDuration = stageTimeOverride > 0f ? stageTimeOverride : maxSoulTime;
+        remainingTime = activeDuration;
 
         if (gameHUD != null)
         {
-            gameHUD.SetSoulTime(remainingTime, maxSoulTime);
+            gameHUD.SetSoulTime(remainingTime, activeDuration);
             gameHUD.ShowSoulTimer(true);
         }
 
@@ -80,7 +85,7 @@ public class SoulWorldController : MonoBehaviour
 
         // 게이지 갱신
         if (gameHUD != null)
-            gameHUD.SetSoulTime(remainingTime, maxSoulTime);
+            gameHUD.SetSoulTime(remainingTime, activeDuration);
 
         // E키로 조기 복귀
         bool pressedE =
@@ -95,8 +100,11 @@ public class SoulWorldController : MonoBehaviour
     }
 
     // 현실세계 복귀 요청
-    private void RequestReturn()
+    public void RequestReturn()
     {
+        if (!isSoulWorld)
+            return;
+
         isSoulWorld = false;
 
         if (gameHUD != null)

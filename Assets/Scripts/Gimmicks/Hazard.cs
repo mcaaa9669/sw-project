@@ -4,6 +4,7 @@ public class Hazard : MonoBehaviour
 {
     [SerializeField] private bool isActive = true;
     [SerializeField] private DeathType deathType = DeathType.None;
+    [SerializeField] private bool stickShellToSaw;
 
     public void SetLethal(bool active)
     {
@@ -24,6 +25,12 @@ public class Hazard : MonoBehaviour
     {
         if (!isActive || !other.TryGetComponent(out IKillable target))
             return;
+
+        if (stickShellToSaw && deathType == DeathType.saw && target is PlayerController sawVictim)
+        {
+            sawVictim.Kill(deathType, transform);
+            return;
+        }
 
         if (deathType == DeathType.Spike && target is PlayerController player)
         {
