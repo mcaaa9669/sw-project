@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // 플레이어가 지나가면 부활 위치를 이 지점으로 갱신하는 체크포인트
@@ -11,6 +12,8 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField] SpriteRenderer marker;                 // 비우면 색 변경 안 함
     [SerializeField] Color inactiveColor = Color.gray;
     [SerializeField] Color activeColor = Color.yellow;
+
+    public event Action<PlayerController> Reached;
 
     public int Order => order;
 
@@ -33,6 +36,7 @@ public class RespawnPoint : MonoBehaviour
         if (player.SetRespawnPoint(this))
         {
             if (marker) marker.color = activeColor;
+            Reached?.Invoke(player);
         }
     }
 }

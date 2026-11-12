@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Volume))]
 public class SoulWorldVignette : MonoBehaviour
@@ -45,6 +46,16 @@ public class SoulWorldVignette : MonoBehaviour
 
         if (volume != null)
             volume.weight = 0f;
+    }
+
+    public void SetMaximumStrength(bool maximum)
+    {
+        if (volume.sharedProfile == null || !volume.sharedProfile.TryGet(out Vignette defaults) ||
+            !volume.profile.TryGet(out Vignette vignette))
+            return;
+
+        vignette.intensity.value = maximum ? 1f : defaults.intensity.value;
+        vignette.smoothness.value = maximum ? 1f : defaults.smoothness.value;
     }
 
     void Show()
