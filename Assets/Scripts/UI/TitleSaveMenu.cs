@@ -104,6 +104,9 @@ public class TitleSaveMenu : MonoBehaviour
                     "Ending" => "엔딩",
                     _ => "저장된 게임"
                 };
+                if (!string.IsNullOrEmpty(save.section))
+                    stageName = $"스테이지 {save.section}";
+
                 string savedAt = DateTimeOffset.Parse(save.updatedAt).ToLocalTime()
                     .ToString("yyyy년 M월 d일 tt h:mm:ss", KoreanCulture);
                 var row = AddOption(content, stageName, RowHeight, () => ResumeSave(save.id), 0.43f);
@@ -205,6 +208,7 @@ public class TitleSaveMenu : MonoBehaviour
 
         SetBusy(true, "");
         SaveSession.Select(save);
+        SaveSession.PrepareResume(save);
         SceneManager.LoadScene(save.stage);
     }
 

@@ -8,6 +8,7 @@ public class GameSave
 {
     public string id;
     public string stage;
+    public string section;
     public string updatedAt;
 }
 
@@ -15,12 +16,14 @@ public static class SaveSession
 {
     public const string FirstStage = "Stage01";
     public static GameSave Current { get; private set; }
+    static GameSave pendingResume;
     static string SaveDirectory => Path.Combine(Application.persistentDataPath, "Saves");
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reset()
     {
         Current = null;
+        pendingResume = null;
     }
 
     public static bool IsSaveStage(string sceneName)
@@ -72,6 +75,27 @@ public static class SaveSession
         Current = save;
     }
 
+    public static void PrepareResume(GameSave save)
+    {
+        pendingResume = save;
+    }
+
+    public static string ConsumeResumeSection(string stage)
+    {
+        if (pendingResume == null || pendingResume.stage != stage)
+            return null;
+
+        string section = pendingResume.section;
+        pendingResume = null;
+        return section;
+    }
+
+    // Save the scene and its entry section, without recording live gameplay state.
+    public static void SaveAndExit(string stage, string section)
+    {
+        Current = Write(Current?.id ?? Guid.NewGuid().ToString("N"), stage, section);
+    }
+
     public static void SaveProgress(string stage)
     {
         if (Current != null && IsSaveStage(stage))
@@ -83,12 +107,12 @@ public static class SaveSession
         return error is IOException || error is UnauthorizedAccessException || error is ArgumentException;
     }
 
-    static GameSave Write(string id, string stage)
+    static GameSave Write(string id, string stage, string section = null)
     {
         Directory.CreateDirectory(SaveDirectory);
         string path = GetPath(id);
         string temp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
-        var save = new GameSave { id = id, stage = stage, updatedAt = DateTime.UtcNow.ToString("O") };
+        var save = new GameSave { id = id, stage = stage, section = section, updatedAt = DateTime.UtcNow.ToString("O") };
         try
         {
             File.WriteAllText(temp, JsonUtility.ToJson(save, true));
