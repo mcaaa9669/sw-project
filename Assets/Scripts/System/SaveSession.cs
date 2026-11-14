@@ -56,7 +56,7 @@ public static class SaveSession
 
         saves.Sort((left, right) =>
         {
-            int order = string.CompareOrdinal(right.createdAt, left.createdAt);
+            int order = DateTimeOffset.Parse(right.updatedAt).CompareTo(DateTimeOffset.Parse(left.updatedAt));
             return order != 0 ? order : string.CompareOrdinal(right.id, left.id);
         });
         return saves.ToArray();
@@ -101,6 +101,12 @@ public static class SaveSession
     public static void PrepareResume(GameSave save)
     {
         pendingResume = save;
+    }
+
+    // Restart requests reuse the same one-shot spawn route without changing the selected save.
+    public static void PrepareStageEntry(string stage, string section)
+    {
+        pendingResume = string.IsNullOrEmpty(section) ? null : new GameSave { stage = stage, section = section };
     }
 
     public static string ConsumeResumeSection(string stage)

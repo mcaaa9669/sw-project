@@ -13,6 +13,7 @@ public class TitleSaveMenu : MonoBehaviour
     [SerializeField] Button newGameButton;
     [SerializeField] Button continueButton;
     [SerializeField] Button quitButton;
+    [SerializeField] GameObject titleLogo;
 
     const int VisibleRows = 4;
     const float RowHeight = 76f;
@@ -79,6 +80,7 @@ public class TitleSaveMenu : MonoBehaviour
         newGameButton.gameObject.SetActive(false);
         continueButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
+        if (titleLogo != null) titleLogo.SetActive(false);
         RenderList();
     }
 
@@ -427,6 +429,7 @@ public class TitleSaveMenu : MonoBehaviour
         newGameButton.gameObject.SetActive(true);
         continueButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
+        if (titleLogo != null) titleLogo.SetActive(true);
         SetBusy(false, "");
     }
 

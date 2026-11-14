@@ -16,9 +16,12 @@ public class PauseMenuController : MonoBehaviour
 
     CanvasGroup menu;
     TMP_Text saveStatus;
-    GameObject saveConfirmation;
-    Button confirmSaveButton;
-    Button cancelSaveButton;
+    GameObject confirmation;
+    TMP_Text confirmationTitle;
+    TMP_Text confirmationDetails;
+    Button cancelConfirmationButton;
+    Action confirmAction;
+    Action cancelAction;
     bool paused;
     bool loading;
     float previousTimeScale;
@@ -39,10 +42,10 @@ public class PauseMenuController : MonoBehaviour
         }
 
         resumeButton.onClick.AddListener(Resume);
-        restartButton.onClick.AddListener(Restart);
+        restartButton.onClick.AddListener(OpenRestartConfirmation);
         mainMenuButton.onClick.AddListener(OpenSaveConfirmation);
         CreateSaveStatus();
-        CreateSaveConfirmation();
+        CreateConfirmation();
         ShowMenu(false);
     }
 
@@ -57,7 +60,9 @@ public class PauseMenuController : MonoBehaviour
         if (loading || Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)
             return;
 
-        if (paused)
+        if (confirmation.activeSelf)
+            CancelConfirmation();
+        else if (paused)
             Resume();
         else if (Time.timeScale > 0f)
             Pause();
@@ -84,7 +89,7 @@ public class PauseMenuController : MonoBehaviour
     {
         if (!paused) return;
 
-        CloseSaveConfirmation();
+        CloseConfirmation();
         paused = false;
         Time.timeScale = previousTimeScale;
         ShowMenu(false);
@@ -96,52 +101,90 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
+    void OpenRestartConfirmation()
+    {
+        OpenConfirmation("해당 스테이지를 다시 시작하시겠습니까?", "",
+            Restart, () => EventSystem.current?.SetSelectedGameObject(restartButton.gameObject));
+    }
+
     void Restart()
     {
         Scene scene = gameObject.scene;
+        string section = GetCurrentSection(scene);
 #if UNITY_EDITOR
         if (scene.buildIndex < 0 && !string.IsNullOrEmpty(scene.path))
         {
             if (loading) return;
             loading = true;
+            SaveSession.PrepareStageEntry(scene.name, section);
             Resume();
             UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(
                 scene.path, new LoadSceneParameters(LoadSceneMode.Single));
             return;
         }
 #endif
-        Load(scene.name);
+        Load(scene.path, () => SaveSession.PrepareStageEntry(scene.name, section));
     }
 
     void OpenSaveConfirmation()
     {
-        if (loading || !paused || saveConfirmation.activeSelf) return;
+        OpenConfirmation("저장 후 나가시겠습니까?", "해당 과정은 저장되지 않습니다.",
+            () =>
+            {
+                EventSystem.current?.SetSelectedGameObject(mainMenuButton.gameObject);
+                SaveAndExit();
+            }, Resume);
+    }
+
+    void OpenConfirmation(string title, string details, Action onConfirm, Action onCancel)
+    {
+        if (loading || !paused || confirmation.activeSelf) return;
 
         saveStatus.text = "";
+        confirmationTitle.text = title;
+        confirmationDetails.text = details;
+        confirmationTitle.rectTransform.anchoredPosition =
+            new Vector2(0f, string.IsNullOrEmpty(details) ? 42f : 78f);
+        confirmAction = onConfirm;
+        cancelAction = onCancel;
         resumeButton.interactable = false;
         restartButton.interactable = false;
         mainMenuButton.interactable = false;
-        saveConfirmation.SetActive(true);
-        EventSystem.current?.SetSelectedGameObject(cancelSaveButton.gameObject);
+        confirmation.SetActive(true);
+        EventSystem.current?.SetSelectedGameObject(cancelConfirmationButton.gameObject);
     }
 
-    void CloseSaveConfirmation()
+    void CloseConfirmation()
     {
-        if (!saveConfirmation.activeSelf) return;
+        if (!confirmation.activeSelf) return;
 
-        saveConfirmation.SetActive(false);
+        confirmation.SetActive(false);
+        confirmAction = cancelAction = null;
         resumeButton.interactable = true;
         restartButton.interactable = true;
         mainMenuButton.interactable = true;
     }
 
-    void ConfirmSaveAndExit()
-    {
-        if (loading || !paused || !saveConfirmation.activeSelf) return;
+    void ConfirmSelection() => ResolveConfirmation(confirmAction);
 
-        CloseSaveConfirmation();
-        EventSystem.current?.SetSelectedGameObject(mainMenuButton.gameObject);
-        SaveAndExit();
+    void CancelConfirmation() => ResolveConfirmation(cancelAction);
+
+    void ResolveConfirmation(Action action)
+    {
+        if (loading || !paused || !confirmation.activeSelf) return;
+
+        CloseConfirmation();
+        action?.Invoke();
+    }
+
+    static string GetCurrentSection(Scene scene)
+    {
+        foreach (var view in FindObjectsByType<StageViewController>(FindObjectsSortMode.None))
+        {
+            if (view.gameObject.scene == scene && !string.IsNullOrEmpty(view.CurrentSaveSection))
+                return view.CurrentSaveSection;
+        }
+        return null;
     }
 
     void SaveAndExit()
@@ -157,20 +200,9 @@ public class PauseMenuController : MonoBehaviour
             return;
         }
 
-        // The scene can contain several sections (for example Stage01 contains 1-1 to 1-7).
-        string section = null;
-        foreach (var view in FindObjectsByType<StageViewController>(FindObjectsSortMode.None))
-        {
-            if (view.gameObject.scene == scene)
-            {
-                section = view.CurrentSaveSection;
-                break;
-            }
-        }
-
         try
         {
-            SaveSession.SaveAndExit(scene.name, section);
+            SaveSession.SaveAndExit(scene.name, GetCurrentSection(scene));
         }
         catch (Exception error) when (SaveSession.IsFileError(error))
         {
@@ -182,26 +214,30 @@ public class PauseMenuController : MonoBehaviour
         Load("Title");
     }
 
-    void CreateSaveConfirmation()
+    void CreateConfirmation()
     {
         var font = mainMenuButton.GetComponentInChildren<TMP_Text>().font;
-        var shade = CreateDialogImage("Save Confirmation", transform, new Color(0f, 0f, 0f, 0.72f));
+        var shade = CreateDialogImage("Pause Confirmation", transform, new Color(0f, 0f, 0f, 0.72f));
         var shadeRect = shade.rectTransform;
         shadeRect.anchorMin = Vector2.zero;
         shadeRect.anchorMax = Vector2.one;
         shadeRect.offsetMin = shadeRect.offsetMax = Vector2.zero;
-        saveConfirmation = shade.gameObject;
+        confirmation = shade.gameObject;
 
         var panel = CreateDialogImage("Dialog", shadeRect, new Color(0.09f, 0.12f, 0.18f));
         panel.rectTransform.sizeDelta = new Vector2(720f, 292f);
 
-        AddDialogLabel(panel.transform, font, "저장 후 나가시겠습니까?", 42f,
-            new Vector2(0f, 78f), new Vector2(648f, 60f), Color.white);
-        AddDialogLabel(panel.transform, font, "해당 과정은 저장되지 않습니다.", 28f,
+        confirmationTitle = AddDialogLabel(panel.transform, font, "", 36f,
+            new Vector2(0f, 78f), new Vector2(668f, 60f), Color.white);
+        confirmationTitle.enableAutoSizing = true;
+        confirmationTitle.fontSizeMin = 24f;
+        confirmationTitle.fontSizeMax = 36f;
+        confirmationDetails = AddDialogLabel(panel.transform, font, "", 28f,
             new Vector2(0f, 12f), new Vector2(648f, 48f), new Color(0.88f, 0.9f, 0.94f));
 
-        confirmSaveButton = CreateDialogButton(panel.transform, font, "예", -116f, ConfirmSaveAndExit);
-        cancelSaveButton = CreateDialogButton(panel.transform, font, "아니오", 116f, Resume);
+        var confirmSaveButton = CreateDialogButton(panel.transform, font, "예", -116f, ConfirmSelection);
+        var cancelSaveButton = CreateDialogButton(panel.transform, font, "아니오", 116f, CancelConfirmation);
+        cancelConfirmationButton = cancelSaveButton;
         confirmSaveButton.navigation = new Navigation
         {
             mode = Navigation.Mode.Explicit, selectOnRight = cancelSaveButton
@@ -210,7 +246,7 @@ public class PauseMenuController : MonoBehaviour
         {
             mode = Navigation.Mode.Explicit, selectOnLeft = confirmSaveButton
         };
-        saveConfirmation.SetActive(false);
+        confirmation.SetActive(false);
     }
 
     static Image CreateDialogImage(string name, Transform parent, Color color)
@@ -235,7 +271,7 @@ public class PauseMenuController : MonoBehaviour
         return button;
     }
 
-    static void AddDialogLabel(Transform parent, TMP_FontAsset font, string label, float size,
+    static TMP_Text AddDialogLabel(Transform parent, TMP_FontAsset font, string label, float size,
         Vector2 position, Vector2 bounds, Color color)
     {
         var text = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI))
@@ -249,6 +285,7 @@ public class PauseMenuController : MonoBehaviour
         text.raycastTarget = false;
         text.rectTransform.anchoredPosition = position;
         text.rectTransform.sizeDelta = bounds;
+        return text;
     }
 
     void CreateSaveStatus()
@@ -269,7 +306,7 @@ public class PauseMenuController : MonoBehaviour
         rect.sizeDelta = new Vector2(680f, 42f);
     }
 
-    void Load(string sceneName)
+    void Load(string sceneName, Action beforeLoad = null)
     {
         if (loading) return;
         if (!Application.CanStreamedLevelBeLoaded(sceneName))
@@ -280,6 +317,7 @@ public class PauseMenuController : MonoBehaviour
 
         loading = true;
         Resume();
+        beforeLoad?.Invoke();
         SceneManager.LoadScene(sceneName);
     }
 
