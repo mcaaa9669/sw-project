@@ -10,6 +10,7 @@ public class GameSave
     public string stage;
     public string section;
     public string updatedAt;
+    public string createdAt;
 }
 
 public static class SaveSession
@@ -53,21 +54,43 @@ public static class SaveSession
             }
         }
 
-        saves.Sort((left, right) => string.CompareOrdinal(right.updatedAt, left.updatedAt));
+        saves.Sort((left, right) =>
+        {
+            int order = string.CompareOrdinal(right.createdAt, left.createdAt);
+            return order != 0 ? order : string.CompareOrdinal(right.id, left.id);
+        });
         return saves.ToArray();
     }
 
     public static GameSave Read(string id)
     {
-        string json = File.ReadAllText(GetPath(id));
+        string path = GetPath(id);
+        string json = File.ReadAllText(path);
         var save = JsonUtility.FromJson<GameSave>(json);
         if (save == null || save.id != id || !IsSaveStage(save.stage) ||
-            !DateTimeOffset.TryParse(save.updatedAt, out _))
+            !DateTimeOffset.TryParse(save.updatedAt, out var updatedAt))
         {
             throw new InvalidDataException("저장 파일 형식이 올바르지 않습니다.");
         }
 
+        // Older slots only have updatedAt. Use the file's creation time when available.
+        if (!DateTimeOffset.TryParse(save.createdAt, out var createdAt))
+        {
+            var fileCreatedAt = File.GetCreationTimeUtc(path);
+            createdAt = fileCreatedAt <= updatedAt.UtcDateTime
+                ? new DateTimeOffset(fileCreatedAt) : updatedAt;
+        }
+        save.createdAt = createdAt.UtcDateTime.ToString("O");
         return save;
+    }
+
+    public static void Delete(string id)
+    {
+        File.Delete(GetPath(id));
+        if (Current?.id == id)
+            Current = null;
+        if (pendingResume?.id == id)
+            pendingResume = null;
     }
 
     public static void Select(GameSave save)
@@ -112,7 +135,12 @@ public static class SaveSession
         Directory.CreateDirectory(SaveDirectory);
         string path = GetPath(id);
         string temp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
-        var save = new GameSave { id = id, stage = stage, section = section, updatedAt = DateTime.UtcNow.ToString("O") };
+        string now = DateTime.UtcNow.ToString("O");
+        var save = new GameSave
+        {
+            id = id, stage = stage, section = section, updatedAt = now,
+            createdAt = Current?.id == id ? Current.createdAt ?? now : now
+        };
         try
         {
             File.WriteAllText(temp, JsonUtility.ToJson(save, true));

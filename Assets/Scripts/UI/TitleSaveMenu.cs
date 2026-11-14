@@ -1,5 +1,8 @@
 using System;
 using System.Globalization;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,14 +14,19 @@ public class TitleSaveMenu : MonoBehaviour
     [SerializeField] Button continueButton;
     [SerializeField] Button quitButton;
 
-    const int VisibleRows = 5;
-    const float RowHeight = 88f;
+    const int VisibleRows = 4;
+    const float RowHeight = 76f;
     const float RowSpacing = 8f;
     static readonly CultureInfo KoreanCulture = CultureInfo.GetCultureInfo("ko-KR");
     GameSave[] saves = Array.Empty<GameSave>();
     RectTransform panel;
     TMP_Text status;
     bool busy;
+    bool deleting;
+    readonly HashSet<string> selected = new HashSet<string>();
+    ScrollRect saveScroll;
+    Button reviewDeleteButton;
+    GameObject deleteDialog;
 
     void Awake()
     {
@@ -55,7 +63,7 @@ public class TitleSaveMenu : MonoBehaviour
 
     void OpenSaveList()
     {
-        if (busy) return;
+        if (busy || panel != null) return;
 
         try
         {
@@ -76,18 +84,20 @@ public class TitleSaveMenu : MonoBehaviour
 
     void RenderList()
     {
-        var list = new GameObject("SaveList", typeof(RectTransform), typeof(VerticalLayoutGroup));
+        var list = new GameObject("SaveList", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(CanvasGroup));
         panel = (RectTransform)list.transform;
         panel.SetParent(transform, false);
         panel.anchorMin = new Vector2(0.26f, 0.10f);
-        panel.anchorMax = new Vector2(0.74f, 0.67f);
+        panel.anchorMax = new Vector2(0.74f, 0.61f);
         panel.offsetMin = panel.offsetMax = Vector2.zero;
         var layout = list.GetComponent<VerticalLayoutGroup>();
         layout.spacing = RowSpacing;
         layout.childAlignment = TextAnchor.UpperCenter;
+        layout.childControlWidth = true;
+        layout.childControlHeight = true;
         layout.childForceExpandHeight = false;
 
-        var heading = CreateLabel(saves.Length == 0 ? "저장된 게임이 없습니다." : "저장 선택",
+        var heading = CreateLabel(saves.Length == 0 ? "저장된 게임이 없습니다." : deleting ? "삭제할 저장 선택" : "저장 선택",
             panel, status, 34);
         heading.gameObject.AddComponent<LayoutElement>().preferredHeight = 48;
 
@@ -109,7 +119,16 @@ public class TitleSaveMenu : MonoBehaviour
 
                 string savedAt = DateTimeOffset.Parse(save.updatedAt).ToLocalTime()
                     .ToString("yyyy년 M월 d일 tt h:mm:ss", KoreanCulture);
-                var row = AddOption(content, stageName, RowHeight, () => ResumeSave(save.id), 0.43f);
+                Toggle checkbox = null;
+                var row = AddOption(content, stageName, RowHeight, () =>
+                {
+                    if (deleting)
+                        checkbox.isOn = !checkbox.isOn;
+                    else
+                        ResumeSave(save.id);
+                }, 0.43f);
+                if (deleting)
+                    checkbox = AddCheckbox(row, save.id);
                 var subtitle = CreateLabel($"{savedAt} 저장", row, status, 23);
                 subtitle.color = new Color(0.79f, 0.84f, 0.91f);
                 subtitle.rectTransform.anchorMin = Vector2.zero;
@@ -118,7 +137,27 @@ public class TitleSaveMenu : MonoBehaviour
             }
         }
 
-        AddOption(panel, "뒤로", 48, CloseList);
+        var footer = new GameObject("Save Actions", typeof(RectTransform),
+            typeof(HorizontalLayoutGroup), typeof(LayoutElement));
+        footer.transform.SetParent(panel, false);
+        footer.GetComponent<LayoutElement>().preferredHeight = 52f;
+        var actions = footer.GetComponent<HorizontalLayoutGroup>();
+        actions.spacing = RowSpacing;
+        actions.childForceExpandWidth = true;
+        actions.childControlWidth = true;
+        actions.childControlHeight = true;
+        AddOption(footer.transform, deleting ? "취소" : "뒤로", 52f,
+            deleting ? () => SetDeleteMode(false) : CloseList);
+        if (deleting)
+        {
+            reviewDeleteButton = AddOption(footer.transform, "확인 및 삭제", 52f,
+                ShowDeleteConfirmation).GetComponent<Button>();
+            RefreshDeleteButton();
+        }
+        else if (saves.Length > 0)
+        {
+            AddOption(footer.transform, "삭제", 52f, () => SetDeleteMode(true));
+        }
     }
 
     RectTransform CreateSaveScroll()
@@ -139,20 +178,179 @@ public class TitleSaveMenu : MonoBehaviour
 
         var layout = content.GetComponent<VerticalLayoutGroup>();
         layout.spacing = RowSpacing;
+        layout.childControlWidth = true;
+        layout.childControlHeight = true;
         layout.childForceExpandHeight = false;
         int visibleRows = Mathf.Min(saves.Length, VisibleRows);
         var viewportLayout = viewport.GetComponent<LayoutElement>();
         viewportLayout.preferredHeight = visibleRows * RowHeight + (visibleRows - 1) * RowSpacing;
         viewportLayout.minHeight = viewportLayout.preferredHeight;
 
-        var scroll = viewport.GetComponent<ScrollRect>();
+        var scroll = saveScroll = viewport.GetComponent<ScrollRect>();
         scroll.viewport = viewportRect;
         scroll.content = contentRect;
         scroll.horizontal = false;
         scroll.vertical = saves.Length > VisibleRows;
         scroll.movementType = ScrollRect.MovementType.Clamped;
         scroll.scrollSensitivity = RowHeight;
+        if (scroll.vertical)
+            AddScrollbar(scroll, contentRect);
         return contentRect;
+    }
+
+    void AddScrollbar(ScrollRect scroll, RectTransform content)
+    {
+        var track = AddImage("Scrollbar", scroll.transform, new Color(0.08f, 0.12f, 0.18f));
+        var rect = track.rectTransform;
+        rect.anchorMin = new Vector2(1f, 0f);
+        rect.anchorMax = Vector2.one;
+        rect.pivot = new Vector2(1f, 0.5f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = new Vector2(16f, 0f);
+        content.offsetMax = new Vector2(-24f, content.offsetMax.y);
+
+        var sliding = new GameObject("Sliding Area", typeof(RectTransform));
+        sliding.transform.SetParent(rect, false);
+        Stretch((RectTransform)sliding.transform);
+        var thumb = AddImage("Thumb", sliding.transform, new Color(0.58f, 0.69f, 0.84f));
+        Stretch(thumb.rectTransform);
+        var bar = track.gameObject.AddComponent<Scrollbar>();
+        bar.targetGraphic = thumb;
+        bar.handleRect = thumb.rectTransform;
+        bar.direction = Scrollbar.Direction.BottomToTop;
+        scroll.verticalScrollbar = bar;
+    }
+
+    Toggle AddCheckbox(Transform row, string id)
+    {
+        var box = AddImage("Checkbox", row, new Color(0.26f, 0.34f, 0.46f));
+        var rect = box.rectTransform;
+        rect.anchorMin = rect.anchorMax = new Vector2(0f, 0.5f);
+        rect.anchoredPosition = new Vector2(34f, 0f);
+        rect.sizeDelta = new Vector2(36f, 36f);
+        var mark = AddImage("Checked", rect, new Color(0.62f, 0.87f, 1f));
+        mark.raycastTarget = false;
+        mark.rectTransform.sizeDelta = new Vector2(22f, 22f);
+        var toggle = box.gameObject.AddComponent<Toggle>();
+        toggle.targetGraphic = box;
+        toggle.graphic = mark;
+        toggle.SetIsOnWithoutNotify(selected.Contains(id));
+        toggle.onValueChanged.AddListener(value =>
+        {
+            if (value) selected.Add(id);
+            else selected.Remove(id);
+            RefreshDeleteButton();
+        });
+        return toggle;
+    }
+
+    void RefreshDeleteButton()
+    {
+        if (reviewDeleteButton == null) return;
+        reviewDeleteButton.interactable = selected.Count > 0;
+        reviewDeleteButton.GetComponentInChildren<TMP_Text>().text =
+            selected.Count > 0 ? $"확인 및 삭제 ({selected.Count})" : "확인 및 삭제";
+    }
+
+    void SetDeleteMode(bool enabled)
+    {
+        if (deleteDialog != null) return;
+        deleting = enabled;
+        selected.Clear();
+        status.text = "";
+        RebuildList(saveScroll != null ? saveScroll.verticalNormalizedPosition : 1f);
+    }
+
+    void RebuildList(float scrollPosition)
+    {
+        RemovePanel();
+        RenderList();
+        Canvas.ForceUpdateCanvases();
+        if (saveScroll != null)
+            saveScroll.verticalNormalizedPosition = scrollPosition;
+    }
+
+    void ShowDeleteConfirmation()
+    {
+        if (deleteDialog != null || selected.Count == 0) return;
+        var ids = selected.ToArray();
+        panel.GetComponent<CanvasGroup>().interactable = false;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        var shade = AddImage("Delete Confirmation", transform, new Color(0f, 0f, 0f, 0.72f));
+        Stretch(shade.rectTransform);
+        deleteDialog = shade.gameObject;
+        var card = AddImage("Dialog", shade.transform, new Color(0.10f, 0.15f, 0.22f));
+        card.rectTransform.sizeDelta = new Vector2(720f, 262f);
+
+        Place(CreateLabel("삭제하시겠습니까?", card.transform, status, 42f).rectTransform,
+            0f, 63f, 660f, 58f);
+        Place(CreateLabel($"선택한 저장 {ids.Length}개를 삭제합니다.", card.transform, status, 28f).rectTransform,
+            0f, 3f, 660f, 46f);
+        var yes = AddOption(card.transform, "예", 58f, () => DeleteSelected(ids)).GetComponent<Button>();
+        var no = AddOption(card.transform, "아니오", 58f, CloseDeleteConfirmation).GetComponent<Button>();
+        Place((RectTransform)yes.transform, -118f, -74f, 208f, 58f);
+        Place((RectTransform)no.transform, 118f, -74f, 208f, 58f);
+        yes.navigation = new Navigation { mode = Navigation.Mode.Explicit, selectOnRight = no };
+        no.navigation = new Navigation { mode = Navigation.Mode.Explicit, selectOnLeft = yes };
+        EventSystem.current?.SetSelectedGameObject(no.gameObject);
+    }
+
+    void CloseDeleteConfirmation()
+    {
+        if (deleteDialog == null) return;
+        deleteDialog.SetActive(false);
+        Destroy(deleteDialog);
+        deleteDialog = null;
+        var group = panel.GetComponent<CanvasGroup>();
+        group.interactable = group.blocksRaycasts = true;
+        EventSystem.current?.SetSelectedGameObject(reviewDeleteButton.gameObject);
+    }
+
+    void DeleteSelected(string[] ids)
+    {
+        if (deleteDialog == null) return;
+        CloseDeleteConfirmation();
+        var removed = new HashSet<string>();
+        foreach (string id in ids)
+        {
+            try
+            {
+                SaveSession.Delete(id);
+                removed.Add(id);
+                selected.Remove(id);
+            }
+            catch (Exception error) when (SaveSession.IsFileError(error))
+            {
+                Debug.LogWarning($"저장을 삭제할 수 없습니다. {error.Message}", this);
+            }
+        }
+
+        saves = saves.Where(save => !removed.Contains(save.id)).ToArray();
+        deleting = selected.Count > 0;
+        RebuildList(1f);
+        status.text = deleting ? $"삭제하지 못한 저장이 {selected.Count}개 있습니다."
+            : $"저장 {removed.Count}개를 삭제했습니다.";
+    }
+
+    static Image AddImage(string name, Transform parent, Color color)
+    {
+        var image = new GameObject(name, typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+        image.transform.SetParent(parent, false);
+        image.color = color;
+        return image;
+    }
+
+    static void Stretch(RectTransform rect)
+    {
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = rect.offsetMax = Vector2.zero;
+    }
+
+    static void Place(RectTransform rect, float x, float y, float width, float height)
+    {
+        rect.anchoredPosition = new Vector2(x, y);
+        rect.sizeDelta = new Vector2(width, height);
     }
 
     Transform AddOption(Transform parent, string label, float height, Action action, float labelBottom = 0f)
@@ -212,11 +410,20 @@ public class TitleSaveMenu : MonoBehaviour
         SceneManager.LoadScene(save.stage);
     }
 
-    void CloseList()
+    void RemovePanel()
     {
         panel.gameObject.SetActive(false);
         Destroy(panel.gameObject);
         panel = null;
+        saveScroll = null;
+        reviewDeleteButton = null;
+    }
+
+    void CloseList()
+    {
+        RemovePanel();
+        deleting = false;
+        selected.Clear();
         newGameButton.gameObject.SetActive(true);
         continueButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
