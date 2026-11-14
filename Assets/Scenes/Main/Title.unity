@@ -1233,6 +1233,7 @@ MonoBehaviour:
   continueButton: {fileID: 1963817204}
   quitButton: {fileID: 578014359}
   titleLogo: {fileID: 1998610010}
+  dialogPanel: {fileID: 21300014, guid: 9a1dcf429f584aa48c9dbdcfd46f1122, type: 3}
 --- !u!1 &1998610000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,8 +1343,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 235}
-  m_SizeDelta: {x: 720, y: 385}
+  m_AnchoredPosition: {x: 0, y: 242}
+  m_SizeDelta: {x: 900, y: 472}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1998610012
 CanvasRenderer:

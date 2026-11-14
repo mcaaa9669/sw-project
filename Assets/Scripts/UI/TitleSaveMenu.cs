@@ -14,9 +14,14 @@ public class TitleSaveMenu : MonoBehaviour
     [SerializeField] Button continueButton;
     [SerializeField] Button quitButton;
     [SerializeField] GameObject titleLogo;
+    [SerializeField] Sprite dialogPanel;
 
-    const int VisibleRows = 4;
-    const float RowHeight = 76f;
+    const int VisibleRows = 3;
+    const float RowHeight = 120f;
+    const float FooterHeight = 62f;
+    const float PanelWidth = 920f;
+    const float PanelHeight = 502f;
+    const float DeleteActionWidth = 280f;
     const float RowSpacing = 8f;
     static readonly CultureInfo KoreanCulture = CultureInfo.GetCultureInfo("ko-KR");
     GameSave[] saves = Array.Empty<GameSave>();
@@ -31,12 +36,15 @@ public class TitleSaveMenu : MonoBehaviour
 
     void Awake()
     {
+        ShellButtonTheme.Apply(newGameButton);
+        ShellButtonTheme.Apply(continueButton);
+        ShellButtonTheme.Apply(quitButton);
         newGameButton.onClick.AddListener(StartNewGame);
         continueButton.onClick.AddListener(OpenSaveList);
         quitButton.onClick.AddListener(Quit);
 
         var template = newGameButton.GetComponentInChildren<TMP_Text>();
-        status = CreateLabel("SaveStatus", transform, template, 30);
+        status = CreateLabel("", transform, template, 30);
         var rect = status.rectTransform;
         rect.anchorMin = new Vector2(0.1f, 0.04f);
         rect.anchorMax = new Vector2(0.9f, 0.12f);
@@ -80,7 +88,6 @@ public class TitleSaveMenu : MonoBehaviour
         newGameButton.gameObject.SetActive(false);
         continueButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
-        if (titleLogo != null) titleLogo.SetActive(false);
         RenderList();
     }
 
@@ -89,9 +96,11 @@ public class TitleSaveMenu : MonoBehaviour
         var list = new GameObject("SaveList", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(CanvasGroup));
         panel = (RectTransform)list.transform;
         panel.SetParent(transform, false);
-        panel.anchorMin = new Vector2(0.26f, 0.10f);
-        panel.anchorMax = new Vector2(0.74f, 0.61f);
-        panel.offsetMin = panel.offsetMax = Vector2.zero;
+        panel.anchorMin = panel.anchorMax = new Vector2(0.5f, 0.5f);
+        panel.pivot = new Vector2(0.5f, 1f);
+        panel.sizeDelta = new Vector2(PanelWidth, PanelHeight);
+        panel.anchoredPosition = Vector2.zero;
+        FitSavePanel();
         var layout = list.GetComponent<VerticalLayoutGroup>();
         layout.spacing = RowSpacing;
         layout.childAlignment = TextAnchor.UpperCenter;
@@ -99,7 +108,7 @@ public class TitleSaveMenu : MonoBehaviour
         layout.childControlHeight = true;
         layout.childForceExpandHeight = false;
 
-        var heading = CreateLabel(saves.Length == 0 ? "저장된 게임이 없습니다." : deleting ? "삭제할 저장 선택" : "저장 선택",
+        var heading = CreateLabel(saves.Length == 0 ? "저장된 게임이 없습니다." : deleting ? "삭제할 저장 선택" : "이어서 플레이할 항목 선택하기",
             panel, status, 34);
         heading.gameObject.AddComponent<LayoutElement>().preferredHeight = 48;
 
@@ -128,38 +137,64 @@ public class TitleSaveMenu : MonoBehaviour
                         checkbox.isOn = !checkbox.isOn;
                     else
                         ResumeSave(save.id);
-                }, 0.43f);
+                }, 0.48f);
                 if (deleting)
                     checkbox = AddCheckbox(row, save.id);
                 var subtitle = CreateLabel($"{savedAt} 저장", row, status, 23);
                 subtitle.color = new Color(0.79f, 0.84f, 0.91f);
                 subtitle.rectTransform.anchorMin = Vector2.zero;
-                subtitle.rectTransform.anchorMax = new Vector2(1f, 0.43f);
-                subtitle.rectTransform.offsetMin = subtitle.rectTransform.offsetMax = Vector2.zero;
+                subtitle.rectTransform.anchorMax = new Vector2(1f, 0.48f);
+                subtitle.rectTransform.offsetMin = new Vector2(64f, 13f);
+                subtitle.rectTransform.offsetMax = new Vector2(-64f, 0f);
             }
         }
 
         var footer = new GameObject("Save Actions", typeof(RectTransform),
             typeof(HorizontalLayoutGroup), typeof(LayoutElement));
         footer.transform.SetParent(panel, false);
-        footer.GetComponent<LayoutElement>().preferredHeight = 52f;
+        footer.GetComponent<LayoutElement>().preferredHeight = FooterHeight;
         var actions = footer.GetComponent<HorizontalLayoutGroup>();
-        actions.spacing = RowSpacing;
-        actions.childForceExpandWidth = true;
+        actions.spacing = 16f;
+        actions.childAlignment = TextAnchor.MiddleCenter;
+        actions.childForceExpandWidth = false;
+        actions.childForceExpandHeight = false;
         actions.childControlWidth = true;
         actions.childControlHeight = true;
-        AddOption(footer.transform, deleting ? "취소" : "뒤로", 52f,
+        AddFooterOption(footer.transform, deleting ? "취소" : "뒤로", DeleteActionWidth,
             deleting ? () => SetDeleteMode(false) : CloseList);
         if (deleting)
         {
-            reviewDeleteButton = AddOption(footer.transform, "확인 및 삭제", 52f,
-                ShowDeleteConfirmation).GetComponent<Button>();
+            reviewDeleteButton = AddFooterOption(footer.transform, "확인 및 삭제", DeleteActionWidth,
+                ShowDeleteConfirmation);
             RefreshDeleteButton();
         }
         else if (saves.Length > 0)
         {
-            AddOption(footer.transform, "삭제", 52f, () => SetDeleteMode(true));
+            AddFooterOption(footer.transform, "삭제", DeleteActionWidth, () => SetDeleteMode(true));
         }
+    }
+
+    void OnRectTransformDimensionsChange() => FitSavePanel();
+
+    void FitSavePanel()
+    {
+        if (panel == null || !(transform is RectTransform canvasRect))
+            return;
+
+        var size = canvasRect.rect.size;
+        if (size.x <= 0f || size.y <= 0f)
+            return;
+
+        float top = size.y * 0.02f;
+        if (titleLogo != null && titleLogo.transform is RectTransform logo)
+        {
+            var bottom = logo.TransformPoint(new Vector3(logo.rect.center.x, logo.rect.yMin, 0));
+            top = canvasRect.InverseTransformPoint(bottom).y - canvasRect.rect.center.y - 12f;
+        }
+        panel.anchoredPosition = new Vector2(0f, top);
+        float availableHeight = Mathf.Max(1f, top + size.y * 0.47f);
+        float scale = Mathf.Min(1f, size.x * 0.94f / PanelWidth, availableHeight / PanelHeight);
+        panel.localScale = Vector3.one * scale;
     }
 
     RectTransform CreateSaveScroll()
@@ -202,20 +237,26 @@ public class TitleSaveMenu : MonoBehaviour
 
     void AddScrollbar(ScrollRect scroll, RectTransform content)
     {
-        var track = AddImage("Scrollbar", scroll.transform, new Color(0.08f, 0.12f, 0.18f));
+        var track = AddImage("Scrollbar", scroll.transform, new Color32(188, 152, 99, 255));
         var rect = track.rectTransform;
         rect.anchorMin = new Vector2(1f, 0f);
         rect.anchorMax = Vector2.one;
         rect.pivot = new Vector2(1f, 0.5f);
         rect.anchoredPosition = Vector2.zero;
-        rect.sizeDelta = new Vector2(16f, 0f);
-        content.offsetMax = new Vector2(-24f, content.offsetMax.y);
+        rect.sizeDelta = new Vector2(24f, 0f);
+        AddScrollbarInset("Recess", rect, new Color32(13, 34, 39, 255), 2f, 2f);
+        content.offsetMin = new Vector2(34f, content.offsetMin.y);
+        content.offsetMax = new Vector2(-34f, content.offsetMax.y);
 
         var sliding = new GameObject("Sliding Area", typeof(RectTransform));
         sliding.transform.SetParent(rect, false);
-        Stretch((RectTransform)sliding.transform);
-        var thumb = AddImage("Thumb", sliding.transform, new Color(0.58f, 0.69f, 0.84f));
+        var slidingRect = (RectTransform)sliding.transform;
+        Stretch(slidingRect);
+        slidingRect.offsetMin = new Vector2(3f, 3f);
+        slidingRect.offsetMax = new Vector2(-3f, -3f);
+        var thumb = AddImage("Thumb", slidingRect, new Color32(102, 227, 224, 255));
         Stretch(thumb.rectTransform);
+        AddScrollbarInset("Teal Inlay", thumb.rectTransform, new Color32(38, 137, 144, 255), 3f, 4f);
         var bar = track.gameObject.AddComponent<Scrollbar>();
         bar.targetGraphic = thumb;
         bar.handleRect = thumb.rectTransform;
@@ -223,22 +264,48 @@ public class TitleSaveMenu : MonoBehaviour
         scroll.verticalScrollbar = bar;
     }
 
+    static void AddScrollbarInset(string label, RectTransform parent, Color color, float x, float y)
+    {
+        var inset = AddImage(label, parent, color);
+        inset.raycastTarget = false;
+        Stretch(inset.rectTransform);
+        inset.rectTransform.offsetMin = new Vector2(x, y);
+        inset.rectTransform.offsetMax = new Vector2(-x, -y);
+    }
+
     Toggle AddCheckbox(Transform row, string id)
     {
-        var box = AddImage("Checkbox", row, new Color(0.26f, 0.34f, 0.46f));
+        var box = AddImage("Checkbox", row, new Color32(188, 152, 99, 255));
         var rect = box.rectTransform;
         rect.anchorMin = rect.anchorMax = new Vector2(0f, 0.5f);
-        rect.anchoredPosition = new Vector2(34f, 0f);
+        rect.anchoredPosition = new Vector2(62f, 0f);
         rect.sizeDelta = new Vector2(36f, 36f);
-        var mark = AddImage("Checked", rect, new Color(0.62f, 0.87f, 1f));
-        mark.raycastTarget = false;
-        mark.rectTransform.sizeDelta = new Vector2(22f, 22f);
+        AddScrollbarInset("Checkbox Recess", rect, new Color32(13, 34, 39, 255), 3f, 3f);
+        var mark = new GameObject("Pixel Checkmark", typeof(RectTransform));
+        mark.transform.SetParent(rect, false);
+        // Stair-step segments stay sharp with the pixel-art frame.
+        var pixels = new Vector2Int[] {
+            new Vector2Int(-2, 0), new Vector2Int(-1, -1), new Vector2Int(0, -2),
+            new Vector2Int(1, -1), new Vector2Int(2, 0), new Vector2Int(3, 1), new Vector2Int(4, 2)
+        };
+        foreach (var pixel in pixels)
+        {
+            var point = AddImage("Check Pixel", mark.transform, new Color32(166, 255, 244, 255));
+            point.raycastTarget = false;
+            Place(point.rectTransform, pixel.x * 3f - 3f, pixel.y * 3f, 5f, 5f);
+        }
         var toggle = box.gameObject.AddComponent<Toggle>();
         toggle.targetGraphic = box;
-        toggle.graphic = mark;
+        void ShowSelection(bool value)
+        {
+            mark.SetActive(value);
+            box.color = value ? new Color32(96, 222, 208, 255) : new Color32(188, 152, 99, 255);
+        }
         toggle.SetIsOnWithoutNotify(selected.Contains(id));
+        ShowSelection(toggle.isOn);
         toggle.onValueChanged.AddListener(value =>
         {
+            ShowSelection(value);
             if (value) selected.Add(id);
             else selected.Remove(id);
             RefreshDeleteButton();
@@ -282,16 +349,24 @@ public class TitleSaveMenu : MonoBehaviour
         Stretch(shade.rectTransform);
         deleteDialog = shade.gameObject;
         var card = AddImage("Dialog", shade.transform, new Color(0.10f, 0.15f, 0.22f));
-        card.rectTransform.sizeDelta = new Vector2(720f, 262f);
+        if (dialogPanel != null)
+        {
+            card.sprite = dialogPanel;
+            card.color = Color.white;
+        }
+        card.rectTransform.sizeDelta = new Vector2(880f, 410f);
+        ShellPanelSurface.AddTo(card);
 
-        Place(CreateLabel("삭제하시겠습니까?", card.transform, status, 42f).rectTransform,
-            0f, 63f, 660f, 58f);
-        Place(CreateLabel($"선택한 저장 {ids.Length}개를 삭제합니다.", card.transform, status, 28f).rectTransform,
-            0f, 3f, 660f, 46f);
+        Place(CreateLabel("삭제하시겠습니까?", card.transform, status, 49f).rectTransform,
+            0f, 96f, 740f, 70f);
+        Place(CreateLabel($"선택한 저장 {ids.Length}개를 삭제합니다.", card.transform, status, 34f).rectTransform,
+            0f, 17f, 740f, 50f);
         var yes = AddOption(card.transform, "예", 58f, () => DeleteSelected(ids)).GetComponent<Button>();
         var no = AddOption(card.transform, "아니오", 58f, CloseDeleteConfirmation).GetComponent<Button>();
-        Place((RectTransform)yes.transform, -118f, -74f, 208f, 58f);
-        Place((RectTransform)no.transform, 118f, -74f, 208f, 58f);
+        Place((RectTransform)yes.transform, -155f, -100f, 280f, 78f);
+        Place((RectTransform)no.transform, 155f, -100f, 280f, 78f);
+        yes.GetComponentInChildren<TMP_Text>().fontSize = 36f;
+        no.GetComponentInChildren<TMP_Text>().fontSize = 36f;
         yes.navigation = new Navigation { mode = Navigation.Mode.Explicit, selectOnRight = no };
         no.navigation = new Navigation { mode = Navigation.Mode.Explicit, selectOnLeft = yes };
         EventSystem.current?.SetSelectedGameObject(no.gameObject);
@@ -355,21 +430,39 @@ public class TitleSaveMenu : MonoBehaviour
         rect.sizeDelta = new Vector2(width, height);
     }
 
+    Button AddFooterOption(Transform parent, string label, float width, Action action)
+    {
+        var option = AddOption(parent, label, FooterHeight, action);
+        option.GetComponent<LayoutElement>().preferredWidth = width;
+        option.GetComponentInChildren<TMP_Text>().fontSize = 27f;
+        return option.GetComponent<Button>();
+    }
+
     Transform AddOption(Transform parent, string label, float height, Action action, float labelBottom = 0f)
     {
         var row = new GameObject(label, typeof(RectTransform), typeof(Image),
             typeof(Button), typeof(LayoutElement));
         row.transform.SetParent(parent, false);
         var image = row.GetComponent<Image>();
-        image.color = new Color(0.12f, 0.16f, 0.23f, 0.96f);
+        var menuArt = continueButton.targetGraphic as Image;
+        if (menuArt != null && menuArt.sprite != null)
+        {
+            image.sprite = menuArt.sprite;
+            image.color = Color.white;
+        }
+        else
+            image.color = new Color(0.12f, 0.16f, 0.23f, 0.96f);
         row.GetComponent<LayoutElement>().preferredHeight = height;
         var button = row.GetComponent<Button>();
         button.targetGraphic = image;
+        ShellButtonTheme.Apply(button);
         button.onClick.AddListener(() => { if (!busy) action(); });
         var text = CreateLabel(label, row.transform, status, 30);
         text.rectTransform.anchorMin = new Vector2(0f, labelBottom);
         text.rectTransform.anchorMax = Vector2.one;
-        text.rectTransform.offsetMin = text.rectTransform.offsetMax = Vector2.zero;
+        float sidePadding = labelBottom > 0f ? 64f : 12f;
+        text.rectTransform.offsetMin = new Vector2(sidePadding, 0f);
+        text.rectTransform.offsetMax = new Vector2(-sidePadding, labelBottom > 0f ? -13f : 0f);
         return row.transform;
     }
 
@@ -429,7 +522,6 @@ public class TitleSaveMenu : MonoBehaviour
         newGameButton.gameObject.SetActive(true);
         continueButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
-        if (titleLogo != null) titleLogo.SetActive(true);
         SetBusy(false, "");
     }
 
@@ -455,5 +547,44 @@ public class TitleSaveMenu : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+}
+
+// Draw an opaque, flat interior over the panel art while retaining its pixel border.
+internal static class ShellPanelSurface
+{
+    public static void AddTo(Image frame)
+    {
+        if (frame == null || frame.sprite == null)
+            return;
+
+        var fill = new GameObject("Clean Panel Interior", typeof(RectTransform), typeof(Image))
+            .GetComponent<Image>();
+        fill.transform.SetParent(frame.transform, false);
+        fill.transform.SetAsFirstSibling();
+        fill.color = new Color32(3, 30, 34, 255);
+        fill.raycastTarget = false;
+        var rect = fill.rectTransform;
+        rect.anchorMin = new Vector2(0.031f, 0.085f);
+        rect.anchorMax = new Vector2(0.969f, 0.885f);
+        rect.offsetMin = rect.offsetMax = Vector2.zero;
+    }
+}
+
+// One palette for the title, save rows, pause menu and confirmation buttons.
+internal static class ShellButtonTheme
+{
+    public static void Apply(Button button)
+    {
+        button.transition = Selectable.Transition.ColorTint;
+        var colors = button.colors;
+        colors.colorMultiplier = 1.55f;
+        colors.normalColor = new Color(0.6452f, 0.6452f, 0.6452f, 1f);
+        colors.highlightedColor = new Color(0.69f, 0.94f, 1f, 1f);
+        colors.selectedColor = new Color(0.69f, 0.94f, 1f, 1f);
+        colors.pressedColor = new Color(0.48f, 0.73f, 0.78f, 1f);
+        colors.disabledColor = new Color(0.43f, 0.48f, 0.50f, 0.52f);
+        colors.fadeDuration = 0.10f;
+        button.colors = colors;
     }
 }

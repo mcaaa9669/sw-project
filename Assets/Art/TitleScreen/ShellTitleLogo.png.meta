@@ -116,10 +116,10 @@ TextureImporter:
       name: ShellTitleLogo
       rect:
         serializedVersion: 2
-        x: 107
-        y: 12
-        width: 1314
-        height: 1005
+        x: 120
+        y: 63
+        width: 1287
+        height: 896
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

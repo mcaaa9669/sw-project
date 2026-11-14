@@ -13,6 +13,8 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] Button resumeButton;
     [SerializeField] Button restartButton;
     [SerializeField] Button mainMenuButton;
+    [SerializeField] Sprite dialogPanel;
+    [SerializeField] Image pausePanel;
 
     CanvasGroup menu;
     TMP_Text saveStatus;
@@ -41,9 +43,13 @@ public class PauseMenuController : MonoBehaviour
             gameObject.AddComponent<GraphicRaycaster>();
         }
 
+        ShellButtonTheme.Apply(resumeButton);
+        ShellButtonTheme.Apply(restartButton);
+        ShellButtonTheme.Apply(mainMenuButton);
         resumeButton.onClick.AddListener(Resume);
         restartButton.onClick.AddListener(OpenRestartConfirmation);
         mainMenuButton.onClick.AddListener(OpenSaveConfirmation);
+        ShellPanelSurface.AddTo(pausePanel);
         CreateSaveStatus();
         CreateConfirmation();
         ShowMenu(false);
@@ -144,12 +150,13 @@ public class PauseMenuController : MonoBehaviour
         confirmationTitle.text = title;
         confirmationDetails.text = details;
         confirmationTitle.rectTransform.anchoredPosition =
-            new Vector2(0f, string.IsNullOrEmpty(details) ? 42f : 78f);
+            new Vector2(0f, string.IsNullOrEmpty(details) ? 82f : 120f);
         confirmAction = onConfirm;
         cancelAction = onCancel;
         resumeButton.interactable = false;
         restartButton.interactable = false;
         mainMenuButton.interactable = false;
+        if (pausePanel != null) pausePanel.gameObject.SetActive(false);
         confirmation.SetActive(true);
         EventSystem.current?.SetSelectedGameObject(cancelConfirmationButton.gameObject);
     }
@@ -159,6 +166,7 @@ public class PauseMenuController : MonoBehaviour
         if (!confirmation.activeSelf) return;
 
         confirmation.SetActive(false);
+        if (pausePanel != null) pausePanel.gameObject.SetActive(true);
         confirmAction = cancelAction = null;
         resumeButton.interactable = true;
         restartButton.interactable = true;
@@ -217,7 +225,7 @@ public class PauseMenuController : MonoBehaviour
     void CreateConfirmation()
     {
         var font = mainMenuButton.GetComponentInChildren<TMP_Text>().font;
-        var shade = CreateDialogImage("Pause Confirmation", transform, new Color(0f, 0f, 0f, 0.72f));
+        var shade = CreateDialogImage("Pause Confirmation", transform, Color.clear);
         var shadeRect = shade.rectTransform;
         shadeRect.anchorMin = Vector2.zero;
         shadeRect.anchorMax = Vector2.one;
@@ -225,18 +233,35 @@ public class PauseMenuController : MonoBehaviour
         confirmation = shade.gameObject;
 
         var panel = CreateDialogImage("Dialog", shadeRect, new Color(0.09f, 0.12f, 0.18f));
-        panel.rectTransform.sizeDelta = new Vector2(720f, 292f);
+        if (dialogPanel != null)
+        {
+            panel.sprite = dialogPanel;
+            panel.color = Color.white;
+        }
+        if (pausePanel != null)
+        {
+            var source = pausePanel.rectTransform;
+            var rect = panel.rectTransform;
+            rect.anchorMin = source.anchorMin;
+            rect.anchorMax = source.anchorMax;
+            rect.pivot = source.pivot;
+            rect.anchoredPosition = source.anchoredPosition;
+            rect.sizeDelta = source.sizeDelta;
+        }
+        else
+            panel.rectTransform.sizeDelta = new Vector2(1100f, 590f);
+        ShellPanelSurface.AddTo(panel);
 
-        confirmationTitle = AddDialogLabel(panel.transform, font, "", 36f,
-            new Vector2(0f, 78f), new Vector2(668f, 60f), Color.white);
+        confirmationTitle = AddDialogLabel(panel.transform, font, "", 54f,
+            new Vector2(0f, 120f), new Vector2(948f, 92f), Color.white);
         confirmationTitle.enableAutoSizing = true;
-        confirmationTitle.fontSizeMin = 24f;
-        confirmationTitle.fontSizeMax = 36f;
-        confirmationDetails = AddDialogLabel(panel.transform, font, "", 28f,
-            new Vector2(0f, 12f), new Vector2(648f, 48f), new Color(0.88f, 0.9f, 0.94f));
+        confirmationTitle.fontSizeMin = 36f;
+        confirmationTitle.fontSizeMax = 54f;
+        confirmationDetails = AddDialogLabel(panel.transform, font, "", 38f,
+            new Vector2(0f, 25f), new Vector2(900f, 66f), new Color(0.88f, 0.9f, 0.94f));
 
-        var confirmSaveButton = CreateDialogButton(panel.transform, font, "예", -116f, ConfirmSelection);
-        var cancelSaveButton = CreateDialogButton(panel.transform, font, "아니오", 116f, CancelConfirmation);
+        var confirmSaveButton = CreateDialogButton(panel.transform, font, "예", -190f, ConfirmSelection);
+        var cancelSaveButton = CreateDialogButton(panel.transform, font, "아니오", 190f, CancelConfirmation);
         cancelConfirmationButton = cancelSaveButton;
         confirmSaveButton.navigation = new Navigation
         {
@@ -257,16 +282,23 @@ public class PauseMenuController : MonoBehaviour
         return image;
     }
 
-    static Button CreateDialogButton(Transform parent, TMP_FontAsset font, string label, float x,
+    Button CreateDialogButton(Transform parent, TMP_FontAsset font, string label, float x,
         Action action)
     {
         var image = CreateDialogImage(label, parent, new Color(0.24f, 0.32f, 0.46f));
-        image.rectTransform.anchoredPosition = new Vector2(x, -76f);
-        image.rectTransform.sizeDelta = new Vector2(208f, 62f);
+        var menuArt = mainMenuButton.targetGraphic as Image;
+        if (menuArt != null && menuArt.sprite != null)
+        {
+            image.sprite = menuArt.sprite;
+            image.color = Color.white;
+        }
+        image.rectTransform.anchoredPosition = new Vector2(x, -116f);
+        image.rectTransform.sizeDelta = new Vector2(344f, 90f);
         var button = image.gameObject.AddComponent<Button>();
         button.targetGraphic = image;
+        ShellButtonTheme.Apply(button);
         button.onClick.AddListener(() => action());
-        AddDialogLabel(image.transform, font, label, 32f, Vector2.zero,
+        AddDialogLabel(image.transform, font, label, 42f, Vector2.zero,
             image.rectTransform.sizeDelta, Color.white);
         return button;
     }
