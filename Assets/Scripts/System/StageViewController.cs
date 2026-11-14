@@ -22,6 +22,8 @@ public sealed class StageViewController : MonoBehaviour
         public bool enableSoulWorld;
         [Min(0f)] public float soulWorldTimeOverride;
         public RespawnPoint startWhenPastCheckpoint;
+        [Tooltip("Fixed entry point used when continuing this section from a save.")]
+        public RespawnPoint saveEntry;
         public BoxCollider2D leftExitBarrier;
         [Min(0.01f)] public float orthographicSize;
         public ViewMode backgroundMode;
@@ -49,6 +51,9 @@ public sealed class StageViewController : MonoBehaviour
     private float elapsed;
     private bool followingHeightOverride;
 
+    public string CurrentSaveSection =>
+        currentView >= 0 && views[currentView].saveEntry != null ? views[currentView].name : null;
+
     public bool ControlsPlayer(PlayerController candidate) => candidate.transform == player;
 
     private void Awake()
@@ -68,6 +73,10 @@ public sealed class StageViewController : MonoBehaviour
 
     private void Start()
     {
+        string section = SaveSession.ConsumeResumeSection(gameObject.scene.name);
+        if (!string.IsNullOrEmpty(section) && TryStartSavedSection(section))
+            return;
+
         if (player != null && views != null)
         {
             for (int index = views.Length - 1; index > 0; index--)
@@ -84,6 +93,30 @@ public sealed class StageViewController : MonoBehaviour
         }
 
         SetView(0);
+    }
+
+    private bool TryStartSavedSection(string section)
+    {
+        if (player == null || views == null || !player.TryGetComponent(out PlayerController controller))
+            return false;
+
+        for (int index = 0; index < views.Length; index++)
+        {
+            View view = views[index];
+            if (view.name != section || view.saveEntry == null)
+                continue;
+
+            Vector3 entry = view.saveEntry.transform.position;
+            entry.z = player.position.z;
+            controller.Revive(entry);
+            controller.SetRespawnPoint(view.saveEntry);
+            Physics2D.SyncTransforms();
+            SetView(index);
+            return true;
+        }
+
+        Debug.LogWarning($"저장된 구간을 찾을 수 없어 기본 위치에서 시작합니다: {section}", this);
+        return false;
     }
 
     public void SetView(int index)
