@@ -132,6 +132,14 @@ public class PlayerController : MonoBehaviour, IKillable
     void FixedUpdate()
     {
         if (!CanControl) return;
+        // 영혼이 자기 시체와 더 이상 겹치지 않으면 다시 부딪히게 함
+        // (처음엔 겹쳐서 생기므로 충돌을 꺼두고, 완전히 빠져나온 뒤 켬)
+        if (isSoul && soulShellCollider != null &&
+            !col.Distance(soulShellCollider).isOverlapped)
+        {
+            Physics2D.IgnoreCollision(col, soulShellCollider, false);
+            soulShellCollider = null;
+        }
 
         bool grounded = IsGrounded(out bool onBelt, out float beltSpeed);
         bool inPoison = poisonSwim != null
