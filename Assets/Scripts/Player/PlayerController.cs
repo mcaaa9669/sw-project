@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour, IKillable
 
     [SerializeField] float jumpBufferTime = 0.12f;
     float jumpBufferTimer;
+    [Tooltip("발판에서 떨어진 직후에도 점프를 허용하는 시간 (코요테 타임)")]
+    [SerializeField] float coyoteTime = 0.1f;
+    float coyoteTimer;
 
     bool isDead;        // 현실의 몸이 죽었는지 (영혼 상태 포함)
     bool isSoul;        // 영혼으로 활동 중인지
@@ -194,17 +197,20 @@ public class PlayerController : MonoBehaviour, IKillable
 
         jumpRequested = false;
 
-        if (jumpBufferTimer > 0f && grounded && !inPoison)
+        // 바닥에 있으면 타이머를 채우고, 공중이면 줄임
+        // 올라가는 중(점프 직후)의 접촉은 바닥으로 치지 않음 → 이단 점프 방지
+        if (grounded && rb.linearVelocity.y <= 0.01f)
+            coyoteTimer = coyoteTime;
+        else
+            coyoteTimer = Mathf.Max(0f, coyoteTimer - Time.fixedDeltaTime);
+
+        if (jumpBufferTimer > 0f && coyoteTimer > 0f && !inPoison)
         {
             velocity.y = jumpForce;
             jumpBufferTimer = 0f;
+            coyoteTimer = 0f;   // 한 번 쓰면 바로 소모
 
-            Debug.Log("[점프 실행] 바닥 확인 후 실행", this);
-        }
-        else
-        {
-            jumpBufferTimer = Mathf.Max(
-                0f, jumpBufferTimer - Time.fixedDeltaTime);
+            Debug.Log($"[점프 실행] 바닥={grounded} (코요테 점프={!grounded})", this);
         }
 
         rb.linearVelocity = velocity;
@@ -377,8 +383,8 @@ public class PlayerController : MonoBehaviour, IKillable
         inputX = 0f;
         jumpRequested = false;
         jumpBufferTimer = 0f;
+        coyoteTimer = 0f;
 
-  
         rb.linearVelocity = Vector2.zero;
 
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
@@ -534,6 +540,7 @@ public class PlayerController : MonoBehaviour, IKillable
         inputX = 0f;
         jumpRequested = false;
         jumpBufferTimer = 0f;
+        coyoteTimer = 0f;
 
         transform.position = position;
 
