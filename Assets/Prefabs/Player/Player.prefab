@@ -188,6 +188,7 @@ MonoBehaviour:
   respawnPoint: {fileID: 0}
   respawnDelay: 1
   useSoulWorld: 1
+  soulWorldOnFall: 1
   soulWorldController: {fileID: 0}
   soulTint: {r: 0.6, g: 0.85, b: 1, a: 0.5}
   swimMoveMultiplier: 0.3
@@ -196,6 +197,7 @@ MonoBehaviour:
     m_Bits: 8
   wallCheckDistance: 0.03
   jumpBufferTime: 0.12
+  coyoteTime: 0.13
   surfaceMoveMultiplier: 1
 --- !u!95 &-540795473628240258
 Animator:
