@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour, IKillable
     bool jumpRequested;
     bool wasWallBlocked;
     readonly ContactPoint2D[] groundContacts = new ContactPoint2D[16];
+    Vector2 groundVelocity;     // 밟고 있는 이동 발판의 속도
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
 
     [SerializeField] LayerMask wallLayer;
@@ -190,7 +191,15 @@ public class PlayerController : MonoBehaviour, IKillable
 
         Vector2 velocity = rb.linearVelocity;
        if (!onBelt || inputX != 0f)
-            velocity.x = targetSpeed;
+            velocity.x = targetSpeed + groundVelocity.x;
+
+        // 이동 발판 위에서는 세로 속도를 발판에 맞춤 (덜그럭거림 방지)
+        // 점프해서 발판보다 빠르게 올라가는 중이면 건드리지 않음
+        if (grounded && groundVelocity.y != 0f &&
+            velocity.y <= groundVelocity.y + 0.5f)
+        {
+            velocity.y = groundVelocity.y;
+        }
 
         if (jumpRequested)
         {
@@ -246,6 +255,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         onBelt = false;
         beltSpeed = 0f;
+        groundVelocity = Vector2.zero;
         bool grounded = false;
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -270,6 +280,14 @@ public class PlayerController : MonoBehaviour, IKillable
             Collider2D floor = contact.collider == col
                 ? contact.otherCollider
                 : contact.collider;
+
+            // 이동 발판이면 그 속도를 기억
+            if (floor != null)
+            {
+                MovingPlatform platform = floor.GetComponentInParent<MovingPlatform>();
+                if (platform != null)
+                    groundVelocity = platform.Velocity;
+            }
 
             if (floor != null && floor.usedByEffector &&
                 floor.TryGetComponent<SurfaceEffector2D>(out var effector) &&
