@@ -5,11 +5,25 @@ using TMPro;
 
 public class GameHUD : MonoBehaviour
 {
+    [SerializeField] private GameObject stageBadge;
+    [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_Text deathText;
 
     [Header("Soul Timer")]
     [SerializeField] private GameObject soulTimerGroup;
     [SerializeField] private Image timerFill;
+
+    public void SetStage(string section, bool showDeaths)
+    {
+        if (stageBadge != null && stageText != null)
+        {
+            stageBadge.SetActive(!string.IsNullOrEmpty(section));
+            stageText.text = string.IsNullOrEmpty(section) ? string.Empty : $"STAGE {section}";
+        }
+
+        if (deathText != null)
+            deathText.gameObject.SetActive(showDeaths);
+    }
 
     // 사망 횟수 갱신
     private int displayedMaxDeaths = 5;
@@ -28,14 +42,7 @@ public class GameHUD : MonoBehaviour
     // 남은 시간에 따라 게이지 갱신
     public void SetSoulTime(float remaining, float maxTime)
     {
-        if (maxTime <= 0f)
-        {
-            timerFill.fillAmount = 0f;
-            return;
-        }
-
-        timerFill.fillAmount =
-            Mathf.Clamp01(remaining / maxTime);
+        timerFill.fillAmount = maxTime > 0f ? Mathf.Clamp01(remaining / maxTime) : 0f;
     }
 
     // 영혼세계 타이머 표시 및 숨김
@@ -44,10 +51,11 @@ public class GameHUD : MonoBehaviour
         soulTimerGroup.SetActive(show);
     }
 
-    private void Start()
+    private void Awake()
     {
-        
-        SetSoulTime(5f, 5f);
+        string sceneName = gameObject.scene.name;
+        if (sceneName.StartsWith("Stage") && int.TryParse(sceneName.Substring(5), out int stageNumber))
+            SetStage(stageNumber.ToString(), true);
         ShowSoulTimer(false);
     }
 }

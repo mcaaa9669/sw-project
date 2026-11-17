@@ -8,6 +8,9 @@ public sealed class StageViewTrigger : MonoBehaviour
     [SerializeField] private bool oneShot;
     [SerializeField] private RespawnPoint introFallCheckpoint;
 
+    [SerializeField] private DialoguePlayer introFallDialogue;
+
+    private PlayerController introPlayer;
     private bool used;
     private RespawnPoint checkpoint;
 
@@ -22,6 +25,7 @@ public sealed class StageViewTrigger : MonoBehaviour
     {
         if (checkpoint != null)
             checkpoint.Reached -= ActivateView;
+        StopListeningForIntroRespawn();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -40,5 +44,30 @@ public sealed class StageViewTrigger : MonoBehaviour
 
         used = oneShot || introFallCheckpoint != null;
         stageView.SetView(viewIndex);
+
+        if (introFallCheckpoint != null && introFallDialogue != null)
+        {
+            introPlayer = player;
+            introPlayer.FallRespawned += PlayIntroDialogue;
+        }
+    }
+
+    private void PlayIntroDialogue()
+    {
+        if (!introPlayer.IsCurrentRespawnPoint(introFallCheckpoint))
+        {
+            StopListeningForIntroRespawn();
+            return;
+        }
+
+        StopListeningForIntroRespawn();
+        introFallDialogue.Play();
+    }
+
+    private void StopListeningForIntroRespawn()
+    {
+        if (introPlayer != null)
+            introPlayer.FallRespawned -= PlayIntroDialogue;
+        introPlayer = null;
     }
 }

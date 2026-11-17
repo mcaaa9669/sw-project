@@ -6,11 +6,31 @@ public class HUDTestController : MonoBehaviour
 {
     [SerializeField] private GameHUD gameHUD;
 
+    [SerializeField] private string previewSection;
+    [SerializeField] private bool showTimerPreview;
+    [SerializeField, Min(0)] private int previewDeaths;
+
     private int deathCount = 0;
 
     private float remainingTime = 5f;
     private const float MaxTime = 5f;
     private bool isSoulWorld = false;
+
+    private void Start()
+    {
+        if (!string.IsNullOrEmpty(previewSection))
+        {
+            deathCount = previewDeaths;
+            gameHUD.SetStage(previewSection, true);
+            gameHUD.SetDeathCount(deathCount);
+        }
+
+        if (showTimerPreview)
+        {
+            gameHUD.SetSoulTime(3f, MaxTime);
+            gameHUD.ShowSoulTimer(true);
+        }
+    }
 
     private void Update()
     {

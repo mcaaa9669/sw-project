@@ -49,7 +49,7 @@ public class PauseMenuController : MonoBehaviour
         resumeButton.onClick.AddListener(Resume);
         restartButton.onClick.AddListener(OpenRestartConfirmation);
         mainMenuButton.onClick.AddListener(OpenSaveConfirmation);
-        ShellPanelSurface.AddTo(pausePanel);
+        ShellButtonTheme.ApplyFrame(pausePanel);
         CreateSaveStatus();
         CreateConfirmation();
         ShowMenu(false);
@@ -250,15 +250,15 @@ public class PauseMenuController : MonoBehaviour
         }
         else
             panel.rectTransform.sizeDelta = new Vector2(1100f, 590f);
-        ShellPanelSurface.AddTo(panel);
+        ShellButtonTheme.ApplyFrame(panel);
 
         confirmationTitle = AddDialogLabel(panel.transform, font, "", 54f,
-            new Vector2(0f, 120f), new Vector2(948f, 92f), Color.white);
+            new Vector2(0f, 120f), new Vector2(948f, 92f), ShellButtonTheme.Ivory);
         confirmationTitle.enableAutoSizing = true;
         confirmationTitle.fontSizeMin = 36f;
         confirmationTitle.fontSizeMax = 54f;
         confirmationDetails = AddDialogLabel(panel.transform, font, "", 38f,
-            new Vector2(0f, 25f), new Vector2(900f, 66f), new Color(0.88f, 0.9f, 0.94f));
+            new Vector2(0f, 25f), new Vector2(900f, 66f), new Color32(218, 210, 185, 255));
 
         var confirmSaveButton = CreateDialogButton(panel.transform, font, "예", -190f, ConfirmSelection);
         var cancelSaveButton = CreateDialogButton(panel.transform, font, "아니오", 190f, CancelConfirmation);
@@ -299,7 +299,7 @@ public class PauseMenuController : MonoBehaviour
         ShellButtonTheme.Apply(button);
         button.onClick.AddListener(() => action());
         AddDialogLabel(image.transform, font, label, 42f, Vector2.zero,
-            image.rectTransform.sizeDelta, Color.white);
+            image.rectTransform.sizeDelta, ShellButtonTheme.Ivory);
         return button;
     }
 

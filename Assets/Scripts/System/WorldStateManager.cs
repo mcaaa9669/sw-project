@@ -41,6 +41,16 @@ public class WorldStateManager : MonoBehaviour
     readonly List<(Animator animator, float speed)> pausedAnimators = new();
     readonly List<IWorldPausable> pausedScripts = new();
 
+    [Serializable]
+    private class BackgroundLayer
+    {
+        public SpriteRenderer renderer;
+        public Sprite spiritSprite;
+        [NonSerialized] public Sprite realSprite;
+    }
+
+    [SerializeField] private BackgroundLayer[] backgroundLayers = Array.Empty<BackgroundLayer>();
+
     Camera cam;
     Color realBackgroundColor;
     int spiritLayer;
@@ -48,6 +58,11 @@ public class WorldStateManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        foreach (var layer in backgroundLayers)
+        {
+            if (layer?.renderer != null)
+                layer.realSprite = layer.renderer.sprite;
+        }
         spiritLayer = LayerMask.NameToLayer("SpiritWorld");
 
         if (soulWorldController == null)
@@ -87,6 +102,7 @@ public class WorldStateManager : MonoBehaviour
         if (IsSpirit) return;
         CurrentWorld = WorldType.Spirit;
 
+        SwapBackgroundSprites();
         FreezeRealWorld();
         if (changeCameraBackground && cam != null) cam.backgroundColor = spiritBackgroundColor;
 
@@ -98,6 +114,7 @@ public class WorldStateManager : MonoBehaviour
         if (!IsSpirit) return;
         CurrentWorld = WorldType.Real;
 
+        SwapBackgroundSprites();
         UnfreezeRealWorld();
         if (changeCameraBackground && cam != null) cam.backgroundColor = realBackgroundColor;
 
@@ -105,6 +122,17 @@ public class WorldStateManager : MonoBehaviour
     }
 
     // ===== 현실세계 일시정지 =====
+
+    private void SwapBackgroundSprites()
+    {
+        foreach (var layer in backgroundLayers)
+        {
+            if (layer?.renderer == null || layer.spiritSprite == null)
+                continue;
+
+            layer.renderer.sprite = IsSpirit ? layer.spiritSprite : layer.realSprite;
+        }
+    }
 
     void FreezeRealWorld()
     {
