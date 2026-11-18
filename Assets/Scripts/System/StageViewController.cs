@@ -11,6 +11,8 @@ public sealed class StageViewController : MonoBehaviour
     public class View
     {
         public string name;
+        public string hudLabel;
+        public bool hideDeathCount;
         public ViewMode cameraMode;
         public Vector2 cameraCenter;
         public bool followBelowHeight;
@@ -35,6 +37,7 @@ public sealed class StageViewController : MonoBehaviour
     [SerializeField] private Transform background;
     [SerializeField] private GameObject soulVignette;
     [SerializeField] private SoulWorldController soulWorldController;
+    [SerializeField] private GameHUD gameHUD;
     [SerializeField] private Transform[] zoomScaledLayers = Array.Empty<Transform>();
     [SerializeField] private View[] views;
 
@@ -127,6 +130,11 @@ public sealed class StageViewController : MonoBehaviour
         bool firstView = currentView < 0;
         currentView = index;
         View view = views[index];
+        if (gameHUD != null)
+        {
+            string section = string.IsNullOrEmpty(view.hudLabel) ? view.name : view.hudLabel;
+            gameHUD.SetStage(section, !view.hideDeathCount);
+        }
         followingHeightOverride = ShouldFollowAtHeight(view);
         BeginTransition();
         ActivateLeftExitBarrier(view);

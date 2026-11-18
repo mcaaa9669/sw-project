@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField, Range(0f, 1f)]
     float swimMoveMultiplier = 0.5f;
 
+    public event System.Action FallRespawned;
+
     Rigidbody2D rb;
     Collider2D col;           // 추가: 끄면 낭떠러지 사망은 영혼세계 없이 바로 부활
     PoisonSwim poisonSwim;
@@ -447,7 +449,7 @@ public class PlayerController : MonoBehaviour, IKillable
             rb.simulated = false;
             if (col) col.enabled = false;
             SetBodyVisible(false);
-            StartCoroutine(RespawnAfterDelay());
+            StartCoroutine(RespawnAfterDelay(deathType));
         }
     }
 
@@ -517,10 +519,14 @@ public class PlayerController : MonoBehaviour, IKillable
         Revive(GetRespawnPosition());
     }
 
-    IEnumerator RespawnAfterDelay()
+    IEnumerator RespawnAfterDelay(DeathType deathType)
     {
         yield return new WaitForSeconds(respawnDelay);
+        if (!isDead) yield break;
+
         HandleReturn();
+        if (deathType == DeathType.Fall)
+            FallRespawned?.Invoke();
     }
 
     Vector3 GetRespawnPosition()
@@ -540,6 +546,7 @@ public class PlayerController : MonoBehaviour, IKillable
         if (respawnPoint != null && point.Order < respawnPoint.Order) return false;
 
         respawnPoint = point;
+        point.ActivateMarker();
         return true;
     }
 

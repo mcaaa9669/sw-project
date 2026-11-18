@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291882234
+  m_fontColor: {r: 0.980392, g: 0.92549, b: 0.815686, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -204,8 +204,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300013, guid: 59536b75565f4efcb141244f6653d619, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -332,8 +332,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291882234
+  m_fontColor: {r: 0.980392, g: 0.92549, b: 0.815686, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -469,8 +469,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291882234
+  m_fontColor: {r: 0.980392, g: 0.92549, b: 0.815686, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -685,8 +685,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291882234
+  m_fontColor: {r: 0.980392, g: 0.92549, b: 0.815686, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -892,8 +892,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300014, guid: 9a1dcf429f584aa48c9dbdcfd46f1122, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -969,8 +969,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300013, guid: 59536b75565f4efcb141244f6653d619, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1090,8 +1090,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300013, guid: 59536b75565f4efcb141244f6653d619, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1159,7 +1159,7 @@ MonoBehaviour:
   resumeButton: {fileID: 9181947047884501469}
   restartButton: {fileID: 7066259780028018447}
   mainMenuButton: {fileID: 8613256246568364506}
-  dialogPanel: {fileID: 21300014, guid: 9a1dcf429f584aa48c9dbdcfd46f1122, type: 3}
+  dialogPanel: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
   pausePanel: {fileID: 7953500957551377207}
 --- !u!225 &8800135201996811002
 CanvasGroup:
