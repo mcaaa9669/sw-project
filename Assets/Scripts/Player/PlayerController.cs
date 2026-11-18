@@ -380,6 +380,10 @@ public class PlayerController : MonoBehaviour, IKillable
                     poisonRoutine = StartCoroutine(PoisonRoutine());
                 break;
 
+            case DeathType.DeadZone:
+                Die(deathType, spikeAnchor);
+                break;
+
             default:
                 Debug.LogWarning($"[PlayerController] 아직 처리하지 않은 사망 종류: {deathType}");
                 break;

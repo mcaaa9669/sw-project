@@ -8,9 +8,7 @@ using UnityEngine;
 public class LaserSensor : MonoBehaviour
 {
     [SerializeField] LaserSignal signal;
-
-    [Tooltip("같은 통과가 두 번 세지지 않도록 기다리는 시간 (초)")]
-    [SerializeField, Min(0f)] float cooldown = 0.15f;
+    [SerializeField] LaserSignal.State laserId = LaserSignal.State.Laser0;   // 1번 레이저는 Laser1로
 
     float lastToggleTime = float.NegativeInfinity;
 
@@ -24,9 +22,8 @@ public class LaserSensor : MonoBehaviour
     {
         if (signal == null || !signal.IsRunning) return;
         if (other.GetComponentInParent<Shell>() == null) return;
-        if (Time.time - lastToggleTime < cooldown) return;
 
         lastToggleTime = Time.time;
-        signal.Toggle();
+        signal.Select(laserId);
     }
 }
