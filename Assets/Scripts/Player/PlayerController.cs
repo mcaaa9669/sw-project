@@ -373,6 +373,7 @@ public class PlayerController : MonoBehaviour, IKillable
             case DeathType.Spike:
             case DeathType.laser:
             case DeathType.saw:
+            case DeathType.Icicle:
             case DeathType.Fall:
                 Die(deathType, spikeAnchor);
                 break;
@@ -475,6 +476,12 @@ public class PlayerController : MonoBehaviour, IKillable
                 }
             case DeathType.laser:
             case DeathType.saw:
+                {
+                    Shell shell = SpawnShell();
+                    shell.OnLaserDeath();       // 물리 적용 (떨어짐, 미끄러짐)
+                    return shell;
+                }
+            case DeathType.Icicle:
                 {
                     Shell shell = SpawnShell();
                     shell.OnLaserDeath();       // 물리 적용 (떨어짐, 미끄러짐)

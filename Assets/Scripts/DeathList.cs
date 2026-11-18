@@ -9,5 +9,6 @@ public enum DeathType
     saw = 6,        // 톱니
     laser =7,       //레이저
     DeadZone = 8,   // 닿으면 죽는 영역
-    
+    Icicle = 9,     // 고드름
+
 }
