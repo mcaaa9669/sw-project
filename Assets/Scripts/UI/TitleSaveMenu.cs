@@ -141,7 +141,7 @@ public class TitleSaveMenu : MonoBehaviour
                 if (deleting)
                     checkbox = AddCheckbox(row, save.id);
                 var subtitle = CreateLabel($"{savedAt} 저장", row, status, 23);
-                subtitle.color = new Color(0.79f, 0.84f, 0.91f);
+                subtitle.color = new Color32(218, 210, 185, 255);
                 subtitle.rectTransform.anchorMin = Vector2.zero;
                 subtitle.rectTransform.anchorMax = new Vector2(1f, 0.48f);
                 subtitle.rectTransform.offsetMin = new Vector2(64f, 13f);
@@ -237,14 +237,14 @@ public class TitleSaveMenu : MonoBehaviour
 
     void AddScrollbar(ScrollRect scroll, RectTransform content)
     {
-        var track = AddImage("Scrollbar", scroll.transform, new Color32(188, 152, 99, 255));
+        var track = AddImage("Scrollbar", scroll.transform, new Color32(185, 171, 135, 255));
         var rect = track.rectTransform;
         rect.anchorMin = new Vector2(1f, 0f);
         rect.anchorMax = Vector2.one;
         rect.pivot = new Vector2(1f, 0.5f);
         rect.anchoredPosition = Vector2.zero;
         rect.sizeDelta = new Vector2(24f, 0f);
-        AddScrollbarInset("Recess", rect, new Color32(13, 34, 39, 255), 2f, 2f);
+        AddScrollbarInset("Recess", rect, new Color32(24, 43, 42, 255), 2f, 2f);
         content.offsetMin = new Vector2(34f, content.offsetMin.y);
         content.offsetMax = new Vector2(-34f, content.offsetMax.y);
 
@@ -254,9 +254,9 @@ public class TitleSaveMenu : MonoBehaviour
         Stretch(slidingRect);
         slidingRect.offsetMin = new Vector2(3f, 3f);
         slidingRect.offsetMax = new Vector2(-3f, -3f);
-        var thumb = AddImage("Thumb", slidingRect, new Color32(102, 227, 224, 255));
+        var thumb = AddImage("Thumb", slidingRect, new Color32(168, 195, 201, 255));
         Stretch(thumb.rectTransform);
-        AddScrollbarInset("Teal Inlay", thumb.rectTransform, new Color32(38, 137, 144, 255), 3f, 4f);
+        AddScrollbarInset("Teal Inlay", thumb.rectTransform, new Color32(44, 73, 85, 255), 3f, 4f);
         var bar = track.gameObject.AddComponent<Scrollbar>();
         bar.targetGraphic = thumb;
         bar.handleRect = thumb.rectTransform;
@@ -275,12 +275,12 @@ public class TitleSaveMenu : MonoBehaviour
 
     Toggle AddCheckbox(Transform row, string id)
     {
-        var box = AddImage("Checkbox", row, new Color32(188, 152, 99, 255));
+        var box = AddImage("Checkbox", row, new Color32(185, 171, 135, 255));
         var rect = box.rectTransform;
         rect.anchorMin = rect.anchorMax = new Vector2(0f, 0.5f);
         rect.anchoredPosition = new Vector2(62f, 0f);
         rect.sizeDelta = new Vector2(36f, 36f);
-        AddScrollbarInset("Checkbox Recess", rect, new Color32(13, 34, 39, 255), 3f, 3f);
+        AddScrollbarInset("Checkbox Recess", rect, new Color32(24, 43, 42, 255), 3f, 3f);
         var mark = new GameObject("Pixel Checkmark", typeof(RectTransform));
         mark.transform.SetParent(rect, false);
         // Stair-step segments stay sharp with the pixel-art frame.
@@ -290,7 +290,7 @@ public class TitleSaveMenu : MonoBehaviour
         };
         foreach (var pixel in pixels)
         {
-            var point = AddImage("Check Pixel", mark.transform, new Color32(166, 255, 244, 255));
+            var point = AddImage("Check Pixel", mark.transform, new Color32(219, 237, 255, 255));
             point.raycastTarget = false;
             Place(point.rectTransform, pixel.x * 3f - 3f, pixel.y * 3f, 5f, 5f);
         }
@@ -299,7 +299,7 @@ public class TitleSaveMenu : MonoBehaviour
         void ShowSelection(bool value)
         {
             mark.SetActive(value);
-            box.color = value ? new Color32(96, 222, 208, 255) : new Color32(188, 152, 99, 255);
+            box.color = value ? new Color32(153, 202, 245, 255) : new Color32(185, 171, 135, 255);
         }
         toggle.SetIsOnWithoutNotify(selected.Contains(id));
         ShowSelection(toggle.isOn);
@@ -355,7 +355,7 @@ public class TitleSaveMenu : MonoBehaviour
             card.color = Color.white;
         }
         card.rectTransform.sizeDelta = new Vector2(880f, 410f);
-        ShellPanelSurface.AddTo(card);
+        ShellButtonTheme.ApplyFrame(card);
 
         Place(CreateLabel("삭제하시겠습니까?", card.transform, status, 49f).rectTransform,
             0f, 96f, 740f, 70f);
@@ -472,6 +472,7 @@ public class TitleSaveMenu : MonoBehaviour
             .GetComponent<TextMeshProUGUI>();
         text.transform.SetParent(parent, false);
         text.font = template.font;
+        text.color = ShellButtonTheme.Ivory;
         text.fontSize = size;
         text.alignment = TextAlignmentOptions.Center;
         text.raycastTarget = false;
@@ -550,39 +551,27 @@ public class TitleSaveMenu : MonoBehaviour
     }
 }
 
-// Draw an opaque, flat interior over the panel art while retaining its pixel border.
-internal static class ShellPanelSurface
-{
-    public static void AddTo(Image frame)
-    {
-        if (frame == null || frame.sprite == null)
-            return;
-
-        var fill = new GameObject("Clean Panel Interior", typeof(RectTransform), typeof(Image))
-            .GetComponent<Image>();
-        fill.transform.SetParent(frame.transform, false);
-        fill.transform.SetAsFirstSibling();
-        fill.color = new Color32(3, 30, 34, 255);
-        fill.raycastTarget = false;
-        var rect = fill.rectTransform;
-        rect.anchorMin = new Vector2(0.031f, 0.085f);
-        rect.anchorMax = new Vector2(0.969f, 0.885f);
-        rect.offsetMin = rect.offsetMax = Vector2.zero;
-    }
-}
-
 // One palette for the title, save rows, pause menu and confirmation buttons.
 internal static class ShellButtonTheme
 {
+    public static readonly Color32 Ivory = new Color32(250, 236, 208, 255);
+
+    public static void ApplyFrame(Image image)
+    {
+        if (image != null && image.sprite != null && image.sprite.border != Vector4.zero)
+            image.type = Image.Type.Sliced;
+    }
+
     public static void Apply(Button button)
     {
+        ApplyFrame(button.targetGraphic as Image);
         button.transition = Selectable.Transition.ColorTint;
         var colors = button.colors;
-        colors.colorMultiplier = 1.55f;
-        colors.normalColor = new Color(0.6452f, 0.6452f, 0.6452f, 1f);
-        colors.highlightedColor = new Color(0.69f, 0.94f, 1f, 1f);
-        colors.selectedColor = new Color(0.69f, 0.94f, 1f, 1f);
-        colors.pressedColor = new Color(0.48f, 0.73f, 0.78f, 1f);
+        colors.colorMultiplier = 1.35f;
+        colors.normalColor = new Color(0.74074f, 0.74074f, 0.74074f, 1f);
+        colors.highlightedColor = new Color(0.68f, 0.84f, 1f, 1f);
+        colors.selectedColor = new Color(0.68f, 0.84f, 1f, 1f);
+        colors.pressedColor = new Color(0.56f, 0.68f, 0.79f, 1f);
         colors.disabledColor = new Color(0.43f, 0.48f, 0.50f, 0.52f);
         colors.fadeDuration = 0.10f;
         button.colors = colors;

@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField, Range(0f, 1f)]
     float swimMoveMultiplier = 0.5f;
 
+    public event System.Action FallRespawned;
+
     Rigidbody2D rb;
     Collider2D col;           // 추가: 끄면 낭떠러지 사망은 영혼세계 없이 바로 부활
     PoisonSwim poisonSwim;
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour, IKillable
     bool jumpRequested;
     bool wasWallBlocked;
     readonly ContactPoint2D[] groundContacts = new ContactPoint2D[16];
+    Vector2 groundVelocity;     // 밟고 있는 이동 발판의 속도
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
 
     [SerializeField] LayerMask wallLayer;
@@ -190,7 +193,15 @@ public class PlayerController : MonoBehaviour, IKillable
 
         Vector2 velocity = rb.linearVelocity;
        if (!onBelt || inputX != 0f)
-            velocity.x = targetSpeed;
+            velocity.x = targetSpeed + groundVelocity.x;
+
+        // 이동 발판 위에서는 세로 속도를 발판에 맞춤 (덜그럭거림 방지)
+        // 점프해서 발판보다 빠르게 올라가는 중이면 건드리지 않음
+        if (grounded && groundVelocity.y != 0f &&
+            velocity.y <= groundVelocity.y + 0.5f)
+        {
+            velocity.y = groundVelocity.y;
+        }
 
         if (jumpRequested)
         {
@@ -246,6 +257,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         onBelt = false;
         beltSpeed = 0f;
+        groundVelocity = Vector2.zero;
         bool grounded = false;
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -270,6 +282,14 @@ public class PlayerController : MonoBehaviour, IKillable
             Collider2D floor = contact.collider == col
                 ? contact.otherCollider
                 : contact.collider;
+
+            // 이동 발판이면 그 속도를 기억
+            if (floor != null)
+            {
+                MovingPlatform platform = floor.GetComponentInParent<MovingPlatform>();
+                if (platform != null)
+                    groundVelocity = platform.Velocity;
+            }
 
             if (floor != null && floor.usedByEffector &&
                 floor.TryGetComponent<SurfaceEffector2D>(out var effector) &&
@@ -362,6 +382,10 @@ public class PlayerController : MonoBehaviour, IKillable
                     poisonRoutine = StartCoroutine(PoisonRoutine());
                 break;
 
+            case DeathType.DeadZone:
+                Die(deathType, spikeAnchor);
+                break;
+
             default:
                 Debug.LogWarning($"[PlayerController] 아직 처리하지 않은 사망 종류: {deathType}");
                 break;
@@ -425,7 +449,7 @@ public class PlayerController : MonoBehaviour, IKillable
             rb.simulated = false;
             if (col) col.enabled = false;
             SetBodyVisible(false);
-            StartCoroutine(RespawnAfterDelay());
+            StartCoroutine(RespawnAfterDelay(deathType));
         }
     }
 
@@ -495,10 +519,14 @@ public class PlayerController : MonoBehaviour, IKillable
         Revive(GetRespawnPosition());
     }
 
-    IEnumerator RespawnAfterDelay()
+    IEnumerator RespawnAfterDelay(DeathType deathType)
     {
         yield return new WaitForSeconds(respawnDelay);
+        if (!isDead) yield break;
+
         HandleReturn();
+        if (deathType == DeathType.Fall)
+            FallRespawned?.Invoke();
     }
 
     Vector3 GetRespawnPosition()
@@ -518,6 +546,7 @@ public class PlayerController : MonoBehaviour, IKillable
         if (respawnPoint != null && point.Order < respawnPoint.Order) return false;
 
         respawnPoint = point;
+        point.ActivateMarker();
         return true;
     }
 
