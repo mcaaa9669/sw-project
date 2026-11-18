@@ -41,16 +41,17 @@ public class DialogueBox : MonoBehaviour
         nextClicked = true;
     }
 
-    public IEnumerator Play(DialogueLine[] lines)
+    public IEnumerator Play(DialogueLine[] lines, float lastLineAutoAdvanceDelay = -1f)
     {
         if (lines.Length == 0) yield break;
 
         SetSpeaker(lines[0].speaker);
         bodyText.maxVisibleCharacters = 0;
         yield return Open();
-        foreach (DialogueLine line in lines)
+        for (int i = 0; i < lines.Length; i++)
         {
-            yield return ShowLine(line);
+            float delay = i == lines.Length - 1 ? lastLineAutoAdvanceDelay : -1f;
+            yield return ShowLine(lines[i], delay);
         }
         yield return Close();
     }
@@ -90,7 +91,7 @@ public class DialogueBox : MonoBehaviour
         (speakerFrame != null ? speakerFrame : speakerText.gameObject).SetActive(!string.IsNullOrWhiteSpace(speaker));
     }
 
-    IEnumerator ShowLine(DialogueLine line)
+    IEnumerator ShowLine(DialogueLine line, float autoAdvanceDelay)
     {
         SetSpeaker(line.speaker);
 
@@ -114,7 +115,10 @@ public class DialogueBox : MonoBehaviour
 
         nextClicked = false;
         nextIndicator.SetActive(true);
-        while (!ConsumeNext())
+        float autoAdvanceAt = autoAdvanceDelay >= 0f
+            ? Time.unscaledTime + autoAdvanceDelay
+            : float.PositiveInfinity;
+        while (!ConsumeNext() && Time.unscaledTime < autoAdvanceAt)
         {
             yield return null;
         }
