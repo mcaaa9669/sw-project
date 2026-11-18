@@ -8,6 +8,7 @@ public class DialogueBox : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] GameObject speakerFrame;
     [SerializeField] TMP_Text speakerText;
     [SerializeField] TMP_Text bodyText;
     [SerializeField] GameObject nextIndicator;
@@ -42,6 +43,10 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator Play(DialogueLine[] lines)
     {
+        if (lines.Length == 0) yield break;
+
+        SetSpeaker(lines[0].speaker);
+        bodyText.maxVisibleCharacters = 0;
         yield return Open();
         foreach (DialogueLine line in lines)
         {
@@ -79,10 +84,15 @@ public class DialogueBox : MonoBehaviour
         IsOpen = false;
     }
 
+    void SetSpeaker(string speaker)
+    {
+        speakerText.text = speaker;
+        (speakerFrame != null ? speakerFrame : speakerText.gameObject).SetActive(!string.IsNullOrWhiteSpace(speaker));
+    }
+
     IEnumerator ShowLine(DialogueLine line)
     {
-        speakerText.text = line.speaker;
-        speakerText.gameObject.SetActive(!string.IsNullOrEmpty(line.speaker));
+        SetSpeaker(line.speaker);
 
         bodyText.text = line.body;
         bodyText.ForceMeshUpdate();

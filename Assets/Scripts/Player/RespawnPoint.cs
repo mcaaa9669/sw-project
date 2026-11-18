@@ -13,6 +13,10 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField] Color inactiveColor = Color.gray;
     [SerializeField] Color activeColor = Color.yellow;
 
+    [SerializeField] Sprite inactiveSprite;
+    [SerializeField] Sprite activeSprite;
+    private bool activated;
+
     public event Action<PlayerController> Reached;
 
     public int Order => order;
@@ -25,7 +29,30 @@ public class RespawnPoint : MonoBehaviour
 
     void Start()
     {
-        if (marker) marker.color = inactiveColor;
+        UpdateMarker();
+    }
+
+    public void ActivateMarker()
+    {
+        activated = true;
+        UpdateMarker();
+    }
+
+    private void UpdateMarker()
+    {
+        if (marker == null)
+            return;
+
+        Sprite appearance = activated ? activeSprite : inactiveSprite;
+        if (appearance != null)
+        {
+            marker.sprite = appearance;
+            marker.color = Color.white;
+        }
+        else
+        {
+            marker.color = activated ? activeColor : inactiveColor;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -35,7 +62,6 @@ public class RespawnPoint : MonoBehaviour
 
         if (player.SetRespawnPoint(this))
         {
-            if (marker) marker.color = activeColor;
             Reached?.Invoke(player);
         }
     }
