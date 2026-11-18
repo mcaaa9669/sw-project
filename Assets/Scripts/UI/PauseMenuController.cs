@@ -63,7 +63,17 @@ public class PauseMenuController : MonoBehaviour
 
     void Update()
     {
-        if (loading || Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)
+        var keyboard = Keyboard.current;
+        if (loading || keyboard == null)
+            return;
+
+        if (keyboard.rKey.wasPressedThisFrame && !paused && Time.timeScale > 0f)
+        {
+            RequestRestart();
+            return;
+        }
+
+        if (!keyboard.escapeKey.wasPressedThisFrame)
             return;
 
         if (confirmation.activeSelf)
@@ -74,15 +84,30 @@ public class PauseMenuController : MonoBehaviour
             Pause();
     }
 
+    internal void EnsureEventSystem()
+    {
+        if (EventSystem.current != null) return;
+
+        var input = new GameObject("Pause EventSystem", typeof(EventSystem),
+            typeof(InputSystemUIInputModule));
+        SceneManager.MoveGameObjectToScene(input, gameObject.scene);
+    }
+
+    public void OpenPauseMenu()
+    {
+        if (!loading && !paused && Time.timeScale > 0f)
+            Pause();
+    }
+
+    public void RequestRestart()
+    {
+        OpenPauseMenu();
+        OpenRestartConfirmation();
+    }
+
     void Pause()
     {
-        if (EventSystem.current == null)
-        {
-            var input = new GameObject("Pause EventSystem", typeof(EventSystem),
-                typeof(InputSystemUIInputModule));
-            SceneManager.MoveGameObjectToScene(input, gameObject.scene);
-        }
-
+        EnsureEventSystem();
         previousTimeScale = Time.timeScale;
         paused = true;
         Time.timeScale = 0f;

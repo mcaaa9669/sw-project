@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 // 현재 세계 종류
 public enum WorldType { Real, Spirit }
@@ -50,6 +51,15 @@ public class WorldStateManager : MonoBehaviour
     }
 
     [SerializeField] private BackgroundLayer[] backgroundLayers = Array.Empty<BackgroundLayer>();
+
+    [Serializable]
+    private struct TerrainTilePair
+    {
+        public TileBase real;
+        public TileBase spirit;
+    }
+
+    [SerializeField] private TerrainTilePair[] terrainTiles = Array.Empty<TerrainTilePair>();
 
     Camera cam;
     Color realBackgroundColor;
@@ -103,6 +113,7 @@ public class WorldStateManager : MonoBehaviour
         CurrentWorld = WorldType.Spirit;
 
         SwapBackgroundSprites();
+        SwapTerrainTiles();
         FreezeRealWorld();
         if (changeCameraBackground && cam != null) cam.backgroundColor = spiritBackgroundColor;
 
@@ -115,6 +126,7 @@ public class WorldStateManager : MonoBehaviour
         CurrentWorld = WorldType.Real;
 
         SwapBackgroundSprites();
+        SwapTerrainTiles();
         UnfreezeRealWorld();
         if (changeCameraBackground && cam != null) cam.backgroundColor = realBackgroundColor;
 
@@ -131,6 +143,32 @@ public class WorldStateManager : MonoBehaviour
                 continue;
 
             layer.renderer.sprite = IsSpirit ? layer.spiritSprite : layer.realSprite;
+        }
+    }
+
+    private void SwapTerrainTiles()
+    {
+        if (terrainTiles.Length == 0) return;
+
+        var replacements = new Dictionary<TileBase, TileBase>(terrainTiles.Length);
+        foreach (var pair in terrainTiles)
+        {
+            if (pair.real != null && pair.spirit != null)
+                replacements.Add(IsSpirit ? pair.real : pair.spirit, IsSpirit ? pair.spirit : pair.real);
+        }
+
+        foreach (var tilemap in FindObjectsByType<Tilemap>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (tilemap.gameObject.scene != gameObject.scene) continue;
+
+            var usedTiles = new TileBase[tilemap.GetUsedTilesCount()];
+            int count = tilemap.GetUsedTilesNonAlloc(usedTiles);
+            for (int i = 0; i < count; i++)
+            {
+                var tile = usedTiles[i];
+                if (tile != null && replacements.TryGetValue(tile, out var replacement))
+                    tilemap.SwapTile(tile, replacement);
+            }
         }
     }
 
