@@ -54,15 +54,15 @@ public class TitleSaveMenu : MonoBehaviour
     void StartNewGame()
     {
         if (busy) return;
-        if (!Application.CanStreamedLevelBeLoaded(SaveSession.FirstStage))
+        if (!Application.CanStreamedLevelBeLoaded("Main") || !Application.CanStreamedLevelBeLoaded(SaveSession.FirstStage))
         {
-            status.text = "Stage01 씬을 불러올 수 없습니다.";
+            status.text = "인트로 또는 Stage01 씬을 불러올 수 없습니다.";
             return;
         }
 
         try
         {
-            EnterGame(SaveSession.Create());
+            EnterGame(SaveSession.Create(), "Main");
         }
         catch (Exception error) when (SaveSession.IsFileError(error))
         {
@@ -492,7 +492,7 @@ public class TitleSaveMenu : MonoBehaviour
         }
     }
 
-    void EnterGame(GameSave save)
+    void EnterGame(GameSave save, string entryScene = null)
     {
         if (!Application.CanStreamedLevelBeLoaded(save.stage))
         {
@@ -503,7 +503,7 @@ public class TitleSaveMenu : MonoBehaviour
         SetBusy(true, "");
         SaveSession.Select(save);
         SaveSession.PrepareResume(save);
-        SceneManager.LoadScene(save.stage);
+        SceneManager.LoadScene(entryScene ?? save.stage);
     }
 
     void RemovePanel()
