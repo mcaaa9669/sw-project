@@ -10,13 +10,11 @@ Import Settings: Sprite / 32 Pixels Per Unit / Filter Mode Point / Compression N
 - 덩굴 엘리베이터 : Kinematic Rigidbody2D로 이동, Activate()/Deactivate()/Toggle() 공개
 - 기존 프로젝트 파일과 이름 충돌하지 않도록 독립 Assets/SHELL_AdvancedGimmicks_20261118 아래에 생성
 - 3개 새 효과음도 포함
-- 샘플 씬에서 더미 캐릭터 2개 및 자동 순환 엘리베이터 시험 가능
 
 설치 방법 (Unity Play 중지 후):
 1. ZIP을 ~/Documents/GitHub/sw-project 위치에 압축 해제
 2. Unity 창으로 돌아가 스크립트 컴파일/에셋 임포트 완료를 기다림
 3. Assets/SHELL_AdvancedGimmicks_20261118/Prefabs 아래 프리팹 3개 생성됨
-4. Assets/SHELL_AdvancedGimmicks_20261118/Demo/SHELL_ThreeGimmicks_Showcase.unity 더블클릭 후 Play
 
 주의:
 - 실제 Stage01 씬, 기존 BushWall.prefab, 팀원 스크립트는 수정하지 않습니다.
