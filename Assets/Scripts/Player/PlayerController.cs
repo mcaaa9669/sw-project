@@ -542,6 +542,7 @@ public class PlayerController : MonoBehaviour, IKillable
         if (respawnPoint != null && point.Order < respawnPoint.Order) return false;
 
         respawnPoint = point;
+        point.ActivateMarker();
         return true;
     }
 
