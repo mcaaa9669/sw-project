@@ -76,7 +76,7 @@ Material:
     - _Reflectivity: 10
     - _ScaleRatioA: 0.962963
     - _ScaleRatioB: 0.7824074
-    - _ScaleRatioC: 0.53589547
+    - _ScaleRatioC: 0.43709913
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -89,10 +89,10 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 2048
     - _TextureWidth: 2048
-    - _UnderlayDilate: 0.53
+    - _UnderlayDilate: 0.72
     - _UnderlayOffsetX: 0.4
-    - _UnderlayOffsetY: -0.5
-    - _UnderlaySoftness: 0.43
+    - _UnderlayOffsetY: -0.78
+    - _UnderlaySoftness: 0.29
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
