@@ -43,9 +43,9 @@ public sealed class StageViewTrigger : MonoBehaviour
             return;
 
         used = oneShot || introFallCheckpoint != null;
-        stageView.SetView(viewIndex);
+        stageView.SetView(viewIndex, introFallCheckpoint != null);
 
-        if (introFallCheckpoint != null && introFallDialogue != null)
+        if (introFallCheckpoint != null)
         {
             introPlayer = player;
             introPlayer.FallRespawned += PlayIntroDialogue;
@@ -61,7 +61,8 @@ public sealed class StageViewTrigger : MonoBehaviour
         }
 
         StopListeningForIntroRespawn();
-        introFallDialogue.Play();
+        stageView.RevealStageBadge(viewIndex);
+        introFallDialogue?.Play();
     }
 
     private void StopListeningForIntroRespawn()
