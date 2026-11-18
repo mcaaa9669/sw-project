@@ -10,9 +10,12 @@ public class SignalToggle : MonoBehaviour
     [SerializeField] LaserSignal signal;
 
     [Header("이 상태일 때 켜짐")]
-    [SerializeField] bool activeWhenOn = true;
-    [SerializeField] bool activeWhenOff = false;
+    [SerializeField] bool activeWhenLaser0 = false;
+    [SerializeField] bool activeWhenLaser1 = false;
+    [SerializeField] bool activeWhenWaiting = false;
     [SerializeField] bool activeWhenStopped = false;
+
+
 
     Renderer[] renderers;
     Collider2D[] colliders;
@@ -45,11 +48,12 @@ public class SignalToggle : MonoBehaviour
     {
         bool active = state switch
         {
-            LaserSignal.State.On => activeWhenOn,
-            LaserSignal.State.Off => activeWhenOff,
-            _ => activeWhenStopped,
-        };
-
+            LaserSignal.State.Laser0  => activeWhenLaser0,   // state가 Laser0이면 이 값
+            LaserSignal.State.Laser1  => activeWhenLaser1,   // Laser1이면 이 값
+            LaserSignal.State.Waiting => activeWhenWaiting,  // Waiting이면 이 값
+            _                         => activeWhenStopped,  // 위에 없는 나머지 전부(= Stopped)
+        }; 
+        
         foreach (var r in renderers) if (r != null) r.enabled = active;
         foreach (var c in colliders) if (c != null) c.enabled = active;
     }
