@@ -156,7 +156,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -256,8 +256,89 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &710000001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1168914741215024410, guid: ba95e08335a2a4043b7d3e1cc667d3c8, type: 3}
+      propertyPath: pauseGame
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ba95e08335a2a4043b7d3e1cc667d3c8, type: 3}
+--- !u!224 &710000002 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8933532654015976005, guid: ba95e08335a2a4043b7d3e1cc667d3c8, type: 3}
+  m_PrefabInstance: {fileID: 710000001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &710000003 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1168914741215024410, guid: ba95e08335a2a4043b7d3e1cc667d3c8, type: 3}
+  m_PrefabInstance: {fileID: 710000001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee526c24a2aac14b8606fdbc511a4ad, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
+--- !u!1 &710000004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710000005}
+  - component: {fileID: 710000006}
+  m_Layer: 0
+  m_Name: Main Intro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &710000005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710000004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &710000006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710000004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2523fdaf2ad4c8ca23957d5a0ed8998, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::MainIntro
+  dialogueBox: {fileID: 710000003}
+  story: {fileID: 4900000, guid: 021bdacddca946e4b08fd3ca2fc42136, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 875971763}
+  - {fileID: 710000002}
+  - {fileID: 710000005}
