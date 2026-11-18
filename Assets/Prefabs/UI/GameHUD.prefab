@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.82, g: 0.88, b: 0.94, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -187,7 +187,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 36, y: -22}
-  m_SizeDelta: {x: 266, y: 46}
+  m_SizeDelta: {x: 390, y: 56}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8255607269637359425
 CanvasRenderer:
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Deaths : 0'
+  m_text: 'DEATHS : 0 / 5'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fad64110f1d9ca84583c07a6dc535164, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 0bdb731636eb45a1bb3d3606a93c4110, type: 2}
@@ -244,8 +244,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
-  m_fontSizeBase: 38
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.86, g: 0.93, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -460,6 +460,10 @@ MonoBehaviour:
   stageBadge: {fileID: 8800000000000000221}
   stageText: {fileID: 8800000000000000214}
   deathText: {fileID: 2499708990167453483}
+  pauseMenuPrefab: {fileID: 8800135201996811001, guid: 0703be07b01161f42a1f899b0db35027, type: 3}
+  controlFrame: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
+  pauseIcon: {fileID: 21300000, guid: 91f6faa6a9444262bf9be36f9b7c590c, type: 3}
+  restartIcon: {fileID: 21300000, guid: b82434270219463f8913085e849f161f, type: 3}
   soulTimerGroup: {fileID: 6655684181695028666}
   timerFill: {fileID: 5604634279440394286}
 --- !u!223 &8800000000000000001
@@ -576,7 +580,7 @@ MonoBehaviour:
   m_text: STAGE 1-1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fad64110f1d9ca84583c07a6dc535164, type: 2}
-  m_sharedMaterial: {fileID: -1415985436730200935, guid: fad64110f1d9ca84583c07a6dc535164, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 0bdb731636eb45a1bb3d3606a93c4110, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -680,8 +684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -59, y: -37}
-  m_SizeDelta: {x: 280, y: 70.6456}
+  m_AnchoredPosition: {x: -186, y: -22}
+  m_SizeDelta: {x: 280, y: 70}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8800000000000000223
 CanvasRenderer:
@@ -711,8 +715,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 67957c754b2a48adbe8b6c5d61f007c1, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e72e85dc65fd44aeb10181d0a919b5cd, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
