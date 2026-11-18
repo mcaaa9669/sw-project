@@ -10,7 +10,7 @@ public sealed class MainIntro : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return dialogueBox.Play(DialogueParser.Parse(story.text));
+        yield return dialogueBox.Play(DialogueParser.Parse(story.text), lastLineAutoAdvanceDelay: 1f);
 
         if (!Application.CanStreamedLevelBeLoaded(SaveSession.FirstStage))
         {
@@ -34,7 +34,7 @@ public sealed class MainIntro : MonoBehaviour
         black.raycastTarget = false;
 
         var fade = overlay.GetComponent<CanvasGroup>();
-        yield return UIFade.Fade(fade, 0f, 1f, 0.45f);
+        fade.alpha = 1f;
         DontDestroyOnLoad(gameObject);
         yield return SceneManager.LoadSceneAsync(SaveSession.FirstStage);
         yield return UIFade.Fade(fade, 1f, 0f, 0.55f);

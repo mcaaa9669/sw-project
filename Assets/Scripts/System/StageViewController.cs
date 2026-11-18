@@ -12,6 +12,7 @@ public sealed class StageViewController : MonoBehaviour
     {
         public string name;
         public string hudLabel;
+        public bool hideStageBadge;
         public bool hideDeathCount;
         public ViewMode cameraMode;
         public Vector2 cameraCenter;
@@ -74,6 +75,8 @@ public sealed class StageViewController : MonoBehaviour
         }
     }
 
+    [SerializeField] private DialoguePlayer openingDialogue;
+
     private void Start()
     {
         string section = SaveSession.ConsumeResumeSection(gameObject.scene.name);
@@ -96,6 +99,7 @@ public sealed class StageViewController : MonoBehaviour
         }
 
         SetView(0);
+        openingDialogue?.Play();
     }
 
     private bool TryStartSavedSection(string section)
@@ -124,17 +128,18 @@ public sealed class StageViewController : MonoBehaviour
 
     public void SetView(int index)
     {
+        SetView(index, false);
+    }
+
+    public void SetView(int index, bool deferStageBadge)
+    {
         if (views == null || index < 0 || index >= views.Length || index <= currentView)
             return;
 
         bool firstView = currentView < 0;
         currentView = index;
         View view = views[index];
-        if (gameHUD != null)
-        {
-            string section = string.IsNullOrEmpty(view.hudLabel) ? view.name : view.hudLabel;
-            gameHUD.SetStage(section, !view.hideDeathCount);
-        }
+        UpdateHud(view, deferStageBadge);
         followingHeightOverride = ShouldFollowAtHeight(view);
         BeginTransition();
         ActivateLeftExitBarrier(view);
@@ -153,6 +158,21 @@ public sealed class StageViewController : MonoBehaviour
             elapsed = view.transitionDuration;
             UpdateView(1f);
         }
+    }
+
+    public void RevealStageBadge(int index)
+    {
+        if (currentView == index)
+            UpdateHud(views[index], false);
+    }
+
+    private void UpdateHud(View view, bool deferStageBadge)
+    {
+        if (gameHUD == null)
+            return;
+
+        string section = string.IsNullOrEmpty(view.hudLabel) ? view.name : view.hudLabel;
+        gameHUD.SetStage(view.hideStageBadge || deferStageBadge ? null : section, !view.hideDeathCount);
     }
 
     private bool ShouldFollowAtHeight(View view)

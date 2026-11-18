@@ -213,6 +213,12 @@ public class PlayerController : MonoBehaviour, IKillable
                 this
             );
         }
+        
+        // 점프 입력이 없으면 타이머를 줄임
+        if (jumpRequested)
+            jumpBufferTimer = jumpBufferTime;
+        else
+            jumpBufferTimer = Mathf.Max(0f, jumpBufferTimer - Time.fixedDeltaTime);
 
         jumpRequested = false;
 
