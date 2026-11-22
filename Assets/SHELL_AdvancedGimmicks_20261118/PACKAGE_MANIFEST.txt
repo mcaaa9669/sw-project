@@ -1,0 +1,6 @@
+Sprites: 12 x 64x64 (2x2 exact 32x32 grid)
+Tiles: 48 x 32x32
+Scripts: 3 behaviours + Editor auto installer
+Audio: 3 original WAVs
+Prefab destination: Assets/SHELL_AdvancedGimmicks_20261118/Prefabs
+Demo destination: Assets/SHELL_AdvancedGimmicks_20261118/Demo
