@@ -21,6 +21,7 @@ public class WorldStateManager : MonoBehaviour
     public static event Action<WorldType> OnWorldChanged;
 
     [SerializeField] SoulWorldController soulWorldController;
+    [SerializeField] bool keepDynamicShellsInSpiritWorld;
 
     [Header("환경 효과 (임시, 연출 담당이 교체)")]
     [SerializeField] bool changeCameraBackground = true;
@@ -146,6 +147,8 @@ public class WorldStateManager : MonoBehaviour
         {
             if (!IsRealWorldObject(rb.gameObject)) continue;
             if (!rb.simulated || rb.bodyType == RigidbodyType2D.Static) continue;
+            if (keepDynamicShellsInSpiritWorld && rb.bodyType == RigidbodyType2D.Dynamic && rb.TryGetComponent<Shell>(out _))
+                continue;
 
             frozenBodies.Add(new FrozenBody
             {
