@@ -103,6 +103,7 @@ public class GameHUD : MonoBehaviour
         colors.pressedColor = new Color(0.72f, 0.80f, 0.79f);
         colors.fadeDuration = 0.08f;
         button.colors = colors;
+        button.onClick.AddListener(SHELLSoundAuto.PlayMenuClick);
         button.onClick.AddListener(action);
 
         if (iconSprite != null)
