@@ -12,6 +12,18 @@ public class SoulWorldController : MonoBehaviour
     
     private void Start()
     {
+        if (gameHUD == null)
+        {
+            foreach (var hud in FindObjectsByType<GameHUD>(FindObjectsSortMode.None))
+            {
+                if (hud.gameObject.scene != gameObject.scene)
+                    continue;
+
+                gameHUD = hud;
+                break;
+            }
+        }
+
         UpdateDeathDisplay();
     }
 
@@ -33,7 +45,21 @@ public class SoulWorldController : MonoBehaviour
     public bool IsSoulWorld => isSoulWorld;
     public int DeathCount => deathCount;
 
-    public void SetStageTimeOverride(float seconds) => stageTimeOverride = seconds;
+    private float StageDuration => stageTimeOverride > 0f ? stageTimeOverride : maxSoulTime;
+
+    public void SetStageTimeOverride(float seconds)
+    {
+        stageTimeOverride = seconds;
+
+        if (!isSoulWorld || activeDuration == StageDuration)
+            return;
+
+        float elapsed = activeDuration - remainingTime;
+        activeDuration = StageDuration;
+        remainingTime = Mathf.Max(0f, activeDuration - elapsed);
+        if (gameHUD != null)
+            gameHUD.SetSoulTime(remainingTime, activeDuration);
+    }
 
     // 사망 신호 수신
     public void HandlePlayerDeath()
@@ -59,7 +85,7 @@ public class SoulWorldController : MonoBehaviour
             return;
 
         isSoulWorld = true;
-        activeDuration = stageTimeOverride > 0f ? stageTimeOverride : maxSoulTime;
+        activeDuration = StageDuration;
         remainingTime = activeDuration;
 
         if (gameHUD != null)

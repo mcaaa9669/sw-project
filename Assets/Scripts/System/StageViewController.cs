@@ -28,6 +28,7 @@ public sealed class StageViewController : MonoBehaviour
         [Tooltip("Fixed entry point used when continuing this section from a save.")]
         public RespawnPoint saveEntry;
         public BoxCollider2D leftExitBarrier;
+        public GameObject disableOnEntry;
         [Min(0.01f)] public float orthographicSize;
         public ViewMode backgroundMode;
         public Vector2 backgroundCenter;
@@ -143,6 +144,8 @@ public sealed class StageViewController : MonoBehaviour
         followingHeightOverride = ShouldFollowAtHeight(view);
         BeginTransition();
         ActivateLeftExitBarrier(view);
+        if (view.disableOnEntry != null)
+            view.disableOnEntry.SetActive(false);
         if (soulWorldController != null)
             soulWorldController.SetStageTimeOverride(view.soulWorldTimeOverride);
         if (view.enableSoulWorld && player != null && player.TryGetComponent(out PlayerController controller))
