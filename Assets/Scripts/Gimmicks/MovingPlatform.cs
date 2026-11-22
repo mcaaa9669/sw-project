@@ -83,6 +83,18 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     public void StartMoving() => moving = true;
     public void StopMoving() => moving = false;
 
+    // 경로를 화면에 그릴 때 사용 (발판 중심 기준 월드 좌표)
+    public bool IsLoop => mode == PathMode.Loop;
+
+    public Vector2[] GetPathPoints()
+    {
+        if (route == null) return System.Array.Empty<Vector2>();
+        var result = new Vector2[route.Length];
+        for (int i = 0; i < route.Length; i++)
+            result[i] = route[i] - centerOffset;
+        return result;
+    }
+
     void FixedUpdate()
     {
         Velocity = Vector2.zero;
