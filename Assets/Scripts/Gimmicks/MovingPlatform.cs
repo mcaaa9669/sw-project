@@ -13,7 +13,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovingPlatform : MonoBehaviour, IWorldPausable
 {
-    public enum PathMode { PingPong, Loop }
+    public enum PathMode { PingPong, Loop, Once }
 
     [Header("경로 (출발점 = 발판의 현재 중심)")]
     [SerializeField] PathMode mode = PathMode.PingPong;
@@ -83,6 +83,18 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     public void StartMoving() => moving = true;
     public void StopMoving() => moving = false;
 
+    // 경로를 화면에 그릴 때 사용 (발판 중심 기준 월드 좌표)
+    public bool IsLoop => mode == PathMode.Loop;
+
+    public Vector2[] GetPathPoints()
+    {
+        if (route == null) return System.Array.Empty<Vector2>();
+        var result = new Vector2[route.Length];
+        for (int i = 0; i < route.Length; i++)
+            result[i] = route[i] - centerOffset;
+        return result;
+    }
+
     void FixedUpdate()
     {
         Velocity = Vector2.zero;
@@ -108,12 +120,24 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     }
 
     // 지점 도착: 다음 목표를 정하고, 필요하면 잠시 대기
+    // 지점 도착: 다음 목표를 정하고, 필요하면 잠시 대기
     void ArriveAtTarget()
     {
         int arrived = targetIndex;
         bool isEnd;
 
-        if (mode == PathMode.Loop)
+        if (mode == PathMode.Once)
+        {
+            // 마지막 지점에 도착하면 그 자리에 멈춤 (다시 안 돌아감)
+            if (arrived == route.Length - 1)
+            {
+                moving = false;
+                return;
+            }
+            targetIndex = arrived + 1;
+            isEnd = false;
+        }
+        else if (mode == PathMode.Loop)
         {
             targetIndex = (arrived + 1) % route.Length;
             isEnd = arrived == 0;                                   // 한 바퀴 돌아 출발점
