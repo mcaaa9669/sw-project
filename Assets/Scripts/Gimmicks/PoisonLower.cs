@@ -13,6 +13,8 @@ public class PoisonLower : MonoBehaviour, IWorldPausable
     [SerializeField, Min(0.01f)] float lowerSpeed = 1f;     // 초당 내려가는 높이
     [SerializeField] bool hideWhenEmpty = true;             // 바닥까지 다 빠지면 독 오브젝트 끄기
 
+    [SerializeField] bool lowerInSpiritWorld;
+
     PixelWater water;
     float targetFill;
     bool lowering;
@@ -48,7 +50,7 @@ public class PoisonLower : MonoBehaviour, IWorldPausable
 
     void Update()
     {
-        if (!lowering || paused) return;
+        if (!lowering || (paused && !lowerInSpiritWorld)) return;
 
         float height = water.size.y * water.transform.lossyScale.y;
         water.fill = Mathf.MoveTowards(water.fill, targetFill, lowerSpeed / height * Time.deltaTime);
