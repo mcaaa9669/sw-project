@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
         // 바닥에 있으면 타이머를 채우고, 공중이면 줄임
         // 올라가는 중(점프 직후)의 접촉은 바닥으로 치지 않음 → 이단 점프 방지
-        if (grounded && rb.linearVelocity.y <= 0.01f)
+        if (grounded && rb.linearVelocity.y <= groundVelocity.y + 0.01f)
             coyoteTimer = coyoteTime;
         else
             coyoteTimer = Mathf.Max(0f, coyoteTimer - Time.fixedDeltaTime);
