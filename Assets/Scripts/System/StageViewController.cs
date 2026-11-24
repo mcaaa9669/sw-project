@@ -21,6 +21,7 @@ public sealed class StageViewController : MonoBehaviour
         public float followHeight;
         [Min(0.01f)] public float followOrthographicSize = 5f;
         public bool enableSoulVignette;
+        public GameObject spiritBackground;
         public bool maximizeSoulVignette;
         public bool enableSoulWorld;
         [Min(0f)] public float soulWorldTimeOverride;
@@ -138,8 +139,13 @@ public sealed class StageViewController : MonoBehaviour
             return;
 
         bool firstView = currentView < 0;
+        if (!firstView && views[currentView].spiritBackground != null)
+            views[currentView].spiritBackground.SetActive(false);
+
         currentView = index;
         View view = views[index];
+        if (view.spiritBackground != null)
+            view.spiritBackground.SetActive(true);
         UpdateHud(view, deferStageBadge);
         followingHeightOverride = ShouldFollowAtHeight(view);
         BeginTransition();

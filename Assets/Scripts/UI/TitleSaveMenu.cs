@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
@@ -543,6 +544,14 @@ public class TitleSaveMenu : MonoBehaviour
 
     void Quit()
     {
+        if (busy) return;
+        SetBusy(true, "");
+        StartCoroutine(QuitAfterClick());
+    }
+
+    IEnumerator QuitAfterClick()
+    {
+        yield return new WaitForSecondsRealtime(SHELLSoundAuto.MenuClickDuration);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -564,6 +573,7 @@ internal static class ShellButtonTheme
 
     public static void Apply(Button button)
     {
+        button.onClick.AddListener(SHELLSoundAuto.PlayMenuClick);
         ApplyFrame(button.targetGraphic as Image);
         button.transition = Selectable.Transition.ColorTint;
         var colors = button.colors;

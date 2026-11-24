@@ -68,7 +68,7 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         string[] clipNames = {
             "01_footstep_grass_01", "01_footstep_grass_02", "02_jump", "03_death",
             "04_soul_transition", "05_stage_clear", "06_stage_fail",
-            "07_button_toggle", "08_button_pressure", "09_wall_vanish", "10_poison_enter"
+            "07_button_toggle", "08_button_pressure", "09_wall_vanish", "10_poison_enter", "SHELL_Menu_Confirm", "11_footstep_stone_01", "11_footstep_stone_02"
         };
         foreach (string name in clipNames)
         {
@@ -238,7 +238,11 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         if (!player.IsDead && grounded && !inPoison && Mathf.Abs(playerBody.linearVelocity.x) > 0.7f &&
             Time.unscaledTime >= nextFootstepAt)
         {
-            Play(stepVariant++ % 2 == 0 ? "01_footstep_grass_01" : "01_footstep_grass_02", 0.43f);
+            bool firstStep = stepVariant++ % 2 == 0;
+            string stepClip = currentSceneName == "Stage02"
+                ? (firstStep ? "11_footstep_stone_01" : "11_footstep_stone_02")
+                : (firstStep ? "01_footstep_grass_01" : "01_footstep_grass_02");
+            Play(stepClip, 0.43f);
             nextFootstepAt = Time.unscaledTime + 0.34f;
         }
 
@@ -283,6 +287,17 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         if (audioSource != null && clips.TryGetValue(key, out AudioClip clip) && clip != null)
             audioSource.PlayOneShot(clip, strength);
     }
+
+    public static void PlayMenuClick()
+    {
+        if (instance != null)
+            instance.Play("SHELL_Menu_Confirm", 0.9f);
+    }
+
+    public static float MenuClickDuration =>
+        instance != null && instance.clips.TryGetValue("SHELL_Menu_Confirm", out AudioClip clip)
+            ? clip.length
+            : 0f;
 
     // Explicit cues for later, if the team implements dedicated win/lose events.
     public static void PlayClear() { if (instance != null) instance.Play("05_stage_clear", 0.90f); }
