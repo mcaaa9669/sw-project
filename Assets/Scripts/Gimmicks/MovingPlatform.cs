@@ -17,6 +17,8 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
 
     [Header("경로 (출발점 = 발판의 현재 중심)")]
     [SerializeField] PathMode mode = PathMode.PingPong;
+    [Tooltip("Optional starting corner. If empty, the platform starts at its visual center.")]
+    [SerializeField] Transform startPoint;
     [SerializeField] Transform[] points;                    // 발판 중심이 지나갈 지점 (1개 이상)
 
     [Header("이동")]
@@ -28,10 +30,13 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
 
     // 이번 물리 프레임의 이동 속도 (멈춰 있으면 0). PlayerController가 읽음
     public Vector2 Velocity { get; private set; }
+    public Vector2 StartPosition => route != null ? route[0] : (Vector2)transform.position;
+    public event System.Action PathChanged;
 
     Rigidbody2D rb;
     Vector2[] route;            // transform이 갈 위치. [0] = 출발점
     Vector2 centerOffset;       // transform 위치 - 발판 중심
+    Matrix4x4 startPointFrame;
     int targetIndex;
     int direction = 1;          // PingPong 전용. 1: 정방향, -1: 역방향
     float waitTimer;
@@ -49,8 +54,12 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
 
         // 타일맵은 transform 위치와 보이는 위치가 다르므로, 보이는 중심을 기준으로 경로를 만듦
         centerOffset = (Vector2)transform.position - GetVisualCenter();
+        startPointFrame = transform.localToWorldMatrix;
 
-        var list = new List<Vector2> { transform.position };
+        Vector2 startPosition = startPoint != null
+            ? (Vector2)startPoint.position + centerOffset
+            : (Vector2)transform.position;
+        var list = new List<Vector2> { startPosition };
         if (points != null)
             foreach (var p in points)
                 if (p != null) list.Add((Vector2)p.position + centerOffset);
@@ -62,6 +71,9 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
             enabled = false;
             return;
         }
+
+        if (startPoint != null)
+            rb.position = startPosition;
 
         targetIndex = 1;
         moving = moveOnStart;
@@ -95,9 +107,42 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
         return result;
     }
 
+    void RefreshExplicitRoute()
+    {
+        if (startPoint == null || points == null) return;
+
+        Vector2 previousStart = route[0];
+        // A child start marker follows the platform while editing. At runtime its local
+        // position is evaluated against the original frame, not the moving rigidbody.
+        Vector2 startCenter = startPoint.parent == transform
+            ? (Vector2)startPointFrame.MultiplyPoint3x4(startPoint.localPosition)
+            : (Vector2)startPoint.position;
+        Vector2 newStart = startCenter + centerOffset;
+        bool changed = !newStart.Equals(previousStart);
+        route[0] = newStart;
+
+        int index = 1;
+        foreach (var point in points)
+        {
+            if (point == null) continue;
+            if (index >= route.Length) break;
+
+            Vector2 position = (Vector2)point.position + centerOffset;
+            changed |= !route[index].Equals(position);
+            route[index++] = position;
+        }
+
+        if (!changed) return;
+        if (!moving && rb.position == previousStart)
+            rb.position = newStart;
+
+        PathChanged?.Invoke();
+    }
+
     void FixedUpdate()
     {
         Velocity = Vector2.zero;
+        RefreshExplicitRoute();
 
         if (!moving || paused) return;
 
@@ -212,7 +257,7 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
         }
         else
         {
-            path.Add(GetVisualCenter());
+            path.Add(startPoint != null ? (Vector2)startPoint.position : GetVisualCenter());
             if (points != null)
                 foreach (var p in points)
                     if (p != null) path.Add(p.position);

@@ -22,8 +22,8 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
 
     MovingPlatform platform;
     Rigidbody2D rb;
-    Vector2 startPos;
-    Vector2 checkCenter;
+    Vector2 checkOffset;
+
     State state = State.Off;
     float rattleTimer;
     bool paused;
@@ -36,8 +36,7 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
 
     void Start()
     {
-        startPos = rb.position;
-        checkCenter = checkPoint != null ? (Vector2)checkPoint.position : startPos;
+        checkOffset = checkPoint != null ? (Vector2)checkPoint.position - rb.position : Vector2.zero;
         platform.StopMoving();      // 버튼 누르기 전에는 가만히
     }
 
@@ -57,7 +56,7 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
         if (!RockOnTop())
         {
             state = State.Moving;
-            rb.position = startPos;
+            rb.position = platform.StartPosition;
             platform.StartMoving();
             return;
         }
@@ -66,12 +65,12 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
         Vector2 offset = Vector2.zero;
         if (rattleTimer % rattleInterval < rattleDuration)
             offset = Random.insideUnitCircle * shakeAmount;
-        rb.MovePosition(startPos + offset);
+        rb.MovePosition(platform.StartPosition + offset);
     }
 
     bool RockOnTop()
     {
-        foreach (var h in Physics2D.OverlapBoxAll(checkCenter, checkSize, 0f))
+        foreach (var h in Physics2D.OverlapBoxAll(platform.StartPosition + checkOffset, checkSize, 0f))
             if (h.CompareTag(rockTag)) return true;
         return false;
     }
@@ -80,7 +79,7 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
 
     void OnDrawGizmosSelected()
     {
-        Vector2 center = Application.isPlaying ? checkCenter
+        Vector2 center = Application.isPlaying && platform != null ? platform.StartPosition + checkOffset
                        : (checkPoint != null ? (Vector2)checkPoint.position : (Vector2)transform.position);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(center, checkSize);

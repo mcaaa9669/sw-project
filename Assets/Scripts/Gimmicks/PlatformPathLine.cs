@@ -29,10 +29,13 @@ public class PlatformPathLine : MonoBehaviour
     [SerializeField] Material material;
 
     GameObject pathRoot;
+    MovingPlatform platform;
+    LineRenderer line;
+    Vector2 displayedOffset;
 
     void Start()
     {
-        var platform = GetComponent<MovingPlatform>();
+        platform = GetComponent<MovingPlatform>();
         Vector2[] path = platform.GetPathPoints();
         if (path.Length < 2) return;
         for (int i = 0; i < path.Length; i++) path[i] += offset;
@@ -53,7 +56,7 @@ public class PlatformPathLine : MonoBehaviour
         pathRoot = new GameObject($"{name}_Path");
 
         // ¼±
-        var lr = pathRoot.AddComponent<LineRenderer>();
+        var lr = line = pathRoot.AddComponent<LineRenderer>();
         lr.useWorldSpace = true;
         lr.loop = platform.IsLoop;
         lr.positionCount = path.Length;
@@ -96,6 +99,28 @@ public class PlatformPathLine : MonoBehaviour
                 sr.sortingOrder = order;
             }
         }
+
+        displayedOffset = offset;
+        platform.PathChanged += RefreshPath;
+    }
+
+    void LateUpdate()
+    {
+        if (line != null && displayedOffset != offset)
+            RefreshPath();
+    }
+
+    void RefreshPath()
+    {
+        Vector2[] path = platform.GetPathPoints();
+        for (int i = 0; i < path.Length; i++)
+        {
+            Vector2 position = path[i] + offset;
+            line.SetPosition(i, position);
+            if (i < pathRoot.transform.childCount)
+                pathRoot.transform.GetChild(i).position = position;
+        }
+        displayedOffset = offset;
     }
 
     Material CreateMaterial()
@@ -147,6 +172,7 @@ public class PlatformPathLine : MonoBehaviour
 
     void OnDestroy()
     {
+        if (platform != null) platform.PathChanged -= RefreshPath;
         if (pathRoot != null) Destroy(pathRoot);
     }
 }
