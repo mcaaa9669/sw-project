@@ -15,6 +15,8 @@ public class PlatformPathLine : MonoBehaviour
 
     [Header("위치 조정 (실제 이동 경로는 그대로, 보이는 선만 옮김)")]
     [SerializeField] Vector2 offset = Vector2.zero;
+    [SerializeField] Transform visualStart;
+    [SerializeField] Transform visualEnd;
 
     [Header("지점 표시")]
     [SerializeField] bool showPoints = true;
@@ -36,7 +38,7 @@ public class PlatformPathLine : MonoBehaviour
     void Start()
     {
         platform = GetComponent<MovingPlatform>();
-        Vector2[] path = platform.GetPathPoints();
+        Vector2[] path = GetDisplayPath(platform);
         if (path.Length < 2) return;
         for (int i = 0; i < path.Length; i++) path[i] += offset;
 
@@ -58,7 +60,7 @@ public class PlatformPathLine : MonoBehaviour
         // 선
         var lr = line = pathRoot.AddComponent<LineRenderer>();
         lr.useWorldSpace = true;
-        lr.loop = platform.IsLoop;
+        lr.loop = !HasVisualPath && platform.IsLoop;
         lr.positionCount = path.Length;
         for (int i = 0; i < path.Length; i++)
             lr.SetPosition(i, new Vector3(path[i].x, path[i].y, 0f));
@@ -106,13 +108,27 @@ public class PlatformPathLine : MonoBehaviour
 
     void LateUpdate()
     {
-        if (line != null && displayedOffset != offset)
+        if (line == null) return;
+
+        if (displayedOffset != offset ||
+            (HasVisualPath && ((Vector2)line.GetPosition(0) != (Vector2)visualStart.position + offset ||
+                               (Vector2)line.GetPosition(1) != (Vector2)visualEnd.position + offset)))
             RefreshPath();
+    }
+
+    bool HasVisualPath => visualStart != null && visualEnd != null;
+
+    Vector2[] GetDisplayPath(MovingPlatform source)
+    {
+        if (HasVisualPath)
+            return new Vector2[] { visualStart.position, visualEnd.position };
+
+        return source.GetPathPoints();
     }
 
     void RefreshPath()
     {
-        Vector2[] path = platform.GetPathPoints();
+        Vector2[] path = GetDisplayPath(platform);
         for (int i = 0; i < path.Length; i++)
         {
             Vector2 position = path[i] + offset;
@@ -150,13 +166,13 @@ public class PlatformPathLine : MonoBehaviour
         var platform = GetComponent<MovingPlatform>();
         if (platform == null) return;
 
-        Vector2[] path = platform.GetPathPoints();
+        Vector2[] path = GetDisplayPath(platform);
         if (path.Length < 2) return;
 
         Gizmos.color = Color.yellow;
         for (int i = 0; i < path.Length - 1; i++)
             Gizmos.DrawLine(path[i] + offset, path[i + 1] + offset);
-        if (platform.IsLoop)
+        if (!HasVisualPath && platform.IsLoop)
             Gizmos.DrawLine(path[^1] + offset, path[0] + offset);
     }
 

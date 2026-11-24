@@ -19,6 +19,7 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     [SerializeField] PathMode mode = PathMode.PingPong;
     [Tooltip("Optional starting corner. If empty, the platform starts at its visual center.")]
     [SerializeField] Transform startPoint;
+    [SerializeField] Transform attachedPathFrame;
     [SerializeField] Transform[] points;                    // 발판 중심이 지나갈 지점 (1개 이상)
 
     [Header("이동")]
@@ -29,6 +30,8 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     [SerializeField] bool moveOnStart = true;               // 해제하면 레버 등으로 StartMoving() 호출 시 출발
 
     // 이번 물리 프레임의 이동 속도 (멈춰 있으면 0). PlayerController가 읽음
+    [SerializeField] bool stabilizeShellRiders;
+
     public Vector2 Velocity { get; private set; }
     public Vector2 StartPosition => route != null ? route[0] : (Vector2)transform.position;
     public event System.Action PathChanged;
@@ -45,6 +48,7 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
 
     // 발판 위에 올라탄 시체
     readonly HashSet<Rigidbody2D> riders = new();
+    readonly Dictionary<Rigidbody2D, float> shellCarrierSpeeds = new();
 
     void Awake()
     {
@@ -54,15 +58,18 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
 
         // 타일맵은 transform 위치와 보이는 위치가 다르므로, 보이는 중심을 기준으로 경로를 만듦
         centerOffset = (Vector2)transform.position - GetVisualCenter();
-        startPointFrame = transform.localToWorldMatrix;
+        Transform pathFrame = attachedPathFrame != null ? attachedPathFrame : transform;
+        startPointFrame = pathFrame.localToWorldMatrix;
+        if (attachedPathFrame != null)
+            centerOffset = (Vector2)(transform.position - attachedPathFrame.position);
 
         Vector2 startPosition = startPoint != null
-            ? (Vector2)startPoint.position + centerOffset
+            ? GetRoutePoint(startPoint)
             : (Vector2)transform.position;
         var list = new List<Vector2> { startPosition };
         if (points != null)
             foreach (var p in points)
-                if (p != null) list.Add((Vector2)p.position + centerOffset);
+                if (p != null) list.Add(GetRoutePoint(p));
         route = list.ToArray();
 
         if (route.Length < 2)
@@ -107,17 +114,24 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
         return result;
     }
 
+    Vector2 GetRoutePoint(Transform point)
+    {
+        // Attached points move with the block in edit mode, but keep the original
+        // world frame when the rigidbody moves during play.
+        Transform frame = attachedPathFrame != null ? attachedPathFrame : transform;
+        bool usesFrame = point.parent == frame && (attachedPathFrame != null || point == startPoint);
+        Vector2 center = usesFrame
+            ? (Vector2)startPointFrame.MultiplyPoint3x4(point.localPosition)
+            : (Vector2)point.position;
+        return center + centerOffset;
+    }
+
     void RefreshExplicitRoute()
     {
         if (startPoint == null || points == null) return;
 
         Vector2 previousStart = route[0];
-        // A child start marker follows the platform while editing. At runtime its local
-        // position is evaluated against the original frame, not the moving rigidbody.
-        Vector2 startCenter = startPoint.parent == transform
-            ? (Vector2)startPointFrame.MultiplyPoint3x4(startPoint.localPosition)
-            : (Vector2)startPoint.position;
-        Vector2 newStart = startCenter + centerOffset;
+        Vector2 newStart = GetRoutePoint(startPoint);
         bool changed = !newStart.Equals(previousStart);
         route[0] = newStart;
 
@@ -127,7 +141,7 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
             if (point == null) continue;
             if (index >= route.Length) break;
 
-            Vector2 position = (Vector2)point.position + centerOffset;
+            Vector2 position = GetRoutePoint(point);
             changed |= !route[index].Equals(position);
             route[index++] = position;
         }
@@ -144,11 +158,13 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
         Velocity = Vector2.zero;
         RefreshExplicitRoute();
 
-        if (!moving || paused) return;
-
-        if (waitTimer > 0f)
+        if (paused) return;
+        if (!moving || waitTimer > 0f)
         {
-            waitTimer -= Time.fixedDeltaTime;
+            if (moving)
+                waitTimer -= Time.fixedDeltaTime;
+            if (stabilizeShellRiders)
+                SyncShellRiders(Vector2.zero);
             return;
         }
 
@@ -158,7 +174,10 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
 
         Velocity = delta / Time.fixedDeltaTime;
         rb.MovePosition(next);
-        CarryRiders(delta);
+        if (stabilizeShellRiders)
+            SyncShellRiders(Velocity);
+        else
+            CarryRiders(delta);
 
         if (next == route[targetIndex])
             ArriveAtTarget();
@@ -218,6 +237,12 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     }
 
     // 위에서 밟고 있는 시체만 탑승으로 인정
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (stabilizeShellRiders)
+            OnCollisionStay2D(collision);
+    }
+
     void OnCollisionStay2D(Collision2D collision)
     {
         Rigidbody2D other = collision.rigidbody;
@@ -232,13 +257,58 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
             }
         }
 
-        riders.Remove(other);
+        RemoveRider(other);
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.rigidbody != null)
-            riders.Remove(collision.rigidbody);
+            RemoveRider(collision.rigidbody);
+    }
+
+    void RemoveRider(Rigidbody2D rider)
+    {
+        riders.Remove(rider);
+        shellCarrierSpeeds.Remove(rider);
+    }
+
+    void SyncShellRiders(Vector2 carrierVelocity)
+    {
+        riders.RemoveWhere(rider =>
+        {
+            if (rider != null && rider.simulated) return false;
+
+            shellCarrierSpeeds.Remove(rider);
+            return true;
+        });
+
+        foreach (var rider in riders)
+        {
+            if (rider.bodyType != RigidbodyType2D.Dynamic)
+            {
+                shellCarrierSpeeds.Remove(rider);
+                continue;
+            }
+
+            Vector2 velocity = rider.linearVelocity;
+            shellCarrierSpeeds.TryGetValue(rider, out float previousCarrierSpeed);
+            float relativeSpeed = velocity.x - previousCarrierSpeed;
+
+            // Keep deliberate pushes and remove small slip relative to the platform.
+            if (Mathf.Abs(relativeSpeed) < 0.25f)
+                relativeSpeed = 0f;
+
+            // The contact solver sees the same motion on both bodies, even at a stop.
+            rider.linearVelocity = new Vector2(carrierVelocity.x + relativeSpeed, carrierVelocity.y);
+            shellCarrierSpeeds[rider] = carrierVelocity.x;
+        }
+    }
+
+    public void MoveWhileRattling(Vector2 position)
+    {
+        if (stabilizeShellRiders)
+            SyncShellRiders((position - rb.position) / Time.fixedDeltaTime);
+        rb.MovePosition(position);
     }
 
     public void SetWorldPaused(bool value)

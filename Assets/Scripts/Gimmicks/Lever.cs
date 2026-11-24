@@ -14,6 +14,7 @@ public class Lever : MonoBehaviour
     [SerializeField] Sprite onSprite;
     [SerializeField] bool soulOnly;
     [SerializeField] bool toggleWithT;
+    [SerializeField] bool activateOnlyOnce;
 
     public UnityEvent onActivated;
     public UnityEvent onDeactivated;
@@ -73,7 +74,7 @@ public class Lever : MonoBehaviour
 
         foreach (Lever lever in toggleLevers)
         {
-            if (!lever.interactionArea.enabled)
+            if (!lever.interactionArea.enabled || (lever.activateOnlyOnce && lever.IsPulled))
                 continue;
 
             lever.interactionArea.Overlap(filter, lever.nearbyColliders);

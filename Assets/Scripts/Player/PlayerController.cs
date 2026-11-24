@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour, IKillable
     bool jumpRequested;
     bool wasWallBlocked;
     readonly ContactPoint2D[] groundContacts = new ContactPoint2D[16];
+    MovingPlatform groundPlatform;
+    readonly RaycastHit2D[] movingGroundHits = new RaycastHit2D[8];
     Vector2 groundVelocity;     // 밟고 있는 이동 발판의 속도
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
 
@@ -144,6 +146,8 @@ public class PlayerController : MonoBehaviour, IKillable
             soulShellCollider = null;
         }
 
+        MovingPlatform previousPlatform = groundPlatform;
+        float previousPlatformVerticalSpeed = groundVelocity.y;
         bool grounded = IsGrounded(out bool onBelt, out float beltSpeed);
         bool inPoison = poisonSwim != null
         && poisonSwim.isActiveAndEnabled
@@ -192,13 +196,18 @@ public class PlayerController : MonoBehaviour, IKillable
         wasWallBlocked = wallBlocked;
 
         Vector2 velocity = rb.linearVelocity;
-       if (!onBelt || inputX != 0f)
-            velocity.x = targetSpeed + groundVelocity.x;
+        bool carryByDisplacement = groundPlatform != null && groundPlatform.IsLoop && !inPoison;
+        if (!onBelt || inputX != 0f)
+            velocity.x = targetSpeed + (carryByDisplacement ? 0f : groundVelocity.x);
 
         // 이동 발판 위에서는 세로 속도를 발판에 맞춤 (덜그럭거림 방지)
         // 점프해서 발판보다 빠르게 올라가는 중이면 건드리지 않음
-        if (grounded && groundVelocity.y != 0f &&
-            velocity.y <= groundVelocity.y + 0.5f)
+        // The previous physics step can still have upward platform speed at the top corner.
+        // Match the new vertical speed before it carries the player off the horizontal leg.
+        bool keptLoopSupport = carryByDisplacement && groundPlatform == previousPlatform &&
+            velocity.y <= Mathf.Max(previousPlatformVerticalSpeed, groundVelocity.y) + 0.1f;
+        if (keptLoopSupport || (grounded && groundVelocity.y != 0f &&
+            velocity.y <= groundVelocity.y + 0.5f))
         {
             velocity.y = groundVelocity.y;
         }
@@ -224,12 +233,13 @@ public class PlayerController : MonoBehaviour, IKillable
 
         // 바닥에 있으면 타이머를 채우고, 공중이면 줄임
         // 올라가는 중(점프 직후)의 접촉은 바닥으로 치지 않음 → 이단 점프 방지
-        if (grounded && rb.linearVelocity.y <= groundVelocity.y + 0.01f)
+        if (grounded && (keptLoopSupport || rb.linearVelocity.y <= groundVelocity.y + 0.01f))
             coyoteTimer = coyoteTime;
         else
             coyoteTimer = Mathf.Max(0f, coyoteTimer - Time.fixedDeltaTime);
 
-        if (jumpBufferTimer > 0f && coyoteTimer > 0f && !inPoison)
+        bool jumping = jumpBufferTimer > 0f && coyoteTimer > 0f && !inPoison;
+        if (jumping)
         {
             velocity.y = jumpForce;
             jumpBufferTimer = 0f;
@@ -237,6 +247,11 @@ public class PlayerController : MonoBehaviour, IKillable
 
             Debug.Log($"[점프 실행] 바닥={grounded} (코요테 점프={!grounded})", this);
         }
+
+        if (carryByDisplacement && !jumping)
+            CarryOnLoopPlatform(groundVelocity.x * Time.fixedDeltaTime);
+        else if (carryByDisplacement && jumping)
+            velocity.x += groundVelocity.x;
 
         rb.linearVelocity = velocity;
 
@@ -253,8 +268,14 @@ public class PlayerController : MonoBehaviour, IKillable
                 * Time.fixedDeltaTime;
         }
 
-        animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x));
+        animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x - (carryByDisplacement && !jumping ? 0f : groundVelocity.x)));
         animator.SetBool(GroundedHash, grounded);
+
+        if (jumping)
+        {
+            groundPlatform = null;
+            groundVelocity = Vector2.zero;
+        }
 
         if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
@@ -263,7 +284,10 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         onBelt = false;
         beltSpeed = 0f;
+        MovingPlatform previousPlatform = groundPlatform;
+        float previousVerticalSpeed = groundVelocity.y;
         groundVelocity = Vector2.zero;
+        groundPlatform = null;
         bool grounded = false;
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -272,32 +296,26 @@ public class PlayerController : MonoBehaviour, IKillable
 
         int count = col.GetContacts(filter, groundContacts);
         Bounds bounds = col.bounds;
-
         for (int i = 0; i < count; i++)
         {
             ContactPoint2D contact = groundContacts[i];
-            bool belowCenter = contact.point.y < bounds.center.y;
-            bool underBody = Mathf.Abs(contact.point.x - bounds.center.x)
-                <= bounds.extents.x * 0.5f;
+            Collider2D floor = contact.collider == col ? contact.otherCollider : contact.collider;
+            if (floor == null || contact.normal.y < 0.9f || contact.point.y >= bounds.center.y)
+                continue;
 
-            if (contact.normal.y < 0.9f || !belowCenter || !underBody)
+            MovingPlatform platform = floor.GetComponentInParent<MovingPlatform>();
+            float supportedWidth = bounds.extents.x * (platform != null ? 1f : 0.5f);
+            if (Mathf.Abs(contact.point.x - bounds.center.x) > supportedWidth + 0.01f)
                 continue;
 
             grounded = true;
-
-            Collider2D floor = contact.collider == col
-                ? contact.otherCollider
-                : contact.collider;
-
-            // 이동 발판이면 그 속도를 기억
-            if (floor != null)
+            if (platform != null)
             {
-                MovingPlatform platform = floor.GetComponentInParent<MovingPlatform>();
-                if (platform != null)
-                    groundVelocity = platform.Velocity;
+                groundPlatform = platform;
+                groundVelocity = platform.Velocity;
             }
 
-            if (floor != null && floor.usedByEffector &&
+            if (floor.usedByEffector &&
                 floor.TryGetComponent<SurfaceEffector2D>(out var effector) &&
                 effector.isActiveAndEnabled)
             {
@@ -307,7 +325,60 @@ public class PlayerController : MonoBehaviour, IKillable
             }
         }
 
+        // Tile seams and direction changes can leave a short gap between physics contacts.
+        if (!grounded)
+        {
+            int hits = col.Cast(Vector2.down, filter, movingGroundHits, 0.06f);
+            float closestDistance = float.PositiveInfinity;
+            for (int i = 0; i < hits; i++)
+            {
+                RaycastHit2D hit = movingGroundHits[i];
+                if (hit.collider == null || hit.normal.y < 0.9f || hit.point.y >= bounds.center.y ||
+                    hit.distance >= closestDistance)
+                    continue;
+
+                MovingPlatform platform = hit.collider.GetComponentInParent<MovingPlatform>();
+                if (platform == null)
+                    continue;
+
+                float supportSpeed = platform.Velocity.y;
+                if (platform == previousPlatform)
+                    supportSpeed = Mathf.Max(previousVerticalSpeed, supportSpeed);
+                if (rb.linearVelocity.y > supportSpeed + 0.1f)
+                    continue;
+
+                grounded = true;
+                groundPlatform = platform;
+                groundVelocity = platform.Velocity;
+                closestDistance = hit.distance;
+            }
+        }
+
         return grounded;
+    }
+
+    void CarryOnLoopPlatform(float offset)
+    {
+        if (Mathf.Abs(offset) < 0.0001f)
+            return;
+
+        float direction = Mathf.Sign(offset);
+        float distance = Mathf.Abs(offset);
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(wallLayer | groundLayer);
+        filter.useTriggers = false;
+        int count = col.Cast(Vector2.right * direction, filter, wallHits, distance);
+        for (int i = 0; i < count; i++)
+        {
+            RaycastHit2D hit = wallHits[i];
+            if (hit.rigidbody != null && hit.rigidbody.gameObject == groundPlatform.gameObject)
+                continue;
+
+            if (hit.normal.x * direction < -0.1f && hit.normal.y < 0.9f)
+                distance = Mathf.Min(distance, hit.distance);
+        }
+
+        rb.position += Vector2.right * (distance * direction);
     }
 
     bool IsWallAhead(float direction)

@@ -20,7 +20,13 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
     [SerializeField] float rattleInterval = 1.2f;   // 몇 초마다 덜컥
     [SerializeField] float rattleDuration = 0.25f;  // 한 번 덜컥하는 시간
 
+    [SerializeField] PoisonLower requiredDrain;
+    [SerializeField] Collider2D blockingSpiritBox;
+
     MovingPlatform platform;
+    bool pressureControlled;
+    bool pressureHeld;
+    Vector2 pressureRattleCenter;
     Rigidbody2D rb;
     Vector2 checkOffset;
 
@@ -48,9 +54,71 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
         rattleTimer = 0f;
     }
 
+    public void BeginPressure()
+    {
+        pressureControlled = true;
+        pressureHeld = true;
+        if (state == State.Off)
+        {
+            pressureRattleCenter = rb.position;
+            Activate();
+        }
+    }
+
+    public void EndPressure()
+    {
+        if (!pressureControlled) return;
+        pressureHeld = false;
+        platform.StopMoving();
+        if (state == State.Rattling)
+            rb.position = pressureRattleCenter;
+        state = State.Off;
+    }
+
+    void UpdatePressure()
+    {
+        bool drainReady = requiredDrain == null || requiredDrain.IsDrained;
+        bool boxBlocks = blockingSpiritBox != null && blockingSpiritBox.enabled &&
+            blockingSpiritBox.gameObject.activeInHierarchy &&
+            new Bounds((Vector3)(platform.StartPosition + checkOffset), new Vector3(checkSize.x, checkSize.y, 1f))
+                .Intersects(blockingSpiritBox.bounds);
+
+        if (drainReady && !boxBlocks)
+        {
+            if (state != State.Moving)
+            {
+                if (state == State.Rattling)
+                    rb.position = pressureRattleCenter;
+                state = State.Moving;
+                platform.StartMoving();
+            }
+            return;
+        }
+
+        if (state == State.Moving)
+        {
+            platform.StopMoving();
+            pressureRattleCenter = rb.position;
+            state = State.Rattling;
+            rattleTimer = 0f;
+        }
+
+        rattleTimer += Time.fixedDeltaTime;
+        Vector2 offset = rattleTimer % rattleInterval < rattleDuration
+            ? Random.insideUnitCircle * shakeAmount
+            : Vector2.zero;
+        platform.MoveWhileRattling(pressureRattleCenter + offset);
+    }
+
     void FixedUpdate()
     {
-        if (state != State.Rattling || paused) return;
+        if (paused) return;
+        if (pressureControlled)
+        {
+            if (pressureHeld) UpdatePressure();
+            return;
+        }
+        if (state != State.Rattling) return;
 
         // 돌이 떨어졌으면 원위치로 맞춘 뒤 이동 시작
         if (!RockOnTop())
