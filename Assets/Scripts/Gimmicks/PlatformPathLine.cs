@@ -116,7 +116,7 @@ public class PlatformPathLine : MonoBehaviour
             RefreshPath();
     }
 
-    bool HasVisualPath => visualStart != null && visualEnd != null;
+    internal bool HasVisualPath => visualStart != null && visualEnd != null;
 
     Vector2[] GetDisplayPath(MovingPlatform source)
     {
@@ -161,8 +161,40 @@ public class PlatformPathLine : MonoBehaviour
     }
 
     // 씬 뷰 미리보기: 발판을 선택하면 실제로 그려질 선 위치를 노란색으로 표시
+    void OnDrawGizmos()
+    {
+        if (Application.isPlaying || !HasVisualPath) return;
+
+        Vector2 start = (Vector2)visualStart.position + offset;
+        Vector2 end = (Vector2)visualEnd.position + offset;
+        Gizmos.color = color;
+        if (dashed)
+        {
+            float distance = Vector2.Distance(start, end);
+            float segment = Mathf.Max(0.05f, dashLength);
+            for (float along = 0f; along < distance; along += segment * 2f)
+            {
+                Vector2 a = Vector2.Lerp(start, end, along / distance);
+                Vector2 b = Vector2.Lerp(start, end, (along + segment) / distance);
+                Gizmos.DrawLine(a, b);
+            }
+        }
+        else
+        {
+            Gizmos.DrawLine(start, end);
+        }
+
+        if (showPoints)
+        {
+            Gizmos.DrawCube(start, Vector3.one * pointSize);
+            Gizmos.DrawCube(end, Vector3.one * pointSize);
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
+        if (HasVisualPath) return;
+
         var platform = GetComponent<MovingPlatform>();
         if (platform == null) return;
 

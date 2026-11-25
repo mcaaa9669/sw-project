@@ -319,6 +319,9 @@ public class MovingPlatform : MonoBehaviour, IWorldPausable
     // 씬 뷰에서 경로 표시 (발판 중심 기준)
     void OnDrawGizmos()
     {
+        if (TryGetComponent(out PlatformPathLine trail) && trail.HasVisualPath)
+            return;
+
         var path = new List<Vector2>();
 
         if (Application.isPlaying && route != null)
