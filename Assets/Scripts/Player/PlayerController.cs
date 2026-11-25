@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour, IKillable
     float inputX;
     bool jumpRequested;
     bool wasWallBlocked;
+
+    [SerializeField] float animGroundGrace = 0.08f;   // 바닥 판정이 잠깐 끊겨도 점프 애니메이션으로 안 넘어가는 시간
+    float airTime;
     readonly ContactPoint2D[] groundContacts = new ContactPoint2D[16];
     MovingPlatform groundPlatform;
     readonly RaycastHit2D[] movingGroundHits = new RaycastHit2D[8];
@@ -271,6 +274,12 @@ public class PlayerController : MonoBehaviour, IKillable
                 * Time.fixedDeltaTime;
         }
 
+        animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x));
+        // 애니메이션 전용: 짧은 접촉 끊김은 무시 (물리 판정은 grounded 그대로 사용)
+        // 위로 올라가는 중(점프 직후)이면 여유 시간 없이 바로 공중 처리
+        bool rising = rb.linearVelocity.y > groundVelocity.y + 1f;
+        airTime = (grounded && !rising) ? 0f : airTime + Time.fixedDeltaTime;
+        animator.SetBool(GroundedHash, !rising && airTime < animGroundGrace);
         animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x - (carryByDisplacement && !jumping ? 0f : groundVelocity.x)));
         animator.SetBool(GroundedHash, grounded);
 
