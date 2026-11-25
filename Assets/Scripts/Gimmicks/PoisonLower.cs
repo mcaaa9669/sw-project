@@ -15,6 +15,8 @@ public class PoisonLower : MonoBehaviour, IWorldPausable
 
     [SerializeField] bool lowerInSpiritWorld;
 
+    public bool IsDrained => done;
+
     PixelWater water;
     float targetFill;
     bool lowering;
