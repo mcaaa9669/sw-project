@@ -20,6 +20,9 @@ public sealed class StageViewController : MonoBehaviour
         public bool followAtOrAboveHeight;
         public float followHeight;
         [Min(0.01f)] public float followOrthographicSize = 5f;
+        [Tooltip("Move to Height Camera Center instead of following the player when the height condition is met.")]
+        public bool useHeightCameraCenter;
+        public Vector2 heightCameraCenter;
         public bool enableSoulVignette;
         public GameObject spiritBackground;
         public bool maximizeSoulVignette;
@@ -243,7 +246,7 @@ public sealed class StageViewController : MonoBehaviour
         View view = views[currentView];
         Vector2 cameraGoal = view.cameraCenter;
         if (followingHeightOverride)
-            cameraGoal = player.position;
+            cameraGoal = view.useHeightCameraCenter ? view.heightCameraCenter : (Vector2)player.position;
         else if (view.cameraMode == ViewMode.FollowPlayer && player != null)
             cameraGoal += (Vector2)player.position;
         SetCenter(transform, Vector2.Lerp(cameraStart, cameraGoal, t));
