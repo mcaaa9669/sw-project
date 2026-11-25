@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour, IKillable
     MovingPlatform groundPlatform;
     readonly RaycastHit2D[] movingGroundHits = new RaycastHit2D[8];
     Vector2 groundVelocity;     // 밟고 있는 이동 발판의 속도
+    Vector2 lastGroundVelocity; // 직전 물리 프레임에 맞춰 준 발판 속도 (방향이 꺾일 때 비교용)
+    bool onMovingPlatform;      // 이동 발판을 밟고 있는지
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
 
     [SerializeField] LayerMask wallLayer;
@@ -156,27 +158,27 @@ public class PlayerController : MonoBehaviour, IKillable
         bool swimActive = poisonSwim != null
     && poisonSwim.isActiveAndEnabled;
 
-    // 물 밖에서 발판에 내려앉으면 수면 점프 상태 해제.
-    // 점프해서 올라가는 중의 접촉은 착지로 처리하지 않음.
-    if (swimActive && !inPoison &&
-        grounded && rb.linearVelocity.y <= 0f)
-    {
-        poisonSwim.ClearSurfaceJump();
-    }
+        // 물 밖에서 발판에 내려앉으면 수면 점프 상태 해제.
+        // 점프해서 올라가는 중의 접촉은 착지로 처리하지 않음.
+        if (swimActive && !inPoison &&
+            grounded && rb.linearVelocity.y <= 0f)
+        {
+            poisonSwim.ClearSurfaceJump();
+        }
 
-    bool surfaceJumping = swimActive
-        && poisonSwim.IsSurfaceJumping;
+        bool surfaceJumping = swimActive
+            && poisonSwim.IsSurfaceJumping;
 
-    float speedMultiplier = inPoison
-        ? swimMoveMultiplier
-        : (surfaceJumping ? surfaceMoveMultiplier : 1f);
+        float speedMultiplier = inPoison
+            ? swimMoveMultiplier
+            : (surfaceJumping ? surfaceMoveMultiplier : 1f);
 
-    float targetSpeed = inputX * moveSpeed * speedMultiplier;
+        float targetSpeed = inputX * moveSpeed * speedMultiplier;
 
-    if (onBelt && inputX * beltSpeed < 0f)
-    {
-        targetSpeed *= 0.6f;
-    }
+        if (onBelt && inputX * beltSpeed < 0f)
+        {
+            targetSpeed *= 0.6f;
+        }
         // 벽을 향한 이동만 차단. 반대쪽 이동은 가능.
         bool wallBlocked =
             inputX != 0f && IsWallAhead(Mathf.Sign(inputX));
@@ -211,6 +213,7 @@ public class PlayerController : MonoBehaviour, IKillable
         {
             velocity.y = groundVelocity.y;
         }
+        lastGroundVelocity = onMovingPlatform ? groundVelocity : Vector2.zero;
 
         if (jumpRequested)
         {
@@ -222,7 +225,7 @@ public class PlayerController : MonoBehaviour, IKillable
                 this
             );
         }
-        
+
         // 점프 입력이 없으면 타이머를 줄임
         if (jumpRequested)
             jumpBufferTimer = jumpBufferTime;
@@ -480,7 +483,7 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // 사망 확정: shell 생성 → 영혼세계 진입 (영혼세계가 없으면 잠시 뒤 부활)
-   	void Die(DeathType deathType, Transform spikeAnchor = null)
+    void Die(DeathType deathType, Transform spikeAnchor = null)
     {
         isDead = true;
 
@@ -532,7 +535,7 @@ public class PlayerController : MonoBehaviour, IKillable
     }
 
     // 사망 종류별 shell 생성 (shell이 없는 사망은 null)
-    	Shell SpawnShellFor(DeathType deathType, Transform spikeAnchor)
+    Shell SpawnShellFor(DeathType deathType, Transform spikeAnchor)
     {
         if (shellPrefab == null) return null;
 
