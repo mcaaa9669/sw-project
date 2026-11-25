@@ -2,19 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ÇöÀç ¼¼°è Á¾·ù
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 public enum WorldType { Real, Spirit }
 
-// ¿µÈ¥¼¼°è µ¿¾È ¸ØÃç¾ß ÇÏ´Â ½ºÅ©¸³Æ®°¡ ±¸Çö (¿¹: Åé´Ï È¸Àü, ¿òÁ÷ÀÌ´Â ¹ßÆÇ)
+// ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: ï¿½ï¿½ï¿½ È¸ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½)
 public interface IWorldPausable
 {
     void SetWorldPaused(bool paused);
 }
 
-// SFR-004 Çö½Ç¼¼°è ¡ê ¿µÈ¥¼¼°è ÀüÈ¯ °ü¸®
-// - SoulWorldControllerÀÇ ÁøÀÔ/º¹±Í ÀÌº¥Æ®¸¦ ¹Ş¾Æ ¼¼°è¸¦ ¹Ù²Ş
-// - ¿µÈ¥¼¼°è µ¿¾È Çö½Ç¼¼°èÀÇ ¹°¸®¡¤¾Ö´Ï¸ŞÀÌ¼Ç¡¤½ºÅ©¸³Æ®¸¦ ÀÏ½ÃÁ¤ÁöÇÏ°í, º¹±ÍÇÏ¸é Àç°³
-// - ¼¼°è°¡ ¹Ù²î¸é OnWorldChanged ÀÌº¥Æ®·Î WorldObject µî¿¡ ¾Ë¸²
+// SFR-004 ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½
+// - SoulWorldControllerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Ş¾ï¿½ ï¿½ï¿½ï¿½è¸¦ ï¿½Ù²ï¿½
+// - ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Ï¸ï¿½ï¿½Ì¼Ç¡ï¿½ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ç°³
+// - ï¿½ï¿½ï¿½è°¡ ï¿½Ù²ï¿½ï¿½ OnWorldChanged ï¿½Ìºï¿½Æ®ï¿½ï¿½ WorldObject ï¿½î¿¡ ï¿½Ë¸ï¿½
 public class WorldStateManager : MonoBehaviour
 {
     public static WorldStateManager Instance { get; private set; }
@@ -22,7 +22,7 @@ public class WorldStateManager : MonoBehaviour
 
     [SerializeField] SoulWorldController soulWorldController;
 
-    [Header("È¯°æ È¿°ú (ÀÓ½Ã, ¿¬Ãâ ´ã´çÀÌ ±³Ã¼)")]
+    [Header("È¯ï¿½ï¿½ È¿ï¿½ï¿½ (ï¿½Ó½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼)")]
     [SerializeField] bool changeCameraBackground = true;
     [SerializeField] Color spiritBackgroundColor = new Color(0.12f, 0.10f, 0.25f);
 
@@ -93,7 +93,7 @@ public class WorldStateManager : MonoBehaviour
 
     void Start()
     {
-        // °ÔÀÓ ½ÃÀÛ ½Ã Çö½Ç¼¼°è È°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         OnWorldChanged?.Invoke(CurrentWorld);
     }
 
@@ -121,7 +121,7 @@ public class WorldStateManager : MonoBehaviour
         OnWorldChanged?.Invoke(CurrentWorld);
     }
 
-    // ===== Çö½Ç¼¼°è ÀÏ½ÃÁ¤Áö =====
+    // ===== ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ =====
 
     private void SwapBackgroundSprites()
     {
@@ -140,8 +140,8 @@ public class WorldStateManager : MonoBehaviour
         pausedAnimators.Clear();
         pausedScripts.Clear();
 
-        // 1. ¿òÁ÷ÀÌ´Â ¹°Ã¼(Shell, »óÀÚ µî) Á¤Áö
-        //    simulated¸¦ ²ô¸é Äİ¶óÀÌ´õµµ »ç¶óÁö¹Ç·Î, KinematicÀ¸·Î ¹Ù²ã¼­ ¸ØÃß±â¸¸ ÇÔ
+        // 1. ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼(Shell, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½
+        //    simulatedï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½İ¶ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½, Kinematicï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ã¼­ ï¿½ï¿½ï¿½ß±â¸¸ ï¿½ï¿½
         foreach (var rb in FindObjectsByType<Rigidbody2D>(FindObjectsSortMode.None))
         {
             if (!IsRealWorldObject(rb.gameObject)) continue;
@@ -160,15 +160,16 @@ public class WorldStateManager : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
 
-        // 2. ¾Ö´Ï¸ŞÀÌ¼Ç Á¤Áö
+        // 2. ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (var animator in FindObjectsByType<Animator>(FindObjectsSortMode.None))
         {
             if (!IsRealWorldObject(animator.gameObject)) continue;
+            if (animator.TryGetComponent<Shell>(out _)) continue;   // Shell ì‚¬ë§ ëª¨ì…˜ì€ ì˜í˜¼ì„¸ê³„ì—ì„œë„ ì¬ìƒ
             pausedAnimators.Add((animator, animator.speed));
             animator.speed = 0f;
         }
 
-        // 3. IWorldPausable ½ºÅ©¸³Æ® Á¤Áö (Åé´Ï È¸Àü µî)
+        // 3. IWorldPausable ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½)
         foreach (var mb in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
         {
             if (mb is not IWorldPausable pausable) continue;
@@ -204,7 +205,7 @@ public class WorldStateManager : MonoBehaviour
         pausedScripts.Clear();
     }
 
-    // ÇÃ·¹ÀÌ¾î(¿µÈ¥)¿Í ¿µÈ¥¼¼°è Àü¿ë ¿ÀºêÁ§Æ®´Â ¸ØÃßÁö ¾ÊÀ½
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½(ï¿½ï¿½È¥)ï¿½ï¿½ ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     bool IsRealWorldObject(GameObject go)
     {
         if (go.layer == spiritLayer) return false;
