@@ -15,6 +15,8 @@ public class PlatformPathLine : MonoBehaviour
 
     [Header("위치 조정 (실제 이동 경로는 그대로, 보이는 선만 옮김)")]
     [SerializeField] Vector2 offset = Vector2.zero;
+    [SerializeField] Transform visualStart;
+    [SerializeField] Transform visualEnd;
 
     [Header("지점 표시")]
     [SerializeField] bool showPoints = true;
@@ -29,11 +31,14 @@ public class PlatformPathLine : MonoBehaviour
     [SerializeField] Material material;
 
     GameObject pathRoot;
+    MovingPlatform platform;
+    LineRenderer line;
+    Vector2 displayedOffset;
 
     void Start()
     {
-        var platform = GetComponent<MovingPlatform>();
-        Vector2[] path = platform.GetPathPoints();
+        platform = GetComponent<MovingPlatform>();
+        Vector2[] path = GetDisplayPath(platform);
         if (path.Length < 2) return;
         for (int i = 0; i < path.Length; i++) path[i] += offset;
 
@@ -53,9 +58,9 @@ public class PlatformPathLine : MonoBehaviour
         pathRoot = new GameObject($"{name}_Path");
 
         // 선
-        var lr = pathRoot.AddComponent<LineRenderer>();
+        var lr = line = pathRoot.AddComponent<LineRenderer>();
         lr.useWorldSpace = true;
-        lr.loop = platform.IsLoop;
+        lr.loop = !HasVisualPath && platform.IsLoop;
         lr.positionCount = path.Length;
         for (int i = 0; i < path.Length; i++)
             lr.SetPosition(i, new Vector3(path[i].x, path[i].y, 0f));
@@ -96,6 +101,42 @@ public class PlatformPathLine : MonoBehaviour
                 sr.sortingOrder = order;
             }
         }
+
+        displayedOffset = offset;
+        platform.PathChanged += RefreshPath;
+    }
+
+    void LateUpdate()
+    {
+        if (line == null) return;
+
+        if (displayedOffset != offset ||
+            (HasVisualPath && ((Vector2)line.GetPosition(0) != (Vector2)visualStart.position + offset ||
+                               (Vector2)line.GetPosition(1) != (Vector2)visualEnd.position + offset)))
+            RefreshPath();
+    }
+
+    internal bool HasVisualPath => visualStart != null && visualEnd != null;
+
+    Vector2[] GetDisplayPath(MovingPlatform source)
+    {
+        if (HasVisualPath)
+            return new Vector2[] { visualStart.position, visualEnd.position };
+
+        return source.GetPathPoints();
+    }
+
+    void RefreshPath()
+    {
+        Vector2[] path = GetDisplayPath(platform);
+        for (int i = 0; i < path.Length; i++)
+        {
+            Vector2 position = path[i] + offset;
+            line.SetPosition(i, position);
+            if (i < pathRoot.transform.childCount)
+                pathRoot.transform.GetChild(i).position = position;
+        }
+        displayedOffset = offset;
     }
 
     Material CreateMaterial()
@@ -120,18 +161,50 @@ public class PlatformPathLine : MonoBehaviour
     }
 
     // 씬 뷰 미리보기: 발판을 선택하면 실제로 그려질 선 위치를 노란색으로 표시
+    void OnDrawGizmos()
+    {
+        if (Application.isPlaying || !HasVisualPath) return;
+
+        Vector2 start = (Vector2)visualStart.position + offset;
+        Vector2 end = (Vector2)visualEnd.position + offset;
+        Gizmos.color = color;
+        if (dashed)
+        {
+            float distance = Vector2.Distance(start, end);
+            float segment = Mathf.Max(0.05f, dashLength);
+            for (float along = 0f; along < distance; along += segment * 2f)
+            {
+                Vector2 a = Vector2.Lerp(start, end, along / distance);
+                Vector2 b = Vector2.Lerp(start, end, (along + segment) / distance);
+                Gizmos.DrawLine(a, b);
+            }
+        }
+        else
+        {
+            Gizmos.DrawLine(start, end);
+        }
+
+        if (showPoints)
+        {
+            Gizmos.DrawCube(start, Vector3.one * pointSize);
+            Gizmos.DrawCube(end, Vector3.one * pointSize);
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
+        if (HasVisualPath) return;
+
         var platform = GetComponent<MovingPlatform>();
         if (platform == null) return;
 
-        Vector2[] path = platform.GetPathPoints();
+        Vector2[] path = GetDisplayPath(platform);
         if (path.Length < 2) return;
 
         Gizmos.color = Color.yellow;
         for (int i = 0; i < path.Length - 1; i++)
             Gizmos.DrawLine(path[i] + offset, path[i + 1] + offset);
-        if (platform.IsLoop)
+        if (!HasVisualPath && platform.IsLoop)
             Gizmos.DrawLine(path[^1] + offset, path[0] + offset);
     }
 
@@ -147,6 +220,7 @@ public class PlatformPathLine : MonoBehaviour
 
     void OnDestroy()
     {
+        if (platform != null) platform.PathChanged -= RefreshPath;
         if (pathRoot != null) Destroy(pathRoot);
     }
 }

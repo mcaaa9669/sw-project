@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: e48b6e04719d3a740a37b497ac5ced61
+guid: 0020671365594f45a5673db895f619b6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6324451092228385808
-    second: AIshellTemp_0
-  - first:
-      213: -5863868421135049371
-    second: AIshellTemp_1
-  - first:
-      213: -3065541282258297310
-    second: AIshellTemp_2
-  - first:
-      213: -2572025504024362800
-    second: AIshellTemp_3
-  - first:
-      213: 3296322960079176107
-    second: AIshellTemp_4
-  - first:
-      213: 8073932511490250097
-    second: AIshellTemp_5
+      213: 424666026755661438
+    second: Lever_Stage02_2-2_On_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,13 +46,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 31, y: 30, z: 44, w: 89}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -111,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AIshellTemp_1
+      name: Lever_Stage02_2-2_On_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 30
-        width: 354
-        height: 189
+        x: 41
+        y: 44
+        width: 817
+        height: 247
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56d5d943dba5f9ea0800000000000000
-      internalID: -5863868421135049371
+      spriteID: e7e92f85087b4e500800000000000000
+      internalID: 424666026755661438
       vertices: []
       indices: 
       edges: []
@@ -154,23 +126,16 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      AIshellTemp_0: -6324451092228385808
-      AIshellTemp_1: -5863868421135049371
-      AIshellTemp_2: -3065541282258297310
-      AIshellTemp_3: -2572025504024362800
-      AIshellTemp_4: 3296322960079176107
-      AIshellTemp_5: 8073932511490250097
+      Lever_Stage02_2-2_On_0: 424666026755661438
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -20,10 +20,16 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
     [SerializeField] float rattleInterval = 1.2f;   // 몇 초마다 덜컥
     [SerializeField] float rattleDuration = 0.25f;  // 한 번 덜컥하는 시간
 
+    [SerializeField] PoisonLower requiredDrain;
+    [SerializeField] Collider2D blockingSpiritBox;
+
     MovingPlatform platform;
+    bool pressureControlled;
+    bool pressureHeld;
+    Vector2 pressureRattleCenter;
     Rigidbody2D rb;
-    Vector2 startPos;
-    Vector2 checkCenter;
+    Vector2 checkOffset;
+
     State state = State.Off;
     float rattleTimer;
     bool paused;
@@ -36,8 +42,7 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
 
     void Start()
     {
-        startPos = rb.position;
-        checkCenter = checkPoint != null ? (Vector2)checkPoint.position : startPos;
+        checkOffset = checkPoint != null ? (Vector2)checkPoint.position - rb.position : Vector2.zero;
         platform.StopMoving();      // 버튼 누르기 전에는 가만히
     }
 
@@ -49,15 +54,77 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
         rattleTimer = 0f;
     }
 
+    public void BeginPressure()
+    {
+        pressureControlled = true;
+        pressureHeld = true;
+        if (state == State.Off)
+        {
+            pressureRattleCenter = rb.position;
+            Activate();
+        }
+    }
+
+    public void EndPressure()
+    {
+        if (!pressureControlled) return;
+        pressureHeld = false;
+        platform.StopMoving();
+        if (state == State.Rattling)
+            rb.position = pressureRattleCenter;
+        state = State.Off;
+    }
+
+    void UpdatePressure()
+    {
+        bool drainReady = requiredDrain == null || requiredDrain.IsDrained;
+        bool boxBlocks = blockingSpiritBox != null && blockingSpiritBox.enabled &&
+            blockingSpiritBox.gameObject.activeInHierarchy &&
+            new Bounds((Vector3)(platform.StartPosition + checkOffset), new Vector3(checkSize.x, checkSize.y, 1f))
+                .Intersects(blockingSpiritBox.bounds);
+
+        if (drainReady && !boxBlocks)
+        {
+            if (state != State.Moving)
+            {
+                if (state == State.Rattling)
+                    rb.position = pressureRattleCenter;
+                state = State.Moving;
+                platform.StartMoving();
+            }
+            return;
+        }
+
+        if (state == State.Moving)
+        {
+            platform.StopMoving();
+            pressureRattleCenter = rb.position;
+            state = State.Rattling;
+            rattleTimer = 0f;
+        }
+
+        rattleTimer += Time.fixedDeltaTime;
+        Vector2 offset = rattleTimer % rattleInterval < rattleDuration
+            ? Random.insideUnitCircle * shakeAmount
+            : Vector2.zero;
+        platform.MoveWhileRattling(pressureRattleCenter + offset);
+    }
+
     void FixedUpdate()
     {
-        if (state != State.Rattling || paused) return;
+        if (paused) return;
+        if (pressureControlled)
+        {
+            if (pressureHeld) UpdatePressure();
+            return;
+        }
+        if (state != State.Rattling) return;
 
         // 돌이 떨어졌으면 원위치로 맞춘 뒤 이동 시작
         if (!RockOnTop())
         {
             state = State.Moving;
-            rb.position = startPos;
+            rb.position = platform.StartPosition;
             platform.StartMoving();
             return;
         }
@@ -66,12 +133,12 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
         Vector2 offset = Vector2.zero;
         if (rattleTimer % rattleInterval < rattleDuration)
             offset = Random.insideUnitCircle * shakeAmount;
-        rb.MovePosition(startPos + offset);
+        rb.MovePosition(platform.StartPosition + offset);
     }
 
     bool RockOnTop()
     {
-        foreach (var h in Physics2D.OverlapBoxAll(checkCenter, checkSize, 0f))
+        foreach (var h in Physics2D.OverlapBoxAll(platform.StartPosition + checkOffset, checkSize, 0f))
             if (h.CompareTag(rockTag)) return true;
         return false;
     }
@@ -80,7 +147,7 @@ public class RockPlatform : MonoBehaviour, IWorldPausable
 
     void OnDrawGizmosSelected()
     {
-        Vector2 center = Application.isPlaying ? checkCenter
+        Vector2 center = Application.isPlaying && platform != null ? platform.StartPosition + checkOffset
                        : (checkPoint != null ? (Vector2)checkPoint.position : (Vector2)transform.position);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(center, checkSize);
