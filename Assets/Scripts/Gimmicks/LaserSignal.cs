@@ -15,10 +15,12 @@ public class LaserSignal : MonoBehaviour
 
     public State CurrentState { get; private set; } = State.Stopped;
     public bool IsRunning => CurrentState != State.Stopped;
+    internal bool HasInitialized { get; private set; }
 
     void Start()
     {
         SetState(runOnStart ? State.Waiting : State.Stopped);
+        HasInitialized = true;
     }
 
     // 레버 ②: 장치 전부 작동 (On 쪽 발판부터 보임)
@@ -33,7 +35,7 @@ public class LaserSignal : MonoBehaviour
     {
         SetState(State.Stopped);
     }
-        
+
     // LaserSensor: "나는 몇 번 레이저다"를 그대로 전달
     public void Select(State laser)
     {

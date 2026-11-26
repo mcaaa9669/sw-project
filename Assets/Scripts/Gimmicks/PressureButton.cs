@@ -46,7 +46,8 @@ public class PressureButton : MonoBehaviour
                 targetRenderer.sprite = pressedSprite;
 
             Debug.Log("버튼 눌림!");
-            onPressed?.Invoke();
+            SHELLGimmickVFX.PlayButtonPress(targetRenderer, transform);
+            SHELLGimmickVFX.InvokeWithPlatformReveal(onPressed);
         }
     }
 
@@ -62,7 +63,7 @@ public class PressureButton : MonoBehaviour
                 targetRenderer.sprite = defaultSprite;
 
             Debug.Log("버튼 복구!");
-            onReleased?.Invoke();
+            SHELLGimmickVFX.InvokeWithPlatformReveal(onReleased);
         }
     }
 }

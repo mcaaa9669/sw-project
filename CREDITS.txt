@@ -1,0 +1,9 @@
+SHELL music credits
+
+“Cutie Pie” by FrancisLeeMusic
+Source https://opengameart.org/content/cutie-pie
+Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+https://creativecommons.org/licenses/by/3.0/
+
+SHELL plays the original track at reduced volume during the Stage01 opening
+dialogue and fades playback out when the dialogue ends.
