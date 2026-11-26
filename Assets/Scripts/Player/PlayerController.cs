@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
+    // 톱니에 붙은 시체는 기울어져 있으므로 이 정도 경사까지 바닥으로 인정 (0.5 ≈ 60도)
+    [SerializeField, Range(0f, 1f)] float sawShellMinNormalY = 0.5f;
 
     [SerializeField] Animator animator;          // 인스펙터에서 연결
     [SerializeField] SpriteRenderer spriteRenderer; // 좌우 반전용
@@ -61,6 +63,14 @@ public class PlayerController : MonoBehaviour, IKillable
     Vector2 groundVelocity;     // 밟고 있는 이동 발판의 속도
     Vector2 lastGroundVelocity; // 직전 물리 프레임에 맞춰 준 발판 속도 (방향이 꺾일 때 비교용)
     bool onMovingPlatform;      // 이동 발판을 밟고 있는지
+
+    // ===== 톱니에 붙은 시체 위에 고정 =====
+    // 조작이 없으면 밟고 있는 시체의 "그 자리"에 발이 붙은 것처럼 같이 움직임
+    [SerializeField, Min(0f)] float sawShellRideGrace = 0.08f; // 접촉이 잠깐 끊겨도 고정을 유지하는 시간
+    Transform groundSawShell;   // 이번 물리 프레임에 밟은 톱니 시체
+    Transform rideShell;        // 지금 고정되어 있는 시체
+    Vector2 rideLocalFoot;      // 그 시체 기준 발 위치 (시체의 로컬 좌표)
+    float rideGraceTimer;
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[16];
 
     [SerializeField] LayerMask wallLayer;
@@ -269,9 +279,16 @@ public class PlayerController : MonoBehaviour, IKillable
         else
             coyoteTimer = Mathf.Max(0f, coyoteTimer - Time.fixedDeltaTime);
 
+        // 톱니에 붙은 시체 위: 조작이 없으면 시체에 고정된 것처럼 따라감
+        velocity = RideSawShell(velocity, grounded);
+
         bool jumping = jumpBufferTimer > 0f && coyoteTimer > 0f && !inPoison;
         if (jumping)
         {
+            // 점프하면 시체 고정 해제
+            rideShell = null;
+            rideGraceTimer = 0f;
+
             velocity.y = jumpForce;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;   // 한 번 쓰면 바로 소모
@@ -291,7 +308,7 @@ public class PlayerController : MonoBehaviour, IKillable
             && poisonSwim.IsSwimming;
 
         // 공중에서 내려갈 때만 추가 중력 적용
-        if (!grounded && !swimming && rb.linearVelocity.y < 0f)
+        if (!grounded && !swimming && rideShell == null && rb.linearVelocity.y < 0f)
         {
             rb.linearVelocity += Physics2D.gravity
                 * rb.gravityScale
@@ -327,6 +344,7 @@ public class PlayerController : MonoBehaviour, IKillable
         float previousVerticalSpeed = groundVelocity.y;
         groundVelocity = Vector2.zero;
         groundPlatform = null;
+        groundSawShell = null;
         bool grounded = false;
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -339,7 +357,15 @@ public class PlayerController : MonoBehaviour, IKillable
         {
             ContactPoint2D contact = groundContacts[i];
             Collider2D floor = contact.collider == col ? contact.otherCollider : contact.collider;
-            if (floor == null || contact.normal.y < 0.9f || contact.point.y >= bounds.center.y)
+            if (floor == null)
+                continue;
+
+            // 톱니에 붙은 시체인지 (시체는 톱니의 자식이 됨 → Shell.OnSpikeDeath)
+            // 톱니 시체는 돌면서 기울어지므로 경사 허용 범위를 넓힘
+            SawRotate saw = floor.GetComponentInParent<SawRotate>();
+            float minNormalY = saw != null ? sawShellMinNormalY : 0.9f;
+
+            if (contact.normal.y < minNormalY || contact.point.y >= bounds.center.y)
                 continue;
 
             MovingPlatform platform = floor.GetComponentInParent<MovingPlatform>();
@@ -348,12 +374,23 @@ public class PlayerController : MonoBehaviour, IKillable
                 continue;
 
             grounded = true;
+
             onTerrain |= floor.gameObject.layer == terrainLayer;
             Shell shell = floor.GetComponentInParent<Shell>();
             if (shell != null)
                 groundedShell = shell;
 
-            if (platform != null)
+            // 톱니에 붙은 Shell을 밟으면 발밑 지점의 회전 속도를 적용
+            if (saw != null)
+            {
+                Vector2 foot = new Vector2(bounds.center.x, bounds.min.y);
+                groundVelocity = saw.GetPointVelocity(foot);
+
+                groundSawShell = floor.attachedRigidbody != null
+                    ? floor.attachedRigidbody.transform
+                    : floor.transform;
+            }
+            else if (platform != null)
             {
                 groundPlatform = platform;
                 groundVelocity = platform.Velocity;
@@ -423,6 +460,55 @@ public class PlayerController : MonoBehaviour, IKillable
         }
 
         rb.position += Vector2.right * (distance * direction);
+    }
+
+    // 톱니에 붙은 시체 위에 고정
+    // - 처음 올라선 순간, 시체 기준으로 발 위치를 기억해 둠
+    // - 조작이 없는 동안은 매 물리 프레임마다 "시체가 움직인 뒤의 그 자리"로 정확히 옮겨 줌
+    //   → 시체가 돌면서 오르내리고 기울어도 플레이어는 그 위에 붙어서 같이 감 (에스컬레이터)
+    // - 좌우 이동하면 고정을 풀고(톱니 속도는 groundVelocity로 계속 더해짐), 멈추면 새 자리에 다시 고정
+    Vector2 RideSawShell(Vector2 velocity, bool grounded)
+    {
+        float dt = Time.fixedDeltaTime;
+
+        if (grounded && groundSawShell != null)
+            rideGraceTimer = sawShellRideGrace;
+        else
+            rideGraceTimer -= dt;
+
+        Transform shell = groundSawShell != null ? groundSawShell : rideShell;
+
+        if (inputX != 0f || shell == null || rideGraceTimer <= 0f)
+        {
+            rideShell = null;
+            return velocity;
+        }
+
+        Vector2 foot = new Vector2(col.bounds.center.x, col.bounds.min.y);
+
+        // 새로 올라탄 시체면 지금 발 위치를 그 시체 기준으로 기억
+        if (rideShell != shell)
+        {
+            rideShell = shell;
+            rideLocalFoot = shell.InverseTransformPoint(foot);
+        }
+
+        // 시체가 이번 프레임에 이동한 뒤의 "그 자리"
+        Vector2 target = rideShell.TransformPoint(rideLocalFoot);
+
+        // 너무 멀어졌으면(리스폰·순간이동 등) 고정 해제
+        if ((target - foot).sqrMagnitude > 0.25f)
+        {
+            rideShell = null;
+            return velocity;
+        }
+
+        Vector2 follow = (target - foot) / dt;
+
+        // 이번 물리 단계에서 더해질 중력을 미리 빼서 아래로 처지지 않게 함
+        follow -= Physics2D.gravity * rb.gravityScale * dt;
+
+        return follow;
     }
 
     bool IsWallAhead(float direction)
