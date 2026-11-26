@@ -8,6 +8,9 @@ using UnityEngine;
 public class SignalToggle : MonoBehaviour
 {
     [SerializeField] LaserSignal signal;
+    [SerializeField] SpriteRenderer indicator;
+    [SerializeField] Sprite indicatorOff;
+    [SerializeField] Sprite indicatorOn;
 
     [Header("이 상태일 때 켜짐")]
     [SerializeField] bool activeWhenLaser0 = false;
@@ -49,6 +52,7 @@ public class SignalToggle : MonoBehaviour
     {
         bool previouslyActive = wasActive;
         ApplyVisibility(state);
+
         if (wasActive && !previouslyActive && signal.HasInitialized)
             SHELLGimmickVFX.PlayPlatformReveal(gameObject);
     }
@@ -63,7 +67,12 @@ public class SignalToggle : MonoBehaviour
             _                         => activeWhenStopped,  // 위에 없는 나머지 전부(= Stopped)
         };
 
-        foreach (var r in renderers) if (r != null) r.enabled = active;
+        foreach (var renderer in renderers)
+            if (renderer != null && renderer != indicator)
+                renderer.enabled = active;
+
+        if (indicator != null)
+            indicator.sprite = active ? indicatorOn : indicatorOff;
         foreach (var c in colliders) if (c != null) c.enabled = active;
         wasActive = active;
     }
