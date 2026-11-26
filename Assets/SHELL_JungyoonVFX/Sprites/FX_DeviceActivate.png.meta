@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: 2f83992094fbf463089f7e416db10d9e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3552272562574903028
+    second: FX_DeviceActivate_0
+  - first:
+      213: -2609941555163978885
+    second: FX_DeviceActivate_1
+  - first:
+      213: -3784936516625865598
+    second: FX_DeviceActivate_2
+  - first:
+      213: -436946177629170876
+    second: FX_DeviceActivate_3
+  - first:
+      213: -521938236660599930
+    second: FX_DeviceActivate_4
+  - first:
+      213: 6341082668874988475
+    second: FX_DeviceActivate_5
+  - first:
+      213: -3939984028290255715
+    second: FX_DeviceActivate_6
+  - first:
+      213: -8797100324241327554
+    second: FX_DeviceActivate_7
+  - first:
+      213: 9168486325183509715
+    second: FX_DeviceActivate_8
+  - first:
+      213: 7122503760421624461
+    second: FX_DeviceActivate_9
+  - first:
+      213: 6089394664012513264
+    second: FX_DeviceActivate_10
+  - first:
+      213: -8865080343554308395
+    second: FX_DeviceActivate_11
+  - first:
+      213: -8549942434045289505
+    second: FX_DeviceActivate_12
+  - first:
+      213: 8131463261723092930
+    second: FX_DeviceActivate_13
+  - first:
+      213: 2665923617292876550
+    second: FX_DeviceActivate_14
+  - first:
+      213: -5205813359716332892
+    second: FX_DeviceActivate_15
+  - first:
+      213: 2530470941000244813
+    second: FX_DeviceActivate_16
+  - first:
+      213: 2915044550565447062
+    second: FX_DeviceActivate_17
+  - first:
+      213: 2102615473786379618
+    second: FX_DeviceActivate_18
+  - first:
+      213: -5565953099422369912
+    second: FX_DeviceActivate_19
+  - first:
+      213: -3359612047688160383
+    second: FX_DeviceActivate_20
+  - first:
+      213: 3532333865875402070
+    second: FX_DeviceActivate_21
+  - first:
+      213: -3770550251340565640
+    second: FX_DeviceActivate_22
+  - first:
+      213: -2526579086411120312
+    second: FX_DeviceActivate_23
+  - first:
+      213: 1031812059197052333
+    second: FX_DeviceActivate_24
+  - first:
+      213: -7602724358955708612
+    second: FX_DeviceActivate_25
+  - first:
+      213: -8955605752011641179
+    second: FX_DeviceActivate_26
+  - first:
+      213: 7643797278448089313
+    second: FX_DeviceActivate_27
+  - first:
+      213: 4038907412770319940
+    second: FX_DeviceActivate_28
+  - first:
+      213: -4825727927854494698
+    second: FX_DeviceActivate_29
+  - first:
+      213: 7453095482124798233
+    second: FX_DeviceActivate_30
+  - first:
+      213: -4164832825293474293
+    second: FX_DeviceActivate_31
+  - first:
+      213: -6480497539808847229
+    second: FX_DeviceActivate_32
+  - first:
+      213: 333440771380995904
+    second: FX_DeviceActivate_33
+  - first:
+      213: -9108721913334915020
+    second: FX_DeviceActivate_34
+  - first:
+      213: -2326713310927957954
+    second: FX_DeviceActivate_35
+  - first:
+      213: -3303764520534387941
+    second: FX_DeviceActivate_36
+  - first:
+      213: 2570899794155565637
+    second: FX_DeviceActivate_37
+  - first:
+      213: -863134509917197804
+    second: FX_DeviceActivate_38
+  - first:
+      213: -4724813095758818276
+    second: FX_DeviceActivate_39
+  - first:
+      213: -1671947715824647753
+    second: FX_DeviceActivate_40
+  - first:
+      213: -7428844289985788230
+    second: FX_DeviceActivate_41
+  - first:
+      213: 6175346259652696235
+    second: FX_DeviceActivate_42
+  - first:
+      213: -3385618369794215227
+    second: FX_DeviceActivate_43
+  - first:
+      213: -5992647443426317073
+    second: FX_DeviceActivate_44
+  - first:
+      213: 6896418763124238605
+    second: FX_DeviceActivate_45
+  - first:
+      213: -905227105168618273
+    second: FX_DeviceActivate_46
+  - first:
+      213: -8845776387871552663
+    second: FX_DeviceActivate_47
+  - first:
+      213: -3315422656442789927
+    second: FX_DeviceActivate_48
+  - first:
+      213: 6337821573370739937
+    second: FX_DeviceActivate_49
+  - first:
+      213: -4436464824479227431
+    second: FX_DeviceActivate_50
+  - first:
+      213: 4058115316930107102
+    second: FX_DeviceActivate_51
+  - first:
+      213: -2074990296973104009
+    second: FX_DeviceActivate_52
+  - first:
+      213: -4976126162710340658
+    second: FX_DeviceActivate_53
+  - first:
+      213: 8887052056808487337
+    second: FX_DeviceActivate_54
+  - first:
+      213: 6108889167543529647
+    second: FX_DeviceActivate_55
+  - first:
+      213: -2622499481997082360
+    second: FX_DeviceActivate_56
+  - first:
+      213: -1462486475682274306
+    second: FX_DeviceActivate_57
+  - first:
+      213: -1001062850869224464
+    second: FX_DeviceActivate_58
+  - first:
+      213: 5647712630766633368
+    second: FX_DeviceActivate_59
+  - first:
+      213: -2010853925501717001
+    second: FX_DeviceActivate_60
+  - first:
+      213: 4700538271285672444
+    second: FX_DeviceActivate_61
+  - first:
+      213: 2083350329060943429
+    second: FX_DeviceActivate_62
+  - first:
+      213: 5782201093671070123
+    second: FX_DeviceActivate_63
+  - first:
+      213: -5827254264967084982
+    second: FX_DeviceActivate_64
+  - first:
+      213: -7237825452614688515
+    second: FX_DeviceActivate_65
+  - first:
+      213: -2845055340301749718
+    second: FX_DeviceActivate_66
+  - first:
+      213: 6350744529571215733
+    second: FX_DeviceActivate_67
+  - first:
+      213: -5545629806869468186
+    second: FX_DeviceActivate_68
+  - first:
+      213: -1156924291413425788
+    second: FX_DeviceActivate_69
+  - first:
+      213: -2510611956354038953
+    second: FX_DeviceActivate_70
+  - first:
+      213: -8373770330062856772
+    second: FX_DeviceActivate_71
+  - first:
+      213: -5925789485082133892
+    second: FX_DeviceActivate_72
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FX_DeviceActivate_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72a84b90e52a74318bd5ed7b10c6371d
+      internalID: 1350501508
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_01
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dfa94949846643ecb8dbd75d56e12d4
+      internalID: 640629893
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_02
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1fa07dc8311944a09f3e02ac7ea6143
+      internalID: -1987852593
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_03
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fc07096e9e344db7a13c78b8d1d49b7
+      internalID: 1796868325
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_04
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d2d87e24b6349a79b9e0f4d8fe9576
+      internalID: -594653300
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_05
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46a108c05b081407188ad7e743021da7
+      internalID: -378485240
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_06
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201bae161c4cb4f38a291771a6385a13
+      internalID: 1663411489
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_DeviceActivate_07
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b3357bf302a4edfb3120e4cc592eb1
+      internalID: 1715011693
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: f6faeeb929be94ed792bf0a44c4722ba
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FX_DeviceActivate_00: 1350501508
+      FX_DeviceActivate_01: 640629893
+      FX_DeviceActivate_02: -1987852593
+      FX_DeviceActivate_03: 1796868325
+      FX_DeviceActivate_04: -594653300
+      FX_DeviceActivate_05: -378485240
+      FX_DeviceActivate_06: 1663411489
+      FX_DeviceActivate_07: 1715011693
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

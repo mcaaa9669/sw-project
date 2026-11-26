@@ -9,6 +9,9 @@ public sealed class SHELLJungyoonVFXRuntime : MonoBehaviour
     private const string ForestLeavesPath = "SHELL_JungyoonVFX/FX_ForestLeaves";
     private const string LandingPath = "SHELL_JungyoonVFX/FX_LandingDust";
     private const string CheckpointPath = "SHELL_JungyoonVFX/FX_CheckpointPulse";
+    private const string GearHitPath = "SHELL_JungyoonVFX/FX_GearHit";
+    private const string SpikeHitPath = "SHELL_JungyoonVFX/FX_SpikeHit";
+    private const string DeviceActivatePath = "SHELL_JungyoonVFX/FX_DeviceActivate";
 
     private static SHELLJungyoonVFXRuntime instance;
     private static GameObject corpsePrefab;
@@ -17,6 +20,9 @@ public sealed class SHELLJungyoonVFXRuntime : MonoBehaviour
     private static bool soulPrefabChecked;
     private static GameObject landingPrefab;
     private static GameObject checkpointPrefab;
+    private static GameObject gearHitPrefab;
+    private static GameObject spikeHitPrefab;
+    private static GameObject deviceActivatePrefab;
 
     private PlayerController player;
     private WorldType previousWorld;
@@ -148,6 +154,28 @@ public sealed class SHELLJungyoonVFXRuntime : MonoBehaviour
 
     public static void PlayCheckpointPulse(Vector3 position) =>
         PlayBurst(CheckpointPath, ref checkpointPrefab, position);
+
+    public static void PlayHazardImpact(Scene scene, DeathType type, Vector3 position)
+    {
+        if (scene.name != "Stage01")
+            return;
+
+        // Unparented so hiding the victim or freezing the hazard does not stop playback.
+        if (type == DeathType.saw)
+            PlayBurst(GearHitPath, ref gearHitPrefab, position);
+        else if (type == DeathType.Spike)
+            PlayBurst(SpikeHitPath, ref spikeHitPrefab, position);
+    }
+
+    public static void PlayDeviceActivation(Component device)
+    {
+        if (device.gameObject.scene.name != "Stage01")
+            return;
+
+        Renderer renderer = device.GetComponentInChildren<Renderer>();
+        Vector3 center = renderer != null ? renderer.bounds.center : device.transform.position;
+        PlayBurst(DeviceActivatePath, ref deviceActivatePrefab, center);
+    }
 
     private static void PlayBurst(string path, ref GameObject prefab, Vector3 position)
     {

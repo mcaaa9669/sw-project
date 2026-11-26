@@ -13,6 +13,7 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     Vector3 target;
     bool paused;
     bool openingSoundPending;
+    bool activationVfxPlayed;
 
     void Awake()
     {
@@ -36,6 +37,7 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     {
         target = upPosition;
         openingSoundPending = false;
+        activationVfxPlayed = false;
     }
 
     void SetOpeningTarget(Vector3 position)
@@ -58,6 +60,11 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
         {
             openingSoundPending = false;
             SHELLSoundAuto.PlayWallVanish();
+            if (!activationVfxPlayed)
+            {
+                activationVfxPlayed = true;
+                SHELLJungyoonVFXRuntime.PlayDeviceActivation(this);
+            }
         }
     }
 }

@@ -18,30 +18,31 @@ public class Hazard : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        TryKill(collision.collider);
+        TryKill(collision.collider, collision.contactCount > 0 ? collision.GetContact(0).point : null);
     }
 
-    void TryKill(Collider2D other)
+    void TryKill(Collider2D other, Vector2? contact = null)
     {
         if (!isActive || !other.TryGetComponent(out IKillable target))
             return;
 
-        if (stickShellToSaw && deathType == DeathType.saw && target is PlayerController sawVictim)
+        if (target is not PlayerController player)
         {
-            sawVictim.Kill(deathType, transform);
+            target.Kill(deathType);
             return;
         }
 
-        if (deathType == DeathType.Spike && target is PlayerController player)
+        Transform anchor = deathType switch
         {
-            var rotatingBlock = GetComponentInParent<RotatingSpikeBlock>();
-            if (rotatingBlock != null)
-            {
-                player.Kill(deathType, rotatingBlock.transform);
-                return;
-            }
-        }
-
-        target.Kill(deathType);
+            DeathType.saw when stickShellToSaw => transform,
+            DeathType.Spike => GetComponentInParent<RotatingSpikeBlock>()?.transform,
+            _ => null
+        };
+        bool wasAlive = !player.IsDead;
+        Vector2 hit = contact ?? other.ClosestPoint(transform.position);
+        Vector3 effectPosition = new Vector3(hit.x, hit.y, player.transform.position.z);
+        player.Kill(deathType, anchor);
+        if (wasAlive && player.IsDead)
+            SHELLJungyoonVFXRuntime.PlayHazardImpact(gameObject.scene, deathType, effectPosition);
     }
 }
