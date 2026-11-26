@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] Animator animator;          // 인스펙터에서 연결
     [SerializeField] SpriteRenderer spriteRenderer; // 좌우 반전용
     // 파라미터 이름 오타 방지 + 성능
+    static readonly int InteractStateHash = Animator.StringToHash("Base Layer.PL_Interact");
     static readonly int SpeedHash = Animator.StringToHash("Speed");
+    static readonly int SwimCycleHash = Animator.StringToHash("SwimCycle");
+    static readonly int SwimPoseHash = Animator.StringToHash("SwimPose");
     static readonly int GroundedHash = Animator.StringToHash("IsGrounded");
 
     [Header("Death")]
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour, IKillable
     bool[] originalEnabled;
 
     float inputX;
+    float swimCycle;
     bool jumpRequested;
     bool wasWallBlocked;
     Shell previousGroundedShell;
@@ -331,7 +335,36 @@ public class PlayerController : MonoBehaviour, IKillable
             groundVelocity = Vector2.zero;
         }
 
-        if (inputX != 0) spriteRenderer.flipX = inputX < 0;
+        bool playingInteraction = animator.GetCurrentAnimatorStateInfo(0).fullPathHash == InteractStateHash;
+        int swimPose = 0;
+        if (swimming && !grounded && !playingInteraction)
+        {
+            Vector2 swimVelocity = rb.linearVelocity;
+            float verticalThreshold = Mathf.Max(0.25f, Mathf.Abs(swimVelocity.x) * 0.5f);
+            swimPose = swimVelocity.y > verticalThreshold ? 2
+                : swimVelocity.y < -verticalThreshold ? 3
+                : 1;
+        }
+        // Keep the stroke phase when switching between ascent, descent and horizontal swimming.
+        swimCycle = swimPose == 0 ? 0f : Mathf.Repeat(swimCycle + Time.fixedDeltaTime * 1.5f, 1f);
+        animator.SetFloat(SwimCycleHash, swimCycle);
+        animator.SetInteger(SwimPoseHash, swimPose);
+
+        if (inputX != 0 && !playingInteraction)
+            spriteRenderer.flipX = inputX < 0;
+    }
+
+    public void PlayInteraction(Vector3 targetPosition)
+    {
+        if (!animator || !spriteRenderer || !animator.HasState(0, InteractStateHash))
+            return;
+
+        float targetDeltaX = targetPosition.x - transform.position.x;
+        if (!Mathf.Approximately(targetDeltaX, 0f))
+            spriteRenderer.flipX = targetDeltaX < 0f;
+
+        animator.SetInteger(SwimPoseHash, 0);
+        animator.Play(InteractStateHash, 0, 0f);
     }
 
     bool IsGrounded(out bool onBelt, out float beltSpeed, out Shell groundedShell, out bool onTerrain)
@@ -750,7 +783,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
     Vector3 GetRespawnPosition()
     {
-        return respawnPoint != null ? respawnPoint.transform.position : startPosition;
+        return respawnPoint != null ? respawnPoint.RespawnPosition : startPosition;
     }
 
     // ===== 체크포인트 =====
@@ -793,6 +826,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
         isSoul = false;
         isDead = false;
+        animator.SetInteger(SwimPoseHash, 0);
         previousGroundedShell = null;
         wasFalling = false;
         inputX = 0f;

@@ -69,6 +69,7 @@ public class Lever : MonoBehaviour
             return true;
 
         Lever nearest = null;
+        PlayerController nearestPlayer = null;
         float nearestDistance = float.PositiveInfinity;
         var filter = new ContactFilter2D { useTriggers = true };
 
@@ -88,6 +89,7 @@ public class Lever : MonoBehaviour
                 if (distance < nearestDistance)
                 {
                     nearest = lever;
+                    nearestPlayer = player;
                     nearestDistance = distance;
                 }
             }
@@ -97,6 +99,7 @@ public class Lever : MonoBehaviour
             return false;
 
         lastToggleFrame = Time.frameCount;
+        nearestPlayer.PlayInteraction(nearest.transform.position);
         nearest.SetPulled(!nearest.IsPulled);
         return true;
     }

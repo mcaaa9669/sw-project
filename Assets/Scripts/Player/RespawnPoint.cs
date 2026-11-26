@@ -7,6 +7,7 @@ public class RespawnPoint : MonoBehaviour
 {
     [Tooltip("맵 진행 순서. 숫자가 클수록 뒤쪽 지점. 뒤로 돌아가도 앞 지점으로 되돌아가지 않음")]
     [SerializeField] int order = 0;
+    [SerializeField] Transform respawnLocation;
 
     [Header("표시 (선택)")]
     [SerializeField] SpriteRenderer marker;                 // 비우면 색 변경 안 함
@@ -20,6 +21,7 @@ public class RespawnPoint : MonoBehaviour
     public event Action<PlayerController> Reached;
 
     public int Order => order;
+    public Vector3 RespawnPosition => respawnLocation != null ? respawnLocation.position : transform.position;
 
     void Reset()
     {

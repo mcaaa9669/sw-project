@@ -32,6 +32,7 @@ public sealed class StageViewController : MonoBehaviour
         [Tooltip("Fixed entry point used when continuing this section from a save.")]
         public RespawnPoint saveEntry;
         public BoxCollider2D leftExitBarrier;
+        public bool tightenLeftExitBarrierAfterEntry;
         public GameObject disableOnEntry;
         [Min(0.01f)] public float orthographicSize;
         public ViewMode backgroundMode;
@@ -118,7 +119,7 @@ public sealed class StageViewController : MonoBehaviour
             if (view.name != section || view.saveEntry == null)
                 continue;
 
-            Vector3 entry = view.saveEntry.transform.position;
+            Vector3 entry = view.saveEntry.RespawnPosition;
             entry.z = player.position.z;
             controller.Revive(entry);
             controller.SetRespawnPoint(view.saveEntry);
@@ -207,7 +208,7 @@ public sealed class StageViewController : MonoBehaviour
         elapsed = 0f;
     }
 
-    private void ActivateLeftExitBarrier(View view)
+    private void ActivateLeftExitBarrier(View view, bool tightenOnly = false)
     {
         BoxCollider2D barrier = view.leftExitBarrier;
         if (barrier == null)
@@ -218,7 +219,11 @@ public sealed class StageViewController : MonoBehaviour
         if (player != null && player.TryGetComponent(out Collider2D playerCollider))
             leftEdge = Mathf.Min(leftEdge, playerCollider.bounds.min.x - 0.01f);
 
-        SetCenter(barrier.transform, new Vector2(leftEdge - barrier.size.x * 0.5f, view.cameraCenter.y));
+        float barrierX = leftEdge - barrier.size.x * 0.5f;
+        if (tightenOnly && barrierX <= barrier.transform.position.x)
+            return;
+
+        SetCenter(barrier.transform, new Vector2(barrierX, view.cameraCenter.y));
         barrier.enabled = true;
     }
 
@@ -228,6 +233,9 @@ public sealed class StageViewController : MonoBehaviour
             return;
 
         View view = views[currentView];
+        if (view.tightenLeftExitBarrierAfterEntry)
+            ActivateLeftExitBarrier(view, tightenOnly: true);
+
         bool follow = ShouldFollowAtHeight(view);
         if (followingHeightOverride != follow)
         {
