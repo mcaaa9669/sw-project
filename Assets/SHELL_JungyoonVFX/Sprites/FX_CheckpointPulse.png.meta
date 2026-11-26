@@ -1,0 +1,397 @@
+fileFormatVersion: 2
+guid: 4d0a4cf4996244c37a6a5e9fc8e34096
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4783002796243854066
+    second: FX_CheckpointPulse_0
+  - first:
+      213: -8133289876955952929
+    second: FX_CheckpointPulse_1
+  - first:
+      213: 1879198149498176540
+    second: FX_CheckpointPulse_2
+  - first:
+      213: -7986303339662245132
+    second: FX_CheckpointPulse_3
+  - first:
+      213: -2130917274291821453
+    second: FX_CheckpointPulse_4
+  - first:
+      213: -2770701021354972233
+    second: FX_CheckpointPulse_5
+  - first:
+      213: -6642430717626492540
+    second: FX_CheckpointPulse_6
+  - first:
+      213: -8321460297003309788
+    second: FX_CheckpointPulse_7
+  - first:
+      213: -9088508858973089595
+    second: FX_CheckpointPulse_8
+  - first:
+      213: -4373072499801665530
+    second: FX_CheckpointPulse_9
+  - first:
+      213: 8774522094020139485
+    second: FX_CheckpointPulse_10
+  - first:
+      213: -5950108900043412477
+    second: FX_CheckpointPulse_11
+  - first:
+      213: 8787432774143485549
+    second: FX_CheckpointPulse_12
+  - first:
+      213: 3773427951400740481
+    second: FX_CheckpointPulse_13
+  - first:
+      213: -4282483900743279085
+    second: FX_CheckpointPulse_14
+  - first:
+      213: -7170368343336487616
+    second: FX_CheckpointPulse_15
+  - first:
+      213: -8516358921755377227
+    second: FX_CheckpointPulse_16
+  - first:
+      213: -7684799979697062159
+    second: FX_CheckpointPulse_17
+  - first:
+      213: 6501231644865940845
+    second: FX_CheckpointPulse_18
+  - first:
+      213: 6731171762537742853
+    second: FX_CheckpointPulse_19
+  - first:
+      213: 381769292602775625
+    second: FX_CheckpointPulse_20
+  - first:
+      213: 4202766337459259906
+    second: FX_CheckpointPulse_21
+  - first:
+      213: -8038088051598194140
+    second: FX_CheckpointPulse_22
+  - first:
+      213: -4815582590475532869
+    second: FX_CheckpointPulse_23
+  - first:
+      213: -4710306016762395413
+    second: FX_CheckpointPulse_24
+  - first:
+      213: 139465356334473390
+    second: FX_CheckpointPulse_25
+  - first:
+      213: -4562070206510998174
+    second: FX_CheckpointPulse_26
+  - first:
+      213: -1556706274497214641
+    second: FX_CheckpointPulse_27
+  - first:
+      213: -5101969249721619744
+    second: FX_CheckpointPulse_28
+  - first:
+      213: -2486984328374041782
+    second: FX_CheckpointPulse_29
+  - first:
+      213: 631238944480643216
+    second: FX_CheckpointPulse_30
+  - first:
+      213: -1945462411737763886
+    second: FX_CheckpointPulse_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293f9b5593c7b43028e4932747045d48
+      internalID: -839281339
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_01
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b155e40dda9654e7d96b4059251118f5
+      internalID: 218100409
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_02
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b44d055607f426bb33e31a7a8e2ba1
+      internalID: 964653936
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_03
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c962667297644d69a49865e348f60c
+      internalID: -709001716
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_04
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a6d5116182db4d73a031ae47080c9ba
+      internalID: 1919887111
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_05
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78dec7710d15841d3914ad4d929eadaf
+      internalID: -776155323
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_06
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 741b5f7a80d0c41f789674d4932ad58f
+      internalID: -364835831
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_CheckpointPulse_07
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 038d3cfa48e274fc593bcea0d82cf0a1
+      internalID: -1343310800
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: 489d046e806f94ff98b81b9864478b69
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FX_CheckpointPulse_00: -839281339
+      FX_CheckpointPulse_01: 218100409
+      FX_CheckpointPulse_02: 964653936
+      FX_CheckpointPulse_03: -709001716
+      FX_CheckpointPulse_04: 1919887111
+      FX_CheckpointPulse_05: -776155323
+      FX_CheckpointPulse_06: -364835831
+      FX_CheckpointPulse_07: -1343310800
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

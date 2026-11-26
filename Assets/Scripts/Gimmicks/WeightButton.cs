@@ -84,18 +84,23 @@ public class WeightButton : MonoBehaviour
             IsPressed = true;
             UpdateSprite();
             Debug.Log("버튼 눌림!");
-            onPressed?.Invoke();
+            SHELLGimmickVFX.PlayButtonPress(targetRenderer, transform);
+            SHELLGimmickVFX.InvokeWithPlatformReveal(onPressed);
         }
         else if (!shouldBePressed && IsPressed)
         {
             IsPressed = false;
             UpdateSprite();
             Debug.Log("버튼 복구!");
-            onReleased?.Invoke();
+            SHELLGimmickVFX.InvokeWithPlatformReveal(onReleased);
         }
 
         if (platformWhilePressed != null && platformWhilePressed.activeSelf != shouldBePressed)
+        {
             platformWhilePressed.SetActive(shouldBePressed);
+            if (shouldBePressed)
+                SHELLGimmickVFX.PlayPlatformReveal(platformWhilePressed);
+        }
     }
 
     // 지금 버튼 위에 압력을 주는 것이 있는지

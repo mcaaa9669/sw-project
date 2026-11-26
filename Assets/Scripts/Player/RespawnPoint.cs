@@ -62,8 +62,12 @@ public class RespawnPoint : MonoBehaviour
         PlayerController player = other.GetComponentInParent<PlayerController>();
         if (player == null) return;
 
+        bool firstActivation = !activated;
         if (player.SetRespawnPoint(this))
         {
+            if (firstActivation)
+                SHELLJungyoonVFXRuntime.PlayCheckpointPulse(marker != null ? marker.bounds.center : transform.position);
+
             Reached?.Invoke(player);
         }
     }
