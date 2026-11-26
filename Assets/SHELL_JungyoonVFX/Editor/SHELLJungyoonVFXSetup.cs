@@ -24,6 +24,16 @@ public static class SHELLJungyoonVFXSetup
         Debug.Log("SHELL Jungyoon VFX: both 8-frame spritesheets and runtime prefabs validated.");
     }
 
+    [MenuItem("SHELL/Jungyoon VFX/Build Stage01 Impact Effects")]
+    public static void BuildStage01ImpactEffects()
+    {
+        BuildPrefab("FX_GearHit", ImportFrames("FX_GearHit"), 0.36f, 26);
+        BuildPrefab("FX_SpikeHit", ImportFrames("FX_SpikeHit"), 0.40f, 26);
+        BuildPrefab("FX_DeviceActivate", ImportFrames("FX_DeviceActivate"), 0.64f);
+        AssetDatabase.SaveAssets();
+        Debug.Log("SHELL Jungyoon VFX: Stage01 impact and device prefabs ready.");
+    }
+
     [MenuItem("SHELL/Jungyoon VFX/Build Stage Effects")]
     public static void BuildStageEffects()
     {
@@ -283,12 +293,12 @@ public static class SHELLJungyoonVFXSetup
         }
     }
 
-    private static void BuildPrefab(string assetName, Sprite[] frames, float duration)
+    private static void BuildPrefab(string assetName, Sprite[] frames, float duration, int sortingOrder = 20)
     {
         string path = $"{ResourcesFolder}/{assetName}.prefab";
         GameObject existing = AssetDatabase.LoadAssetAtPath<GameObject>(path);
         if (existing != null && existing.TryGetComponent(out SpriteRenderer existingRenderer) &&
-            existingRenderer.sprite == frames[0] && existingRenderer.sortingOrder == 20 &&
+            existingRenderer.sprite == frames[0] && existingRenderer.sortingOrder == sortingOrder &&
             existing.TryGetComponent(out SHELLVFXFramePlayer existingPlayer))
         {
             SerializedObject settings = new SerializedObject(existingPlayer);
@@ -304,7 +314,7 @@ public static class SHELLJungyoonVFXSetup
         {
             SpriteRenderer renderer = effect.AddComponent<SpriteRenderer>();
             renderer.sprite = frames[0];
-            renderer.sortingOrder = 20;
+            renderer.sortingOrder = sortingOrder;
 
             SHELLVFXFramePlayer player = effect.AddComponent<SHELLVFXFramePlayer>();
             player.Configure(frames, duration);
