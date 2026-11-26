@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour, IKillable
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
 
-    [SerializeField] Animator animator;          // 인스펙터에서 연결 
+    [SerializeField] Animator animator;          // 인스펙터에서 연결
     [SerializeField] SpriteRenderer spriteRenderer; // 좌우 반전용
     // 파라미터 이름 오타 방지 + 성능
     static readonly int SpeedHash = Animator.StringToHash("Speed");
@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour, IKillable
     float inputX;
     bool jumpRequested;
     bool wasWallBlocked;
+    Shell previousGroundedShell;
+    bool wasFalling;
+    int terrainLayer;
 
     [SerializeField] float animGroundGrace = 0.08f;   // 바닥 판정이 잠깐 끊겨도 점프 애니메이션으로 안 넘어가는 시간
     float airTime;
@@ -76,6 +79,7 @@ public class PlayerController : MonoBehaviour, IKillable
     Collider2D soulShellCollider;   // 영혼이 빠져나온 shell (겹쳐 있으므로 충돌 무시)
 
     public bool IsDead => isDead;
+    public bool IsStandingOnShell => previousGroundedShell != null;
     public bool IsSoul => isSoul;
     bool CanControl => !isDead || isSoul;   // 살아 있거나 영혼일 때만 조작 가능
 
@@ -87,6 +91,7 @@ public class PlayerController : MonoBehaviour, IKillable
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         poisonSwim = GetComponent<PoisonSwim>();
+        terrainLayer = LayerMask.NameToLayer("Ground");
         startPosition = transform.position;
 
         // 자식 Sprite까지 포함해서 외형 변경
@@ -153,7 +158,27 @@ public class PlayerController : MonoBehaviour, IKillable
 
         MovingPlatform previousPlatform = groundPlatform;
         float previousPlatformVerticalSpeed = groundVelocity.y;
-        bool grounded = IsGrounded(out bool onBelt, out float beltSpeed);
+        bool grounded = IsGrounded(out bool onBelt, out float beltSpeed, out Shell groundedShell, out bool onTerrain);
+        if (!grounded && rb.linearVelocity.y < -0.1f)
+            wasFalling = true;
+
+        if (grounded)
+        {
+            if (groundedShell != null && groundedShell != previousGroundedShell && !isDead && !isSoul &&
+                (wasFalling || Mathf.Abs(rb.linearVelocity.x) > 0.1f))
+                SHELLSoundAuto.PlayCorpseStep();
+
+            if (wasFalling && onTerrain && groundedShell == null && !onBelt && !isDead &&
+                (poisonSwim == null || !poisonSwim.IsSwimming))
+            {
+                Bounds feet = col.bounds;
+                SHELLJungyoonVFXRuntime.PlayLanding(new Vector3(feet.center.x, feet.min.y, transform.position.z));
+            }
+
+            wasFalling = false;
+        }
+        previousGroundedShell = groundedShell;
+
         bool inPoison = poisonSwim != null
         && poisonSwim.isActiveAndEnabled
         && poisonSwim.IsSwimming;
@@ -292,10 +317,12 @@ public class PlayerController : MonoBehaviour, IKillable
         if (inputX != 0) spriteRenderer.flipX = inputX < 0;
     }
 
-    bool IsGrounded(out bool onBelt, out float beltSpeed)
+    bool IsGrounded(out bool onBelt, out float beltSpeed, out Shell groundedShell, out bool onTerrain)
     {
         onBelt = false;
         beltSpeed = 0f;
+        groundedShell = null;
+        onTerrain = false;
         MovingPlatform previousPlatform = groundPlatform;
         float previousVerticalSpeed = groundVelocity.y;
         groundVelocity = Vector2.zero;
@@ -321,6 +348,11 @@ public class PlayerController : MonoBehaviour, IKillable
                 continue;
 
             grounded = true;
+            onTerrain |= floor.gameObject.layer == terrainLayer;
+            Shell shell = floor.GetComponentInParent<Shell>();
+            if (shell != null)
+                groundedShell = shell;
+
             if (platform != null)
             {
                 groundPlatform = platform;
@@ -511,6 +543,8 @@ public class PlayerController : MonoBehaviour, IKillable
 
         // shell을 먼저 만들어야, 영혼세계 진입 시 현실세계와 함께 멈춤
         Shell shell = SpawnShellFor(deathType, spikeAnchor);
+        if (shell == null)
+            SHELLSoundAuto.PlayDeath();
 
         bool canUseSoulWorld = useSoulWorld && soulWorldController != null;
 
@@ -583,7 +617,10 @@ public class PlayerController : MonoBehaviour, IKillable
 
     Shell SpawnShell()
     {
-        return Instantiate(shellPrefab, transform.position, Quaternion.identity);
+        Shell shell = Instantiate(shellPrefab, transform.position, Quaternion.identity);
+        if (shell != null)
+            SHELLJungyoonVFXRuntime.PlayCorpseSpawn(shell.transform.position);
+        return shell;
     }
 
     // ===== 영혼 =====
@@ -670,6 +707,8 @@ public class PlayerController : MonoBehaviour, IKillable
 
         isSoul = false;
         isDead = false;
+        previousGroundedShell = null;
+        wasFalling = false;
         inputX = 0f;
         jumpRequested = false;
         jumpBufferTimer = 0f;

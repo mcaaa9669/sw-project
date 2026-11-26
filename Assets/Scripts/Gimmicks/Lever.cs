@@ -111,10 +111,7 @@ public class Lever : MonoBehaviour
     {
         IsPulled = pulled;
         UpdateSprite();
-        if (pulled)
-            onActivated?.Invoke();
-        else
-            onDeactivated?.Invoke();
+        SHELLGimmickVFX.InvokeWithPlatformReveal(pulled ? onActivated : onDeactivated);
     }
 
     void UpdateSprite()

@@ -12,6 +12,7 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     Vector3 upPosition;     // 원래 위치
     Vector3 target;
     bool paused;
+    bool openingSoundPending;
 
     void Awake()
     {
@@ -22,18 +23,26 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     // 버튼 눌림 → 땅 아래로
     public void Sink()
     {
-        target = upPosition + Vector3.down * sinkDepth;
+        SetOpeningTarget(upPosition + Vector3.down * sinkDepth);
     }
 
     public void RetractUp()
     {
-        target = upPosition + Vector3.up * sinkDepth;
+        SetOpeningTarget(upPosition + Vector3.up * sinkDepth);
     }
 
     // 버튼 떼짐 → 원래 위치로
     public void Rise()
     {
         target = upPosition;
+        openingSoundPending = false;
+    }
+
+    void SetOpeningTarget(Vector3 position)
+    {
+        if (target == position) return;
+        target = position;
+        openingSoundPending = true;
     }
 
     // 영혼세계 동안 멈춤 (WorldStateManager가 자동 호출)
@@ -42,6 +51,13 @@ public class SinkingWall : MonoBehaviour, IWorldPausable
     void Update()
     {
         if (paused) return;
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        Vector3 current = transform.position;
+        Vector3 next = Vector3.MoveTowards(current, target, speed * Time.deltaTime);
+        transform.position = next;
+        if (openingSoundPending && !next.Equals(current))
+        {
+            openingSoundPending = false;
+            SHELLSoundAuto.PlayWallVanish();
+        }
     }
 }

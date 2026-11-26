@@ -118,11 +118,14 @@ public class DialogueBox : MonoBehaviour
         float autoAdvanceAt = autoAdvanceDelay >= 0f
             ? Time.unscaledTime + autoAdvanceDelay
             : float.PositiveInfinity;
-        while (!ConsumeNext() && Time.unscaledTime < autoAdvanceAt)
+        bool advanceRequested;
+        while (!(advanceRequested = ConsumeNext()) && Time.unscaledTime < autoAdvanceAt)
         {
             yield return null;
         }
         nextIndicator.SetActive(false);
+        if (advanceRequested)
+            SHELLSoundAuto.PlayDialogueAdvance();
         yield return null;
     }
 

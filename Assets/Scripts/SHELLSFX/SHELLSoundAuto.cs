@@ -17,30 +17,25 @@ public sealed class SHELLSoundAuto : MonoBehaviour
     private Animator playerAnimator;
     private PoisonSwim playerPoison;
     private SoulWorldController soulController;
-    private WorldStateManager worldManager;
 
     private readonly HashSet<int> boundWeightButtons = new HashSet<int>();
     private readonly HashSet<int> boundPressureButtons = new HashSet<int>();
-    private readonly List<SinkingWall> walls = new List<SinkingWall>();
-    private readonly Dictionary<int, Vector3> previousWallPositions = new Dictionary<int, Vector3>();
 
     private bool playerInitialized;
     private bool previousGrounded;
-    private bool previousDead;
     private bool previousPoison;
-    private bool worldInitialized;
-    private bool previousSpirit;
     private int previousDeaths;
     private bool failPlayed;
     private int stepVariant;
+    private int lastWallSoundFrame = -1;
     private float nextFootstepAt;
     private float nextScanAt;
-    private float lastWallSoundAt = -100f;
     private string currentSceneName;
 
     // Read from the HUD/SoulWorldController of the supplied project (Deaths: 0 / 5).
     // This is a temporary threshold cue; it is not an authoritative game-over event.
     private const int DeathLimitCue = 5;
+    private const string MenuConfirmClip = "SHELL_Menu_Confirm";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateRuntimeAudio()
@@ -68,13 +63,18 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         string[] clipNames = {
             "01_footstep_grass_01", "01_footstep_grass_02", "02_jump", "03_death",
             "04_soul_transition", "05_stage_clear", "06_stage_fail",
-            "07_button_toggle", "08_button_pressure", "09_wall_vanish", "10_poison_enter", "SHELL_Menu_Confirm", "11_footstep_stone_01", "11_footstep_stone_02"
+            "07_button_toggle", "08_button_pressure", "09_wall_vanish", "10_poison_enter",
+            MenuConfirmClip, "11_footstep_stone_01", "11_footstep_stone_02",
+            "corpse_spawn", "corpse_step"
         };
         foreach (string name in clipNames)
         {
-            AudioClip clip = Resources.Load<AudioClip>("SHELL_SFX/" + name);
+            string resourcePath = name == "corpse_spawn" || name == "corpse_step"
+                ? "SHELL_JungyoonVFX/" + name
+                : "SHELL_SFX/" + name;
+            AudioClip clip = Resources.Load<AudioClip>(resourcePath);
             if (clip == null)
-                Debug.LogWarning("[SHELL SFX] Missing audio: Assets/Resources/SHELL_SFX/" + name + ".wav");
+                Debug.LogWarning("[SHELL SFX] Missing audio resource: " + resourcePath);
             else
                 clips[name] = clip;
         }
@@ -95,13 +95,9 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         currentSceneName = scene.name;
         boundWeightButtons.Clear();
         boundPressureButtons.Clear();
-        walls.Clear();
-        previousWallPositions.Clear();
         player = null;
         soulController = null;
-        worldManager = null;
         playerInitialized = false;
-        worldInitialized = false;
         failPlayed = false;
         previousDeaths = 0;
         nextScanAt = 0f;
@@ -145,12 +141,6 @@ public sealed class SHELLSoundAuto : MonoBehaviour
             }
         }
 
-        if (worldManager == null)
-        {
-            worldManager = FindFirstObjectByType<WorldStateManager>();
-            worldInitialized = false;
-        }
-
         foreach (WeightButton button in FindObjectsByType<WeightButton>(FindObjectsSortMode.None))
         {
             int id = button.GetInstanceID();
@@ -169,13 +159,6 @@ public sealed class SHELLSoundAuto : MonoBehaviour
                 boundPressureButtons.Add(id);
             }
         }
-        foreach (SinkingWall wall in FindObjectsByType<SinkingWall>(FindObjectsSortMode.None))
-        {
-            int id = wall.GetInstanceID();
-            if (previousWallPositions.ContainsKey(id)) continue;
-            walls.Add(wall);
-            previousWallPositions[id] = wall.transform.position;
-        }
     }
 
     private void Update()
@@ -183,30 +166,7 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         ScanScene(false);
         if (Time.timeScale <= 0f) return;
         UpdatePlayerSounds();
-        UpdateWorldSound();
         UpdateFailureCue();
-    }
-
-    private void LateUpdate()
-    {
-        if (Time.timeScale <= 0f) return;
-        // Play once when an existing SinkingWall starts moving downwards.
-        for (int i = walls.Count - 1; i >= 0; i--)
-        {
-            SinkingWall wall = walls[i];
-            if (wall == null) { walls.RemoveAt(i); continue; }
-            int id = wall.GetInstanceID();
-            Vector3 current = wall.transform.position;
-            if (previousWallPositions.TryGetValue(id, out Vector3 previous))
-            {
-                if (current.y < previous.y - 0.002f && Time.unscaledTime - lastWallSoundAt >= 0.7f)
-                {
-                    Play("09_wall_vanish", 0.70f);
-                    lastWallSoundAt = Time.unscaledTime;
-                }
-            }
-            previousWallPositions[id] = current;
-        }
     }
 
     private void UpdatePlayerSounds()
@@ -222,20 +182,18 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         if (!playerInitialized)
         {
             previousGrounded = grounded;
-            previousDead = player.IsDead;
             previousPoison = inPoison;
             playerInitialized = true;
             return;
         }
 
-        if (!previousDead && player.IsDead)
-            Play("03_death", 0.80f);
         if (!previousPoison && inPoison)
             Play("10_poison_enter", 0.64f);
         if (previousGrounded && !grounded && playerBody.linearVelocity.y > 0.65f && !player.IsDead && !inPoison)
             Play("02_jump", 0.76f);
 
-        if (!player.IsDead && grounded && !inPoison && Mathf.Abs(playerBody.linearVelocity.x) > 0.7f &&
+        if (!player.IsDead && grounded && !player.IsStandingOnShell && !inPoison &&
+            Mathf.Abs(playerBody.linearVelocity.x) > 0.7f &&
             Time.unscaledTime >= nextFootstepAt)
         {
             bool firstStep = stepVariant++ % 2 == 0;
@@ -247,23 +205,7 @@ public sealed class SHELLSoundAuto : MonoBehaviour
         }
 
         previousGrounded = grounded;
-        previousDead = player.IsDead;
         previousPoison = inPoison;
-    }
-
-    private void UpdateWorldSound()
-    {
-        if (worldManager == null) return;
-        bool isSpirit = worldManager.IsSpirit;
-        if (!worldInitialized)
-        {
-            previousSpirit = isSpirit;
-            worldInitialized = true;
-            return;
-        }
-        if (isSpirit != previousSpirit)
-            Play("04_soul_transition", 0.65f);
-        previousSpirit = isSpirit;
     }
 
     private void UpdateFailureCue()
@@ -291,11 +233,43 @@ public sealed class SHELLSoundAuto : MonoBehaviour
     public static void PlayMenuClick()
     {
         if (instance != null)
-            instance.Play("SHELL_Menu_Confirm", 0.9f);
+            instance.Play(MenuConfirmClip, 0.9f);
+    }
+
+    public static void PlayDialogueAdvance()
+    {
+        if (instance != null)
+            instance.Play(MenuConfirmClip, 0.45f);
+    }
+
+    public static void PlayCorpseSpawn()
+    {
+        if (instance != null)
+            instance.Play("corpse_spawn", 0.68f);
+    }
+
+    public static void PlayCorpseStep()
+    {
+        if (instance != null)
+        {
+            instance.Play("corpse_step", 0.55f);
+            instance.nextFootstepAt = Time.unscaledTime + 0.34f;
+        }
+    }
+
+    public static void PlayDeath() { if (instance != null) instance.Play("03_death", 0.80f); }
+    public static void PlaySoulTransition() { if (instance != null) instance.Play("04_soul_transition", 0.65f); }
+    public static void PlayWallVanish()
+    {
+        if (instance == null || instance.lastWallSoundFrame == Time.frameCount)
+            return;
+
+        instance.lastWallSoundFrame = Time.frameCount;
+        instance.Play("09_wall_vanish", 0.70f);
     }
 
     public static float MenuClickDuration =>
-        instance != null && instance.clips.TryGetValue("SHELL_Menu_Confirm", out AudioClip clip)
+        instance != null && instance.clips.TryGetValue(MenuConfirmClip, out AudioClip clip)
             ? clip.length
             : 0f;
 

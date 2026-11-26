@@ -19,6 +19,7 @@ public class SignalToggle : MonoBehaviour
 
     Renderer[] renderers;
     Collider2D[] colliders;
+    bool wasActive;
 
     void Awake()
     {
@@ -35,7 +36,7 @@ public class SignalToggle : MonoBehaviour
         if (signal == null) return;
 
         signal.StateChanged += Apply;
-        Apply(signal.CurrentState);
+        ApplyVisibility(signal.CurrentState);
     }
 
     void OnDisable()
@@ -46,15 +47,24 @@ public class SignalToggle : MonoBehaviour
 
     void Apply(LaserSignal.State state)
     {
+        bool previouslyActive = wasActive;
+        ApplyVisibility(state);
+        if (wasActive && !previouslyActive && signal.HasInitialized)
+            SHELLGimmickVFX.PlayPlatformReveal(gameObject);
+    }
+
+    void ApplyVisibility(LaserSignal.State state)
+    {
         bool active = state switch
         {
             LaserSignal.State.Laser0  => activeWhenLaser0,   // state가 Laser0이면 이 값
             LaserSignal.State.Laser1  => activeWhenLaser1,   // Laser1이면 이 값
             LaserSignal.State.Waiting => activeWhenWaiting,  // Waiting이면 이 값
             _                         => activeWhenStopped,  // 위에 없는 나머지 전부(= Stopped)
-        }; 
-        
+        };
+
         foreach (var r in renderers) if (r != null) r.enabled = active;
         foreach (var c in colliders) if (c != null) c.enabled = active;
+        wasActive = active;
     }
 }
