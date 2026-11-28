@@ -92,6 +92,17 @@ public class PlayerController : MonoBehaviour, IKillable
     Vector3 startPosition;
     Collider2D soulShellCollider;   // 영혼이 빠져나온 shell (겹쳐 있으므로 충돌 무시)
 
+    // ===== 중력 방향 =====
+    // +1: 평소(아래로 떨어짐), -1: 반전(천장 쪽으로 떨어짐)
+    // 바닥 판정·점프·낙하 가속은 전부 이 값을 곱한 "플레이어 기준 위쪽"으로 계산함
+    [Header("Gravity Flip")]
+    [Tooltip("죽고 부활하면 중력을 원래대로 되돌림")]
+    [SerializeField] bool resetGravityOnRevive = true;
+    float gravitySign = 1f;
+
+    public bool IsGravityFlipped => gravitySign < 0f;
+    public event System.Action<bool> GravityFlipped;   // true = 반전됨
+
     public bool IsDead => isDead;
     public bool IsStandingOnShell => previousGroundedShell != null;
     public bool IsSoul => isSoul;
@@ -161,6 +172,9 @@ public class PlayerController : MonoBehaviour, IKillable
     void FixedUpdate()
     {
         if (!CanControl) return;
+        // PoisonSwim 등이 gravityScale을 양수로 덮어써도 현재 중력 방향을 유지
+        ApplyGravityScaleSign();
+        float g = gravitySign;
         // 영혼이 자기 시체와 더 이상 겹치지 않으면 다시 부딪히게 함
         // (처음엔 겹쳐서 생기므로 충돌을 꺼두고, 완전히 빠져나온 뒤 켬)
         if (isSoul && soulShellCollider != null &&
@@ -173,7 +187,7 @@ public class PlayerController : MonoBehaviour, IKillable
         MovingPlatform previousPlatform = groundPlatform;
         float previousPlatformVerticalSpeed = groundVelocity.y;
         bool grounded = IsGrounded(out bool onBelt, out float beltSpeed, out Shell groundedShell, out bool onTerrain);
-        if (!grounded && rb.linearVelocity.y < -0.1f)
+        if (!grounded && rb.linearVelocity.y * g < -0.1f)
             wasFalling = true;
 
         if (grounded)
@@ -185,8 +199,8 @@ public class PlayerController : MonoBehaviour, IKillable
             if (wasFalling && onTerrain && groundedShell == null && !onBelt && !isDead &&
                 (poisonSwim == null || !poisonSwim.IsSwimming))
             {
-                Bounds feet = col.bounds;
-                SHELLJungyoonVFXRuntime.PlayLanding(new Vector3(feet.center.x, feet.min.y, transform.position.z));
+                Vector2 feet = FootPoint();
+                SHELLJungyoonVFXRuntime.PlayLanding(new Vector3(feet.x, feet.y, transform.position.z));
             }
 
             wasFalling = false;
@@ -203,7 +217,7 @@ public class PlayerController : MonoBehaviour, IKillable
         // 물 밖에서 발판에 내려앉으면 수면 점프 상태 해제.
         // 점프해서 올라가는 중의 접촉은 착지로 처리하지 않음.
         if (swimActive && !inPoison &&
-            grounded && rb.linearVelocity.y <= 0f)
+            grounded && rb.linearVelocity.y * g <= 0f)
         {
             poisonSwim.ClearSurfaceJump();
         }
@@ -248,10 +262,11 @@ public class PlayerController : MonoBehaviour, IKillable
         // 점프해서 발판보다 빠르게 올라가는 중이면 건드리지 않음
         // The previous physics step can still have upward platform speed at the top corner.
         // Match the new vertical speed before it carries the player off the horizontal leg.
+        // (세로 비교는 전부 g를 곱해 "플레이어 기준 위쪽"으로 계산)
         bool keptLoopSupport = carryByDisplacement && groundPlatform == previousPlatform &&
-            velocity.y <= Mathf.Max(previousPlatformVerticalSpeed, groundVelocity.y) + 0.1f;
+            velocity.y * g <= Mathf.Max(previousPlatformVerticalSpeed * g, groundVelocity.y * g) + 0.1f;
         if (keptLoopSupport || (grounded && groundVelocity.y != 0f &&
-            velocity.y <= groundVelocity.y + 0.5f))
+            velocity.y * g <= groundVelocity.y * g + 0.5f))
         {
             velocity.y = groundVelocity.y;
         }
@@ -278,7 +293,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
         // 바닥에 있으면 타이머를 채우고, 공중이면 줄임
         // 올라가는 중(점프 직후)의 접촉은 바닥으로 치지 않음 → 이단 점프 방지
-        if (grounded && (keptLoopSupport || rb.linearVelocity.y <= groundVelocity.y + 0.01f))
+        if (grounded && (keptLoopSupport || rb.linearVelocity.y * g <= groundVelocity.y * g + 0.01f))
             coyoteTimer = coyoteTime;
         else
             coyoteTimer = Mathf.Max(0f, coyoteTimer - Time.fixedDeltaTime);
@@ -293,7 +308,7 @@ public class PlayerController : MonoBehaviour, IKillable
             rideShell = null;
             rideGraceTimer = 0f;
 
-            velocity.y = jumpForce;
+            velocity.y = jumpForce * g;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;   // 한 번 쓰면 바로 소모
 
@@ -312,8 +327,9 @@ public class PlayerController : MonoBehaviour, IKillable
             && poisonSwim.IsSwimming;
 
         // 공중에서 내려갈 때만 추가 중력 적용
-        if (!grounded && !swimming && rideShell == null && rb.linearVelocity.y < 0f)
+        if (!grounded && !swimming && rideShell == null && rb.linearVelocity.y * g < 0f)
         {
+            // gravityScale에 부호가 들어 있으므로 반전 상태면 자동으로 위쪽 가속
             rb.linearVelocity += Physics2D.gravity
                 * rb.gravityScale
                 * (Mathf.Max(1f, fallGravityMultiplier) - 1f)
@@ -323,7 +339,7 @@ public class PlayerController : MonoBehaviour, IKillable
         animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x));
         // 애니메이션 전용: 짧은 접촉 끊김은 무시 (물리 판정은 grounded 그대로 사용)
         // 위로 올라가는 중(점프 직후)이면 여유 시간 없이 바로 공중 처리
-        bool rising = rb.linearVelocity.y > groundVelocity.y + 1f;
+        bool rising = (rb.linearVelocity.y - groundVelocity.y) * g > 1f;
         airTime = (grounded && !rising) ? 0f : airTime + Time.fixedDeltaTime;
         animator.SetBool(GroundedHash, !rising && airTime < animGroundGrace);
         animator.SetFloat(SpeedHash, Mathf.Abs(rb.linearVelocity.x - (carryByDisplacement && !jumping ? 0f : groundVelocity.x)));
@@ -340,6 +356,7 @@ public class PlayerController : MonoBehaviour, IKillable
         if (swimming && !grounded && !playingInteraction)
         {
             Vector2 swimVelocity = rb.linearVelocity;
+            swimVelocity.y *= g;   // 반전 상태면 몸 기준 위쪽으로 판정 (몸이 뒤집혀 있으므로)
             float verticalThreshold = Mathf.Max(0.25f, Mathf.Abs(swimVelocity.x) * 0.5f);
             swimPose = swimVelocity.y > verticalThreshold ? 2
                 : swimVelocity.y < -verticalThreshold ? 3
@@ -384,6 +401,7 @@ public class PlayerController : MonoBehaviour, IKillable
         filter.SetLayerMask(groundLayer);
         filter.useTriggers = false;
 
+        float g = gravitySign;
         int count = col.GetContacts(filter, groundContacts);
         Bounds bounds = col.bounds;
         for (int i = 0; i < count; i++)
@@ -398,7 +416,8 @@ public class PlayerController : MonoBehaviour, IKillable
             SawRotate saw = floor.GetComponentInParent<SawRotate>();
             float minNormalY = saw != null ? sawShellMinNormalY : 0.9f;
 
-            if (contact.normal.y < minNormalY || contact.point.y >= bounds.center.y)
+            // 반전 상태면 천장 면(법선이 아래)을 바닥으로 인정
+            if (contact.normal.y * g < minNormalY || (contact.point.y - bounds.center.y) * g >= 0f)
                 continue;
 
             MovingPlatform platform = floor.GetComponentInParent<MovingPlatform>();
@@ -416,7 +435,7 @@ public class PlayerController : MonoBehaviour, IKillable
             // 톱니에 붙은 Shell을 밟으면 발밑 지점의 회전 속도를 적용
             if (saw != null)
             {
-                Vector2 foot = new Vector2(bounds.center.x, bounds.min.y);
+                Vector2 foot = FootPoint();
                 groundVelocity = saw.GetPointVelocity(foot);
 
                 groundSawShell = floor.attachedRigidbody != null
@@ -442,12 +461,12 @@ public class PlayerController : MonoBehaviour, IKillable
         // Tile seams and direction changes can leave a short gap between physics contacts.
         if (!grounded)
         {
-            int hits = col.Cast(Vector2.down, filter, movingGroundHits, 0.06f);
+            int hits = col.Cast(Vector2.down * g, filter, movingGroundHits, 0.06f);
             float closestDistance = float.PositiveInfinity;
             for (int i = 0; i < hits; i++)
             {
                 RaycastHit2D hit = movingGroundHits[i];
-                if (hit.collider == null || hit.normal.y < 0.9f || hit.point.y >= bounds.center.y ||
+                if (hit.collider == null || hit.normal.y * g < 0.9f || (hit.point.y - bounds.center.y) * g >= 0f ||
                     hit.distance >= closestDistance)
                     continue;
 
@@ -457,8 +476,10 @@ public class PlayerController : MonoBehaviour, IKillable
 
                 float supportSpeed = platform.Velocity.y;
                 if (platform == previousPlatform)
-                    supportSpeed = Mathf.Max(previousVerticalSpeed, supportSpeed);
-                if (rb.linearVelocity.y > supportSpeed + 0.1f)
+                    supportSpeed = g > 0f
+                        ? Mathf.Max(previousVerticalSpeed, supportSpeed)
+                        : Mathf.Min(previousVerticalSpeed, supportSpeed);
+                if ((rb.linearVelocity.y - supportSpeed) * g > 0.1f)
                     continue;
 
                 grounded = true;
@@ -488,7 +509,7 @@ public class PlayerController : MonoBehaviour, IKillable
             if (hit.rigidbody != null && hit.rigidbody.gameObject == groundPlatform.gameObject)
                 continue;
 
-            if (hit.normal.x * direction < -0.1f && hit.normal.y < 0.9f)
+            if (hit.normal.x * direction < -0.1f && hit.normal.y * gravitySign < 0.9f)
                 distance = Mathf.Min(distance, hit.distance);
         }
 
@@ -517,7 +538,7 @@ public class PlayerController : MonoBehaviour, IKillable
             return velocity;
         }
 
-        Vector2 foot = new Vector2(col.bounds.center.x, col.bounds.min.y);
+        Vector2 foot = FootPoint();
 
         // 새로 올라탄 시체면 지금 발 위치를 그 시체 기준으로 기억
         if (rideShell != shell)
@@ -566,7 +587,7 @@ public class PlayerController : MonoBehaviour, IKillable
             // 진행 방향을 막는 면인지 확인.
             // 평평한 바닥은 제외하고 모서리의 비스듬한 면은 포함.
             bool facesPlayer = normal.x * direction < -0.1f;
-            bool isSteep = normal.y < 0.9f;
+            bool isSteep = normal.y * gravitySign < 0.9f;
 
             if (facesPlayer && isSteep)
             {
@@ -586,6 +607,50 @@ public class PlayerController : MonoBehaviour, IKillable
 
         return false;
     }
+
+    // ===== 중력 반전 =====
+
+    // 발이 닿는 쪽 끝점 (평소엔 콜라이더 아래, 반전 시 위)
+    Vector2 FootPoint()
+    {
+        Bounds b = col.bounds;
+        return new Vector2(b.center.x, gravitySign > 0f ? b.min.y : b.max.y);
+    }
+
+    void ApplyGravityScaleSign()
+    {
+        float scale = Mathf.Abs(rb.gravityScale) * gravitySign;
+        if (!Mathf.Approximately(rb.gravityScale, scale))
+            rb.gravityScale = scale;
+    }
+
+    public void ToggleGravity() => SetGravityFlipped(!IsGravityFlipped);
+
+    // GravityFlipper 등 기믹이 호출. flipped = true면 천장 쪽으로 떨어짐
+    public void SetGravityFlipped(bool flipped)
+    {
+        float sign = flipped ? -1f : 1f;
+        if (Mathf.Approximately(sign, gravitySign)) return;
+
+        gravitySign = sign;
+        ApplyGravityScaleSign();
+
+        // 몸을 위아래로 뒤집음 (스프라이트 + 콜라이더 함께)
+        Vector3 scale = transform.localScale;
+        scale.y = Mathf.Abs(scale.y) * sign;
+        transform.localScale = scale;
+
+        // 바닥/발판 관련 상태 초기화 (반전 직후 이전 바닥을 기준으로 점프하지 않게)
+        coyoteTimer = 0f;
+        rideShell = null;
+        rideGraceTimer = 0f;
+        groundPlatform = null;
+        groundVelocity = Vector2.zero;
+        wasFalling = true;
+
+        GravityFlipped?.Invoke(flipped);
+    }
+
     // ===== 사망 =====
 
     // Hazard가 보내는 사망 신호 (IKillable). 영혼 상태에서는 무시
@@ -833,6 +898,10 @@ public class PlayerController : MonoBehaviour, IKillable
         jumpRequested = false;
         jumpBufferTimer = 0f;
         coyoteTimer = 0f;
+
+        if (resetGravityOnRevive)
+            SetGravityFlipped(false);
+        wasFalling = false;
 
         transform.position = position;
 
